@@ -6,6 +6,7 @@ use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\UserShop;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -28,52 +29,86 @@ class RegisterController extends Controller
         }
     }
 
-    public function register_attempt(Request $request){
-    
+    public function register_attempt(Request $request)
+    {
+        // dd($request->all());
         $rules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => [
-                'required',
-                Password::min(8)
-                ->letters()
-                ->mixedCase()
-                ->numbers()
-                ->symbols()
-            ],
-            'confirm-password' => 'required|same:password',
+            'password' => ['required', 'string', 'min:8'],
+            'confirm_password' => 'required|same:password',
+            'transaction_password' => ['required', 'string', 'min:8'],
+            'confirm_transaction_password' => 'required|same:transaction_password',
+            'shop_name' => ['required', 'string', 'max:255'],
+            'certificate_type' => ['required', 'string', 'max:255'],
+            'certificate_front' => 'required|image|mimes:jpeg,png,jpg|max_size',
+            'certificate_back' => 'required|image|mimes:jpeg,png,jpg|max_size',
+            'invitation_code' => 'required|string|max:255',
             'terms' => 'required|string|max:255',
         ];
-        
+
         // Make 'g-recaptcha-response' nullable if CAPTCHA is not enabled
         if (config('captcha.version') !== 'no_captcha') {
             $rules['g-recaptcha-response'] = 'required|captcha';
         } else {
             $rules['g-recaptcha-response'] = 'nullable';
         }
-        
+
         $validate = Validator::make($request->all(), $rules);
-        if($validate->fails()){
+        if ($validate->fails()) {
             return Redirect::back()->withErrors($validate)->withInput($request->all())->with('error', 'Validation Error!');
         }
-        try{
+        try {
             // Begin a transaction
             DB::beginTransaction();
             $user = new User();
             $user->name = $request->name;
             $user->email = $request->email;
             $user->password = Hash::make($request->password);
+            $user->transaction_password = $request->transaction_password;
+            $user->is_active = 'inactive';
 
-            
+            if ($request->invitation_code) {
+                $inviter = User::where('username', $request->invitation_code)->first();
+                if ($inviter) {
+                    $user->invited_by = $inviter->id;
+                }
+            }
+
             $username = $this->generateUsername($request->name);
 
             while (User::where('username', $username)->exists()) {
                 $username = $this->generateUsername($request->name);
             }
             $user->username = $username;
+            $user->email_verified_at = now();
             $user->save();
-    
-            $user->syncRoles('user');
+
+            $user->syncRoles('vendor');
+
+            $userShop = new UserShop();
+            $userShop->user_id = $user->id;
+            $userShop->shop_name = $request->shop_name;
+            $userShop->certificate_type = $request->certificate_type;
+            if ($request->hasFile('certificate_front')) {
+                $certificate_front = $request->file('certificate_front');
+                $certificate_front_ext = $certificate_front->getClientOriginalExtension();
+                $certificate_front_name = time() . '_certificate_front.' . $certificate_front_ext;
+
+                $certificate_front_path = 'uploads/certificates';
+                $certificate_front->move(public_path($certificate_front_path), $certificate_front_name);
+                $userShop->certificate_front = $certificate_front_path . "/" . $certificate_front_name;
+            }
+            if ($request->hasFile('certificate_back')) {
+                $certificate_back = $request->file('certificate_back');
+                $certificate_back_ext = $certificate_back->getClientOriginalExtension();
+                $certificate_back_name = time() . '_certificate_back.' . $certificate_back_ext;
+
+                $certificate_back_path = 'uploads/certificates';
+                $certificate_back->move(public_path($certificate_back_path), $certificate_back_name);
+                $userShop->certificate_back = $certificate_back_path . "/" . $certificate_back_name;
+            }
+            $userShop->save();
 
             $profile = new Profile();
             $profile->user_id = $user->id;
@@ -82,23 +117,26 @@ class RegisterController extends Controller
 
             // Attempt to authenticate
             Auth::attempt(['email' => $request->email, 'password' => $request->password]);
-            
+
             if (Auth::check()) {
 
-                VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
-                    return (new MailMessage)
-                        ->subject('Verify Email Address')
-                        ->line('Click the button below to verify your email address.')
-                        ->action('Verify Email Address', $url);
-                });
-            }
-            app('notificationService')->notifyUsers([$user], 'Welcome to ' . Helper::getCompanyName());
-            $user->sendEmailVerificationNotification();
-    
-            // Commit the transaction
-            DB::commit();
+                // VerifyEmail::toMailUsing(function (object $notifiable, string $url) {
+                //     return (new MailMessage)
+                //         ->subject('Verify Email Address')
+                //         ->line('Click the button below to verify your email address.')
+                //         ->action('Verify Email Address', $url);
+                // });
 
-            return redirect()->route('login')->with('success','Your account has been created successfully.');
+                DB::commit();
+                return redirect()->route('frontend.account')->with('success', 'Your account has been created successfully.');
+            } else {
+                DB::rollback();
+                return redirect()->back()->withInput($request->all())->with('error', "Something went wrong! Please try again later");
+            }
+            // app('notificationService')->notifyUsers([$user], 'Welcome to ' . Helper::getCompanyName());
+            // $user->sendEmailVerificationNotification();
+
+            // Commit the transaction
         } catch (\Throwable $th) {
             DB::rollback();
             // Log the error for debugging

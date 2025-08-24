@@ -13,6 +13,7 @@ use App\Http\Controllers\Dashboard\RolePermission\RoleController;
 use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\User\ArchivedUserController;
 use App\Http\Controllers\Dashboard\User\UserController;
+use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Middleware\CheckAccountActivation;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
@@ -36,9 +37,9 @@ use Illuminate\Support\Facades\Session;
 
 Route::get('/lang/{lang}', function ($lang) {
     // dd($lang);
-    if(! in_array($lang, ['en','fr','ar','de'])){
+    if (! in_array($lang, ['en', 'fr', 'ar', 'de'])) {
         abort(404);
-    }else{
+    } else {
         session(['locale' => $lang]);
         App::setLocale($lang);
         Log::info("Locale set to: " . $lang);
@@ -54,8 +55,8 @@ Route::get('/current-time', function () {
 
 Auth::routes();
 Route::get('/', function () {
-    return redirect()->route('dashboard');
-});
+    return view('frontend.pages.home');
+})->name('home');
 // Guest Routes
 Route::group(['middleware' => ['guest']], function () {
 
@@ -96,8 +97,8 @@ Route::group(['middleware' => ['auth']], function () {
 });
 
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/deactivated', function () {
-        return view('errors.deactivated');
+    Route::get('/under-review', function () {
+        return view('errors.under-review');
     })->name('deactivated');
     Route::middleware(['check.activation'])->group(function () {
 
@@ -141,12 +142,18 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
         });
     });
-
 });
 
 // Frontend Pages Routes
 Route::name('frontend.')->group(function () {
-
+    Route::get('/home', function () {
+        return view('frontend.pages.home');
+    })->name('home');
+    Route::middleware(['auth', 'verified'])->group(function () {
+        Route::middleware(['check.activation'])->group(function () {
+            Route::get('/account', [AccountController::class, 'index'])->name('account');
+        });
+    });
 });
 
 
@@ -177,4 +184,3 @@ Route::middleware(['auth'])->group(function () {
         return "Optimization cache cleared!";
     })->name('clear.optimize');
 });
-

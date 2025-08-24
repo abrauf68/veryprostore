@@ -18,10 +18,14 @@ return new class extends Migration
             $table->string('username')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('transaction_password')->nullable();
             $table->rememberToken();
             $table->enum('is_active', ['active', 'inactive'])->default('active');
             $table->string('provider')->nullable();
             $table->string('provider_id')->nullable();
+            $table->foreignId('invited_by')->nullable()
+                ->constrained('users')
+                ->nullOnDelete();
             $table->timestamps();
             $table->softDeletes(); // This adds the 'deleted_at' column
         });

@@ -46,7 +46,8 @@ class UserRolePermissionSeeder extends Seeder
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
         $adminRole = Role::create(['name' => 'admin']);
-        $userRole = Role::create(['name' => 'user']);
+        $customerRole = Role::create(['name' => 'customer']);
+        $vendorRole = Role::create(['name' => 'vendor']);
 
         // give all permissions to super-admin role.
         $allPermissionNames = Permission::pluck('name')->toArray();
