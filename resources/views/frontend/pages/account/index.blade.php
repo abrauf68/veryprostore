@@ -50,11 +50,15 @@
                         <li class="nav-item">
                             <a href="#account-details" class="nav-link">Account details</a>
                         </li>
-                        <li class="link-item">
-                            <a href="wishlist.html">Wishlist</a>
+                        <li class="nav-item">
+                            <a href="wishlist.html" class="nav-link">Wishlist</a>
                         </li>
-                        <li class="link-item">
-                            <a href="login.html">Logout</a>
+                        <li class="nav-item">
+                            <a href="javascript:void(0)"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form').submit();" class="nav-link">
+                                Logout
+                            </a>
                         </li>
                     </ul>
 

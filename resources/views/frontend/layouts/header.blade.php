@@ -3,14 +3,14 @@
     <div class="header-top">
         <div class="container">
             <div class="header-left">
-                <p class="welcome-msg">Welcome to Wolmart Store message or remove it!</p>
+                <p class="welcome-msg">Exclusive Deals This Week – Don’t Miss Out!</p>
             </div>
             <div class="header-right">
                 <div class="dropdown">
                     <a href="#currency">USD</a>
                     <div class="dropdown-box">
                         <a href="#USD">USD</a>
-                        <a href="#EUR">EUR</a>
+                        <a href="#INR">INR</a>
                     </div>
                 </div>
                 <!-- End of DropDown Menu -->
@@ -33,14 +33,26 @@
                 </div>
                 <!-- End of Dropdown Menu -->
                 <span class="divider d-lg-show"></span>
-                <a href="blog.html" class="d-lg-show">Blog</a>
-                <a href="contact-us.html" class="d-lg-show">Contact Us</a>
-                <a href="my-account.html" class="d-lg-show">My Account</a>
-                <a href="{{ asset('frontAssets/ajax/login.html') }}" class="d-lg-show login sign-in"><i
-                        class="w-icon-account"></i>Sign
-                    In</a>
-                <span class="delimiter d-lg-show">/</span>
-                <a href="{{ asset('frontAssets/ajax/login.html') }}" class="ml-0 d-lg-show login register">Register</a>
+                <a href="#" class="d-lg-show">Blog</a>
+                <a href="#" class="d-lg-show">Contact Us</a>
+                @if (Auth::check())
+                    <a href="{{ route('frontend.account') }}" class="d-lg-show">My Account</a>
+                    <span class="delimiter d-lg-show">/</span>
+                    <a href="javascript:void(0)"
+                                onclick="event.preventDefault();
+                                document.getElementById('logout-form-header').submit();"
+                                class="ml-0 d-lg-show">
+                        Logout
+                    </a>
+                    <form id="logout-form-header" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="d-lg-show login sign-in"><i class="w-icon-account"></i>Sign
+                        In</a>
+                    <span class="delimiter d-lg-show">/</span>
+                    <a href="{{ route('register') }}" class="ml-0 d-lg-show login register">Register</a>
+                @endif
             </div>
         </div>
     </div>
@@ -49,10 +61,10 @@
     <div class="header-middle">
         <div class="container">
             <div class="header-left mr-md-4">
-                <a href="#" class="mobile-menu-toggle  w-icon-hamburger" aria-label="menu-toggle">
+                <a href="#" class="mobile-menu-toggle w-icon-hamburger" aria-label="menu-toggle">
                 </a>
-                <a href="demo1.html" class="logo ml-lg-0">
-                    <img src="{{ asset('frontAssets/images/logo.png') }}" alt="logo" width="144"
+                <a href="{{ route('home') }}" class="logo ml-lg-0">
+                    <img src="{{ asset(\App\Helpers\Helper::getLogoDark()) }}" alt="logo" width="144"
                         height="45" />
                 </a>
                 <form method="get" action="#"

@@ -46,8 +46,7 @@
                                         <input type="password" class="form-control" name="password" id="password" required>
                                     </div>
                                     <div class="form-checkbox d-flex align-items-center justify-content-between">
-                                        <input type="checkbox" class="custom-checkbox" id="remember1" name="remember1"
-                                            required="">
+                                        <input type="checkbox" class="custom-checkbox" id="remember1" name="remember1">
                                         <label for="remember1">Remember me</label>
                                         <a href="#">Forget your password?</a>
                                     </div>
