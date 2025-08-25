@@ -4,6 +4,7 @@ namespace App\Helpers;
 
 use App\Models\BusinessSetting;
 use App\Models\CompanySetting;
+use App\Models\ProductCategory;
 use App\Models\SystemSetting;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
@@ -19,15 +20,15 @@ class Helper
     }
     public static function getLogoLight()
     {
-        return CompanySetting::first()->light_logo ?? asset('assets/img/logo/default.svg');
+        return CompanySetting::first()->light_logo ?? asset('frontAssets/images/veryprostore.png');
     }
     public static function getLogoDark()
     {
-        return CompanySetting::first()->dark_logo ?? asset('assets/img/logo/default.svg');
+        return CompanySetting::first()->dark_logo ?? asset('frontAssets/images/veryprostore.png');
     }
     public static function getFavicon()
     {
-        return CompanySetting::first()->favicon ?? asset('assets/img/favicon/favicon.ico');
+        return CompanySetting::first()->favicon ?? asset('frontAssets/images/veryprostorefav.png');
     }
     public static function getCompanyName()
     {
@@ -121,5 +122,15 @@ class Helper
                 });
             </script>
         HTML;
+    }
+
+    public static function getCategories()
+    {
+        $categories = ProductCategory::where('is_active', 'active')
+            ->where('parent_category_id', null)
+            ->with('children')
+            ->get();
+
+        return $categories;
     }
 }
