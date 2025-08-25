@@ -225,8 +225,12 @@
                                                     width="300" height="338" />
                                             </a>
                                             <div class="product-action-horizontal">
-                                                <a href="#" class="btn-product-icon btn-cart w-icon-cart"
-                                                    title="Add to cart"></a>
+                                                <a href="#"
+                                                    class="btn-product-icon btn-cart w-icon-cart add-to-cart"
+                                                    data-product-id="{{ $product->id }}"
+                                                    data-product-quantity="1"
+                                                    title="Add to cart">
+                                                </a>
                                                 <a href="#" class="btn-product-icon btn-wishlist w-icon-heart"
                                                     title="Wishlist"></a>
                                                 <a href="#" class="btn-product-icon btn-compare w-icon-compare"
@@ -294,9 +298,9 @@
                             <div class="modal-dialog modal-lg modal-dialog-centered">
                                 <div class="modal-content">
                                     <div class="modal-body">
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        {{-- <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                             <span aria-hidden="true">&times;</span>
-                                        </button>
+                                        </button> --}}
                                         <div class="product product-single product-popup">
                                             <div class="row gutter-lg">
                                                 <div class="col-md-6 mb-4 mb-md-0">
@@ -656,6 +660,36 @@
                 $('#quickViewImages').html('');
                 $('#quickViewThumbs .product-thumbs').html('');
             });
+
+            //Add to Cart
+            $(".add-to-cart").on("click", function (e) {
+                e.preventDefault();
+
+                let productId = $(this).data("product-id");
+                let quantity  = $(this).data("product-quantity") || 1;
+
+                $.ajax({
+                    url: "{{ route('frontend.cart.add') }}",
+                    type: "POST",
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        product_id: productId,
+                        quantity: quantity
+                    },
+                    success: function (response) {
+                        if (response.success) {
+                            toastr.success(response.message);
+                        } else {
+                            toastr.error(response.message);
+                        }
+                    },
+                    error: function () {
+                        toastr.error("Something went wrong. Try again.");
+                    }
+                });
+            });
         });
+
+
     </script>
 @endsection

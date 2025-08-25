@@ -47,7 +47,7 @@
                  <div class="col-lg-4 col-sm-6">
                      <div class="widget widget-about">
                          <a href="demo1.html" class="logo-footer">
-                             <img src="{{ asset('frontAssets/images/logo_footer.png') }}" alt="logo-footer"
+                             <img src="{{ asset(\App\Helpers\Helper::getLogoDark()) }}" alt="logo-footer"
                                  width="144" height="45" />
                          </a>
                          <div class="widget-body">
@@ -71,12 +71,12 @@
                      <div class="widget">
                          <h3 class="widget-title">Company</h3>
                          <ul class="widget-body">
-                             <li><a href="about-us.html">About Us</a></li>
-                             <li><a href="#">Team Member</a></li>
-                             <li><a href="#">Career</a></li>
-                             <li><a href="contact-us.html">Contact Us</a></li>
-                             <li><a href="#">Affilate</a></li>
-                             <li><a href="#">Order History</a></li>
+                             <li><a href="{{ route('frontend.home') }}">Home</a></li>
+                             <li><a href="{{ route('frontend.shop') }}">Shop Now</a></li>
+                             <li><a href="{{ route('frontend.about') }}">About Us</a></li>
+                             <li><a href="{{ route('frontend.become-a-vendor') }}">Become A Vendor</a></li>
+                             <li><a href="{{ route('frontend.contact') }}">Contact Us</a></li>
+                             <li><a href="{{ route('frontend.faqs') }}">FAQs</a></li>
                          </ul>
                      </div>
                  </div>
@@ -85,10 +85,10 @@
                          <h4 class="widget-title">My Account</h4>
                          <ul class="widget-body">
                              <li><a href="#">Track My Order</a></li>
-                             <li><a href="cart.html">View Cart</a></li>
-                             <li><a href="login.html">Sign In</a></li>
-                             <li><a href="#">Help</a></li>
-                             <li><a href="wishlist.html">My Wishlist</a></li>
+                             <li><a href="{{ route('frontend.cart.view') }}">View Cart</a></li>
+                             <li><a href="{{ route('login') }}">Sign In</a></li>
+                             <li><a href="{{ route('frontend.faqs') }}">Help</a></li>
+                             <li><a href="#">My Wishlist</a></li>
                              <li><a href="#">Privacy Policy</a></li>
                          </ul>
                      </div>
@@ -108,7 +108,7 @@
                  </div>
              </div>
          </div>
-         <div class="footer-middle">
+         {{-- <div class="footer-middle">
              <div class="widget widget-category">
                  <div class="category-box">
                      <h6 class="category-name">Consumer Electric:</h6>
@@ -183,7 +183,7 @@
                      <a href="#">View all</a>
                  </div>
              </div>
-         </div>
+         </div> --}}
          <div class="footer-bottom">
              <div class="footer-left">
                  <p class="copyright">© {{ date('Y') }}

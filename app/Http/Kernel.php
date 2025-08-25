@@ -40,6 +40,7 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
             \App\Http\Middleware\LocaleMiddleware::class,
             \App\Http\Middleware\CheckAccountActivation::class,
+            \App\Http\Middleware\AssignCartSession::class,
         ],
 
         'api' => [

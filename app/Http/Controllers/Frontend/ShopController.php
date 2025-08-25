@@ -64,4 +64,16 @@ class ShopController extends Controller
             ], 500);
         }
     }
+
+    public function productDetails($slug)
+    {
+        try {
+            $product = Product::with('category', 'productImages')->where('slug', $slug)->firstOrFail();
+            return view('frontend.pages.shop.product-details', compact('product'));
+        } catch (\Throwable $th) {
+            Log::error('Product Details Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
 }

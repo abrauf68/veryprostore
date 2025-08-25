@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Models\Cart;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -71,6 +72,11 @@ class LoginController extends Controller
                     Auth::attempt(['email' => $userfind->email, 'password' => $request->password], $remember_me);
 
                     if (Auth::check()) {
+                        $sessionId = session('cart_session_id');
+                        if ($sessionId) {
+                            $this->mergeGuestCart($sessionId);
+                            session()->forget('cart_session_id');
+                        }
                         if ($userfind->hasRole('super-admin') || $userfind->hasRole('admin')) {
                             return redirect()->route('dashboard')->with('success', "Login successfully!");
                         } else {
@@ -89,5 +95,31 @@ class LoginController extends Controller
             Log::error("Failed to Login:" . $th->getMessage());
             return redirect()->back()->withInput($request->all())->with('error', "Something went wrong! Please try again later");
         }
+    }
+
+    public function mergeGuestCart($sessionId)
+    {
+        $guestCart = Cart::where('session_id', $sessionId)->first();
+        if (!$guestCart) {
+            return;
+        }
+
+        $userCart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+
+        foreach ($guestCart->items as $item) {
+            $existing = $userCart->items()->where('product_id', $item->product_id)->first();
+
+            if ($existing) {
+                $existing->increment('quantity', $item->quantity);
+            } else {
+                $userCart->items()->create([
+                    'product_id' => $item->product_id,
+                    'quantity' => $item->quantity,
+                    'price' => $item->price,
+                ]);
+            }
+        }
+
+        $guestCart->delete(); // clear old guest cart
     }
 }

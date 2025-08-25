@@ -14,6 +14,8 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\User\ArchivedUserController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Frontend\AccountController;
+use App\Http\Controllers\Frontend\CartController;
+use App\Http\Controllers\Frontend\CheckoutController;
 use App\Http\Controllers\Frontend\HomeController as FrontendHomeController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Middleware\CheckAccountActivation;
@@ -150,11 +152,23 @@ Route::middleware(['auth', 'verified'])->group(function () {
 Route::name('frontend.')->group(function () {
     Route::get('home', [FrontendHomeController::class, 'home'])->name('home');
     Route::get('shop/{category?}', [ShopController::class, 'shop'])->name('shop');
+    Route::get('product/{slug}', [ShopController::class, 'productDetails'])->name('product.show');
     Route::get('become-a-vendor', [FrontendHomeController::class, 'becomeAVendor'])->name('become-a-vendor');
     Route::get('about', [FrontendHomeController::class, 'about'])->name('about');
     Route::get('contact', [FrontendHomeController::class, 'contact'])->name('contact');
     Route::get('faqs', [FrontendHomeController::class, 'faqs'])->name('faqs');
     Route::get('/product/{id}/quick-view', [ShopController::class, 'quickView'])->name('product.quickView');
+
+    //cart routes
+    Route::get('/cart', [CartController::class, 'index'])->name('cart.view');
+    Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
+    Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
+    Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');
+    Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+    //end cart routes
+
+    //checkout routes
+    Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware(['check.activation'])->group(function () {
             Route::get('/account', [AccountController::class, 'index'])->name('account');

@@ -3,6 +3,7 @@
 namespace App\Helpers;
 
 use App\Models\BusinessSetting;
+use App\Models\Cart;
 use App\Models\CompanySetting;
 use App\Models\ProductCategory;
 use App\Models\SystemSetting;
@@ -15,7 +16,7 @@ class Helper
     public static function dashboard_route()
     {
         $user = User::find(Auth::user()->id);
-        $route = $user->role->role.'.dashboard';
+        $route = $user->role->role . '.dashboard';
         return $route;
     }
     public static function getLogoLight()
@@ -132,5 +133,18 @@ class Helper
             ->get();
 
         return $categories;
+    }
+
+    public static function getCart()
+    {
+        if (Auth::check()) {
+            $cart = Cart::firstOrCreate(['user_id' => Auth::id()]);
+        } else {
+            $sessionId = session('cart_session_id');
+            $cart = Cart::firstOrCreate(['session_id' => $sessionId]);
+        }
+
+        // Eager load relations after ensuring cart exists
+        return $cart->load('items.product');
     }
 }
