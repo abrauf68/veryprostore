@@ -81,48 +81,48 @@
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>First name *</label>
-                                            <input type="text" class="form-control form-control-md" name="firstname"
+                                            <input type="text" class="form-control form-control-md" name="first_name"
                                                 required>
                                         </div>
                                     </div>
                                     <div class="col-xs-6">
                                         <div class="form-group">
                                             <label>Last name *</label>
-                                            <input type="text" class="form-control form-control-md" name="lastname"
+                                            <input type="text" class="form-control form-control-md" name="last_name"
                                                 required>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Company name (optional)</label>
-                                    <input type="text" class="form-control form-control-md" name="company-name">
+                                    <input type="text" class="form-control form-control-md" name="company_name">
                                 </div>
                                 <div class="form-group">
                                     <label>Country / Region *</label>
                                     <div class="select-box">
                                         <select name="country" class="form-control form-control-md">
-                                            <option value="default" selected="selected">United States
-                                                (US)
-                                            </option>
-                                            <option value="uk">United Kingdom (UK)</option>
-                                            <option value="us">United States</option>
-                                            <option value="fr">France</option>
-                                            <option value="aus">Australia</option>
+                                            <option value="" selected disabled>Select Country</option>
+                                            @if (isset($countries) && count($countries) > 0)
+                                                @foreach ($countries as $country)
+                                                    <option value="{{ $country->name }}">{{ $country->name }}
+                                                        ({{ $country->code }})</option>
+                                                @endforeach
+                                            @endif
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label>Street address *</label>
                                     <input type="text" placeholder="House number and street name"
-                                        class="form-control form-control-md mb-2" name="street-address-1" required>
+                                        class="form-control form-control-md mb-2" name="address_line1" required>
                                     <input type="text" placeholder="Apartment, suite, unit, etc. (optional)"
-                                        class="form-control form-control-md" name="street-address-2" required>
+                                        class="form-control form-control-md" name="address_line2" required>
                                 </div>
                                 <div class="row gutter-sm">
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>Town / City *</label>
-                                            <input type="text" class="form-control form-control-md" name="town"
+                                            <input type="text" class="form-control form-control-md" name="city"
                                                 required>
                                         </div>
                                         <div class="form-group">
@@ -134,15 +134,8 @@
                                     <div class="col-md-6">
                                         <div class="form-group">
                                             <label>State *</label>
-                                            <div class="select-box">
-                                                <select name="country" class="form-control form-control-md">
-                                                    <option value="default" selected="selected">California</option>
-                                                    <option value="uk">United Kingdom (UK)</option>
-                                                    <option value="us">United States</option>
-                                                    <option value="fr">France</option>
-                                                    <option value="aus">Australia</option>
-                                                </select>
-                                            </div>
+                                            <input type="text" class="form-control form-control-md" name="state"
+                                                required>
                                         </div>
                                         <div class="form-group">
                                             <label>Phone *</label>
@@ -155,7 +148,7 @@
                                     <label>Email address *</label>
                                     <input type="email" class="form-control form-control-md" name="email" required>
                                 </div>
-                                <div class="form-group checkbox-toggle pb-2">
+                                {{-- <div class="form-group checkbox-toggle pb-2">
                                     <input type="checkbox" class="custom-checkbox" id="shipping-toggle"
                                         name="shipping-toggle">
                                     <label for="shipping-toggle">Ship to a different address?</label>
@@ -223,11 +216,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
 
                                 <div class="form-group mt-3">
-                                    <label for="order-notes">Order notes (optional)</label>
-                                    <textarea class="form-control mb-0" id="order-notes" name="order-notes" cols="30" rows="4"
+                                    <label for="notes">Order notes (optional)</label>
+                                    <textarea class="form-control mb-0" id="notes" name="notes" cols="30" rows="4"
                                         placeholder="Notes about your order, e.g special notes for delivery"></textarea>
                                 </div>
                             </div>

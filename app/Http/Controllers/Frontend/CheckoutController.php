@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Cart;
+use App\Models\Country;
+use App\Models\PaymentMethod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -25,6 +27,8 @@ class CheckoutController extends Controller
         $subtotal = $cart->items->sum(function ($item) {
             return $item->quantity * $item->product->price;
         });
-        return view('frontend.pages.checkout', compact('cart', 'subtotal'));
+        $countries = Country::all();
+        $paymentMethods = PaymentMethod::all();
+        return view('frontend.pages.checkout', compact('cart', 'subtotal', 'countries','paymentMethods'));
     }
 }

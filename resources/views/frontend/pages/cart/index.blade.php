@@ -125,7 +125,7 @@
                                         <label>Total</label>
                                         <span class="ls-50">{{ \App\Helpers\Helper::formatCurrency($subtotal) }}</span>
                                     </div>
-                                    <a href="#"
+                                    <a href="{{ route('frontend.checkout') }}"
                                         class="btn btn-block btn-dark btn-icon-right btn-rounded  btn-checkout">
                                         Proceed to checkout<i class="w-icon-long-arrow-right"></i></a>
                                 </div>

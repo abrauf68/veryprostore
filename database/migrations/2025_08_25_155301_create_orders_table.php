@@ -22,6 +22,7 @@ return new class extends Migration
             $table->decimal('total', 10, 2)->default(0);
             // payment method foreign key
             $table->foreignId('payment_method_id')->constrained('payment_methods')->cascadeOnDelete();
+            $table->text('notes')->nullable();
             $table->timestamps();
         });
     }
