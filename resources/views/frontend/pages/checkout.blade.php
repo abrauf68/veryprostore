@@ -71,7 +71,8 @@
                                 value="Apply coupon">Apply Coupon</button>
                         </div>
                     </div> --}}
-                    <form class="form checkout-form" action="#" method="post">
+                    <form class="form checkout-form" action="{{ route('frontend.checkout.proceed') }}" method="POST">
+                        @csrf
                         <div class="row mb-9">
                             <div class="col-lg-7 pr-lg-4 mb-4">
                                 <h3 class="title billing-title text-uppercase ls-10 pt-1 pb-3 mb-0">
@@ -105,7 +106,8 @@
                                             @if (isset($countries) && count($countries) > 0)
                                                 @foreach ($countries as $country)
                                                     <option value="{{ $country->name }}">{{ $country->name }}
-                                                        ({{ $country->code }})</option>
+                                                        ({{ $country->code }})
+                                                    </option>
                                                 @endforeach
                                             @endif
                                         </select>
@@ -237,25 +239,23 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr class="bb-no">
-                                                    <td class="product-name">Palm Print Jacket <i
-                                                            class="fas fa-times"></i>
-                                                        <span class="product-quantity">1</span>
-                                                    </td>
-                                                    <td class="product-total">$40.00</td>
-                                                </tr>
-                                                <tr class="bb-no">
-                                                    <td class="product-name">Brown Backpack <i class="fas fa-times"></i>
-                                                        <span class="product-quantity">1</span>
-                                                    </td>
-                                                    <td class="product-total">$60.00</td>
-                                                </tr>
+                                                @foreach ($cart->items as $item)
+                                                    <tr class="bb-no">
+                                                        <td class="product-name">{{ $item->product->name }} <i
+                                                                class="fas fa-times"></i>
+                                                            <span class="product-quantity">{{ $item->quantity }}</span>
+                                                        </td>
+                                                        <td class="product-total">
+                                                            {{ \App\Helpers\Helper::formatCurrency($item->price) }}</td>
+                                                    </tr>
+                                                @endforeach
                                                 <tr class="cart-subtotal bb-no">
+                                                    <input type="text" name="subtotal" value="{{ $subtotal }}" hidden>
                                                     <td>
                                                         <b>Subtotal</b>
                                                     </td>
                                                     <td>
-                                                        <b>$100.00</b>
+                                                        <b>{{ \App\Helpers\Helper::formatCurrency($subtotal) }}</b>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -265,7 +265,7 @@
                                                         <b>Total</b>
                                                     </th>
                                                     <td>
-                                                        <b>$100.00</b>
+                                                        <b>{{ \App\Helpers\Helper::formatCurrency($subtotal) }}</b>
                                                     </td>
                                                 </tr>
                                             </tfoot>
@@ -274,61 +274,26 @@
                                         <div class="payment-methods" id="payment_method">
                                             <h4 class="title font-weight-bold ls-25 pb-0 mb-1">Payment Methods</h4>
                                             <div class="accordion payment-accordion">
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <a href="#cash-on-delivery" class="collapse">Direct Bank
-                                                            Transfor</a>
-                                                    </div>
-                                                    <div id="cash-on-delivery" class="card-body expanded">
-                                                        <p class="mb-0">
-                                                            Make your payment directly into our bank account.
-                                                            Please use your Order ID as the payment reference.
-                                                            Your order will not be shipped until the funds have cleared in
-                                                            our
-                                                            account.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <a href="#payment" class="expand">Check Payments</a>
-                                                    </div>
-                                                    <div id="payment" class="card-body collapsed">
-                                                        <p class="mb-0">
-                                                            Please send a check to Store Name, Store Street, Store Town,
-                                                            Store
-                                                            State / County, Store Postcode.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="card">
-                                                    <div class="card-header">
-                                                        <a href="#delivery" class="expand">Cash on delivery</a>
-                                                    </div>
-                                                    <div id="delivery" class="card-body collapsed">
-                                                        <p class="mb-0">
-                                                            Pay with cash upon delivery.
-                                                        </p>
-                                                    </div>
-                                                </div>
-                                                <div class="card p-relative">
-                                                    <div class="card-header">
-                                                        <a href="#paypal" class="expand">Paypal</a>
-                                                    </div>
-                                                    <a href="https://www.paypal.com/us/webapps/mpp/paypal-popup"
-                                                        class="text-primary paypal-que"
-                                                        onclick="javascript:window.open('https://www.paypal.com/us/webapps/mpp/paypal-popup','WIPaypal',
-                                                            'toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=yes, resizable=yes, width=1060, height=700');
-                                                            return false;">What
-                                                        is PayPal?
-                                                    </a>
-                                                    <div id="paypal" class="card-body collapsed">
-                                                        <p class="mb-0">
-                                                            Pay via PayPal, you can pay with your credit cart if you
-                                                            don't have a PayPal account.
-                                                        </p>
-                                                    </div>
-                                                </div>
+                                                @if (isset($paymentMethods) && count($paymentMethods) > 0)
+                                                    @foreach ($paymentMethods as $index => $method)
+                                                        <div class="card payment-method" data-id="{{ $method->id }}">
+                                                            <div class="card-header">
+                                                                <a href="#paymentMethod{{ $method->id }}"
+                                                                    class="{{ $index === 0 ? 'collapse' : 'expand' }}">{{ $method->name }}</a>
+                                                            </div>
+                                                            <div id="paymentMethod{{ $method->id }}"
+                                                                class="card-body {{ $index === 0 ? 'expanded' : 'collapsed' }}">
+                                                                <p class="mb-0">
+                                                                    {{ $method->description }}
+                                                                </p>
+                                                            </div>
+                                                            {{-- Hidden radio --}}
+                                                            <input type="radio" name="payment_method_id"
+                                                                value="{{ $method->id }}" hidden
+                                                                @if ($loop->first) checked @endif>
+                                                        </div>
+                                                    @endforeach
+                                                @endif
                                             </div>
                                         </div>
 
@@ -359,5 +324,10 @@
 @endsection
 
 @section('script')
-
+    <script>
+        $(document).on("click", ".payment-method", function() {
+            $("input[name='payment_method_id']").prop("checked", false); // uncheck all
+            $(this).find("input[name='payment_method_id']").prop("checked", true); // check clicked one
+        });
+    </script>
 @endsection

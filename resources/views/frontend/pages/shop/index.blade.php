@@ -220,7 +220,7 @@
                                 <div class="product-wrap">
                                     <div class="product text-center">
                                         <figure class="product-media">
-                                            <a href="product-default.html">
+                                            <a href="{{ route('frontend.product.show', $product->slug) }}">
                                                 <img src="{{ asset($product->main_image) }}" alt="Product"
                                                     width="300" height="338" />
                                             </a>
@@ -247,14 +247,14 @@
                                                 </div>
                                             @endif
                                             <h3 class="product-name">
-                                                <a href="#">{{ $product->name }}</a>
+                                                <a href="{{ route('frontend.product.show', $product->slug) }}">{{ $product->name }}</a>
                                             </h3>
                                             <div class="ratings-container">
                                                 <div class="ratings-full">
                                                     <span class="ratings" style="width: 100%;"></span>
                                                     <span class="tooltiptext tooltip-top"></span>
                                                 </div>
-                                                <a href="#" class="rating-reviews">(3 reviews)</a>
+                                                <a href="{{ route('frontend.product.show', $product->slug) }}" class="rating-reviews">(3 reviews)</a>
                                             </div>
                                             <div class="product-pa-wrapper">
                                                 <div class="product-price">

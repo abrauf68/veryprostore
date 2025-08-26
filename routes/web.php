@@ -169,6 +169,8 @@ Route::name('frontend.')->group(function () {
 
     //checkout routes
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
+    Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.proceed');
+    Route::get('/order-confirmation/{order_no}', [CheckoutController::class, 'orderConfirmation'])->name('order.confirm');
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware(['check.activation'])->group(function () {
             Route::get('/account', [AccountController::class, 'index'])->name('account');

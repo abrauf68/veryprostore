@@ -69,7 +69,18 @@ class ShopController extends Controller
     {
         try {
             $product = Product::with('category', 'productImages')->where('slug', $slug)->firstOrFail();
-            return view('frontend.pages.shop.product-details', compact('product'));
+
+            // Previous product (by ID)
+            $previous = Product::where('id', '<', $product->id)
+                ->orderBy('id', 'desc')
+                ->first();
+
+            // Next product (by ID)
+            $next = Product::where('id', '>', $product->id)
+                ->orderBy('id', 'asc')
+                ->first();
+
+            return view('frontend.pages.shop.product-details', compact('product', 'next', 'previous'));
         } catch (\Throwable $th) {
             Log::error('Product Details Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
