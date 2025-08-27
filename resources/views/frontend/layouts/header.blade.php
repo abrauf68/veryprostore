@@ -34,7 +34,7 @@
                 <!-- End of Dropdown Menu -->
                 <span class="divider d-lg-show"></span>
                 <a href="#" class="d-lg-show">Blog</a>
-                <a href="#" class="d-lg-show">Contact Us</a>
+                <a href="{{ route('frontend.contact') }}" class="d-lg-show">Contact Us</a>
                 @if (Auth::check())
                     <a href="{{ route('frontend.account') }}" class="d-lg-show">My Account</a>
                     <span class="delimiter d-lg-show">/</span>
@@ -51,7 +51,7 @@
                     <a href="{{ route('login') }}" class="d-lg-show"><i class="w-icon-account"></i>Sign
                         In</a>
                     <span class="delimiter d-lg-show">/</span>
-                    <a href="{{ route('register') }}" class="ml-0 d-lg-show login">Register</a>
+                    <a href="{{ route('login') }}" class="ml-0 d-lg-show login">Register</a>
                 @endif
             </div>
         </div>
@@ -67,20 +67,14 @@
                     <img src="{{ asset(\App\Helpers\Helper::getLogoDark()) }}" alt="logo" width="144"
                         height="45" />
                 </a>
-                <form method="get" action="#"
+                <form method="get" action="{{ route('frontend.shop') }}"
                     class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
                     <div class="select-box">
                         <select id="category" name="category">
-                            <option value="">All Categories</option>
-                            <option value="4">Fashion</option>
-                            <option value="5">Furniture</option>
-                            <option value="6">Shoes</option>
-                            <option value="7">Sports</option>
-                            <option value="8">Games</option>
-                            <option value="9">Computers</option>
-                            <option value="10">Electronics</option>
-                            <option value="11">Kitchen</option>
-                            <option value="12">Clothing</option>
+                            <option value="all">All Categories</option>
+                            @foreach (\App\Helpers\Helper::getCategories() as $category)
+                                <option value="{{ $category->slug }}">{{ $category->name }}</option>
+                            @endforeach
                         </select>
                     </div>
                     <input type="text" class="form-control" name="search" id="search" placeholder="Search in..."
@@ -422,7 +416,7 @@
                                     </li>
                                 @endforeach
                                 <li>
-                                    <a href="shop-banner-sidebar.html"
+                                    <a href="{{ route('frontend.shop') }}"
                                         class="font-weight-bold text-primary text-uppercase ls-25">
                                         View All Categories<i class="w-icon-angle-right"></i>
                                     </a>

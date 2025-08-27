@@ -69,6 +69,39 @@ class CartController extends Controller
         }
     }
 
+    public function addToCartDirect(Request $request)
+    {
+        try {
+            $request->validate([
+                'product_id' => 'required|exists:products,id',
+                'quantity'   => 'required|integer|min:1',
+            ]);
+
+            $cart = $this->getCart();
+
+            // Check if product already in cart
+            $product = Product::findOrFail($request->product_id);
+            $item = $cart->items()->where('product_id', $request->product_id)->first();
+
+            if ($item) {
+                $item->increment('quantity', $request->quantity);
+                $item->update(['price' => $product->price ? $product->price * $item->quantity : 0]);
+            } else {
+                $cart->items()->create([
+                    'product_id' => $request->product_id,
+                    'quantity'   => $request->quantity,
+                    'price'      => $product->price ? $product->price * $request->quantity : 0, // optional if you store price
+                ]);
+            }
+
+            return redirect()->route('frontend.cart.view')->with('success', 'Product added to cart!');
+        } catch (\Throwable $th) {
+            Log::error('add to cart Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', 'Something went wrong! Please try again later');
+            throw $th;
+        }
+    }
+
     public function update(Request $request)
     {
         $cart = $this->getCart()->load('items.product');

@@ -161,6 +161,7 @@ Route::name('frontend.')->group(function () {
 
     //cart routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart.view');
+    Route::post('/cart/add/direct', [CartController::class, 'addToCartDirect'])->name('cart.add.direct');
     Route::post('/cart/add', [CartController::class, 'addToCart'])->name('cart.add');
     Route::get('/cart/remove/{id}', [CartController::class, 'remove'])->name('cart.remove');
     Route::get('/cart/clear', [CartController::class, 'clearCart'])->name('cart.clear');

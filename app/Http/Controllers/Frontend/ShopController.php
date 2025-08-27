@@ -80,7 +80,12 @@ class ShopController extends Controller
                 ->orderBy('id', 'asc')
                 ->first();
 
-            return view('frontend.pages.shop.product-details', compact('product', 'next', 'previous'));
+            $related = Product::with('category', 'productImages')->where('id', '!=', $product->id)
+            ->inRandomOrder()
+            ->take(3)
+            ->get();
+
+            return view('frontend.pages.shop.product-details', compact('product', 'next', 'previous','related'));
         } catch (\Throwable $th) {
             Log::error('Product Details Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
