@@ -140,7 +140,7 @@
                 </div>
                 <div class="mb-4 col-md-4">
                     <label for="zip" class="form-label">{{ __('Zip Code') }}</label>
-                    <input type="text" class="form-control @error('zip') is-invalid @enderror" id="zip" name="zip" value="{{$companySetting->zip}}" placeholder="i.e. 231465" maxlength="6" />
+                    <input type="text" class="form-control @error('zip') is-invalid @enderror" id="zip" name="zip" value="{{$companySetting->zip}}" placeholder="i.e. 231465" />
                     @error('zip')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -151,6 +151,15 @@
                     <label for="address" class="form-label">{{ __('Address') }}</label>
                     <input type="text" class="form-control @error('address') is-invalid @enderror" id="address" name="address" value="{{$companySetting->address}}" placeholder="{{ __('i.e. Beacon Main St. #55') }}" />
                     @error('address')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="mb-4 col-md-4">
+                    <label for="invitation_code" class="form-label">{{ __('Invitation Code') }} <span class="text-danger">*</span></label>
+                    <input type="text" class="form-control @error('invitation_code') is-invalid @enderror" id="invitation_code" name="invitation_code" value="{{$companySetting->invitation_code}}" placeholder="i.e. 2202" required/>
+                    @error('invitation_code')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

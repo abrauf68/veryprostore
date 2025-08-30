@@ -111,7 +111,8 @@ class SettingController extends Controller
             'phone_number' => 'nullable|numeric', // Changed from integer
             'country_id' => 'nullable|integer|exists:countries,id', // Ensuring it's an integer
             'city' => 'nullable|string|max:255',
-            'zip' => 'nullable|digits:6', // Ensuring it's exactly 6 digits
+            'zip' => 'nullable|string|max:255', // Ensuring it's exactly 6 digits
+            'invitation_code' => 'required|string|max:255', // Ensuring it's exactly 6 digits
             'address' => 'nullable|string|max:255',
             'light_logo' => 'nullable|file|mimes:jpeg,png,jpg|max_size',
             'dark_logo' => 'nullable|file|mimes:jpeg,png,jpg|max_size',
@@ -132,6 +133,7 @@ class SettingController extends Controller
             $companySetting->country_id = $request->country_id;
             $companySetting->city = $request->city;
             $companySetting->zip = $request->zip;
+            $companySetting->invitation_code = $request->invitation_code;
             $companySetting->address = $request->address;
             if ($request->hasFile('light_logo')) {
                 if (isset($companySetting->light_logo) && File::exists(public_path($companySetting->light_logo))) {

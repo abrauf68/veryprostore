@@ -1,10 +1,10 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
         <a href="{{ route('dashboard') }}" class="app-brand-link">
-            <span class="app-brand-logo demo">
-                <img src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{env('APP_NAME')}}">
+            <span class="app-brand-logo">
+                <img width="180px" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{env('APP_NAME')}}">
             </span>
-            <span class="app-brand-text demo menu-text fw-bold">{{\App\Helpers\Helper::getCompanyName()}}</span>
+            {{-- <span class="app-brand-text demo menu-text fw-bold">{{\App\Helpers\Helper::getCompanyName()}}</span> --}}
         </a>
 
         <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto">
@@ -28,8 +28,24 @@
         <li class="menu-header small">
             <span class="menu-header-text">{{__('Apps & Pages')}}</span>
         </li>
-        @canany(['view user', 'view archived user'])
-            <li class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*') ? 'open' : '' }}">
+        @can(['view product'])
+            <li class="menu-item {{ request()->routeIs('dashboard.products.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.products.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-package"></i>
+                    <div>{{__('Products')}}</div>
+                </a>
+            </li>
+        @endcan
+        @can(['view order'])
+            <li class="menu-item {{ request()->routeIs('dashboard.orders.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.orders.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
+                    <div>{{__('Orders')}}</div>
+                </a>
+            </li>
+        @endcan
+        @canany(['view user', 'view archived user', 'vendor'])
+            <li class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*')  || request()->routeIs('dashboard.vendors.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
                     <i class="menu-icon tf-icons ti ti-users"></i>
                     <div>{{__('Users')}}</div>
@@ -39,6 +55,13 @@
                         <li class="menu-item {{ request()->routeIs('dashboard.user.*') ? 'active' : '' }}">
                             <a href="{{route('dashboard.user.index')}}" class="menu-link">
                                 <div>{{__('All Users')}}</div>
+                            </a>
+                        </li>
+                    @endcan
+                    @can(['view vendor'])
+                        <li class="menu-item {{ request()->routeIs('dashboard.vendors.*') ? 'active' : '' }}">
+                            <a href="{{route('dashboard.vendors.index')}}" class="menu-link">
+                                <div>{{__('Vendors')}}</div>
                             </a>
                         </li>
                     @endcan

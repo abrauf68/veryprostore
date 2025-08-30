@@ -19,6 +19,7 @@ class SettingSeeder extends Seeder
     {
         CompanySetting::create([
             'company_name' => 'Very Pro Store',
+            'invitation_code' => '2202',
         ]);
 
         RecaptchaSetting::create([

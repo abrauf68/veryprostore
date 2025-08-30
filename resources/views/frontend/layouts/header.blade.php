@@ -36,7 +36,7 @@
                 <a href="#" class="d-lg-show">Blog</a>
                 <a href="{{ route('frontend.contact') }}" class="d-lg-show">Contact Us</a>
                 @if (Auth::check())
-                    <a href="{{ route('frontend.account') }}" class="d-lg-show">My Account</a>
+                    <a href="{{ route('dashboard') }}" class="d-lg-show">My Account</a>
                     <span class="delimiter d-lg-show">/</span>
                     <a href="javascript:void(0)"
                         onclick="event.preventDefault();

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('email')->nullable();
+            $table->string('invitation_code')->nullable();
             $table->timestamps();
         });
     }

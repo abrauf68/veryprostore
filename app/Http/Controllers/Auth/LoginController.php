@@ -20,13 +20,13 @@ class LoginController extends Controller
             $user = Auth::user();
             $currentUser = User::find($user->id);
             // Check if the user has role 'super-admin' or 'admin'
-            if ($currentUser->hasRole('super-admin') || $currentUser->hasRole('admin')) {
+            // if ($currentUser->hasRole('super-admin') || $currentUser->hasRole('admin')) {
                 return redirect()->route('dashboard');
-            } else {
-                return redirect()->route('frontend.account');
-            }
+            // } else {
+            //     return redirect()->route('frontend.account');
+            // }
         } else {
-            return view('frontend.auth.login');
+            return view('auth.login');
         }
     }
 
@@ -77,11 +77,11 @@ class LoginController extends Controller
                             $this->mergeGuestCart($sessionId);
                             session()->forget('cart_session_id');
                         }
-                        if ($userfind->hasRole('super-admin') || $userfind->hasRole('admin')) {
+                        // if ($userfind->hasRole('super-admin') || $userfind->hasRole('admin')) {
                             return redirect()->route('dashboard')->with('success', "Login successfully!");
-                        } else {
-                            return redirect()->route('frontend.account')->with('success', "Login successfully!");
-                        }
+                        // } else {
+                        //     return redirect()->route('frontend.account')->with('success', "Login successfully!");
+                        // }
                     } else {
                         return redirect()->back()->withInput($request->all())->with('error', 'Authentication Error');
                     }

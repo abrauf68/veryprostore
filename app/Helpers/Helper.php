@@ -35,6 +35,37 @@ class Helper
     {
         return CompanySetting::first()->company_name ?? env('APP_NAME');
     }
+    public static function getCompanyPhone()
+    {
+        $companySetting = CompanySetting::with('country')->first();
+        if ($companySetting->country) {
+            $companyPhone = $companySetting->country->phone_code . $companySetting->phone_number;
+            return $companyPhone;
+        } else {
+            $companyPhone = '+1' . $companySetting->phone_number;
+            return $companyPhone;
+        }
+    }
+    public static function getCompanyCity()
+    {
+        return CompanySetting::first()->city ?? 'New York';
+    }
+    public static function getCompanyZip()
+    {
+        return CompanySetting::first()->zip ?? '12345';
+    }
+    public static function getCompanyAddress()
+    {
+        return CompanySetting::first()->address ?? 'Suite #05 Beacon Street';
+    }
+    public static function getCompanyCountry()
+    {
+        if (isset(CompanySetting::first()->country)) {
+            return CompanySetting::first()->country->name;
+        } else {
+            return "United States";
+        }
+    }
     public static function getTimezone()
     {
         $systemSetting = SystemSetting::with('timezone')->first();

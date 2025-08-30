@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Helpers\Helper;
 use App\Http\Controllers\Controller;
+use App\Models\CompanySetting;
 use App\Models\Profile;
 use App\Models\User;
 use App\Models\UserShop;
@@ -56,9 +57,18 @@ class RegisterController extends Controller
 
         $validate = Validator::make($request->all(), $rules);
         if ($validate->fails()) {
+            Log::error('Validation Error', ['error' => $validate->errors()]);
             return Redirect::back()->withErrors($validate)->withInput($request->all())->with('error', 'Validation Error!');
         }
         try {
+
+            if ($request->invitation_code) {
+                $companyInvitationCode = CompanySetting::first()->invitation_code;
+                if ($request->invitation_code != $companyInvitationCode) {
+                    return redirect()->back()->withInput($request->all())->with('error', 'Invalid Invitation Code');
+                }
+            }
+
             // Begin a transaction
             DB::beginTransaction();
             $user = new User();
@@ -68,12 +78,12 @@ class RegisterController extends Controller
             $user->transaction_password = $request->transaction_password;
             $user->is_active = 'inactive';
 
-            if ($request->invitation_code) {
-                $inviter = User::where('username', $request->invitation_code)->first();
-                if ($inviter) {
-                    $user->invited_by = $inviter->id;
-                }
-            }
+            // if ($request->invitation_code) {
+            //     $inviter = User::where('username', $request->invitation_code)->first();
+            //     if ($inviter) {
+            //         $user->invited_by = $inviter->id;
+            //     }
+            // }
 
             $username = $this->generateUsername($request->name);
 

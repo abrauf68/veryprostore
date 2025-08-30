@@ -102,6 +102,8 @@ class CheckoutController extends Controller
             $billing->phone = $request->phone;
             $billing->email = $request->email;
             $billing->save();
+            
+            $cart->delete();
 
             DB::commit();
             return redirect()->route('frontend.order.confirm', $order->order_no)->with('success', 'Your order has been received successfully');

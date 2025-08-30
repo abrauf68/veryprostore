@@ -32,6 +32,11 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update user']);
         Permission::create(['name' => 'delete user']);
 
+        Permission::create(['name' => 'view vendor']);
+        Permission::create(['name' => 'create vendor']);
+        Permission::create(['name' => 'update vendor']);
+        Permission::create(['name' => 'delete vendor']);
+
         Permission::create(['name' => 'view archived user']);
         Permission::create(['name' => 'create archived user']);
         Permission::create(['name' => 'update archived user']);
@@ -41,6 +46,16 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'create setting']);
         Permission::create(['name' => 'update setting']);
         Permission::create(['name' => 'delete setting']);
+
+        Permission::create(['name' => 'view product']);
+        Permission::create(['name' => 'create product']);
+        Permission::create(['name' => 'update product']);
+        Permission::create(['name' => 'delete product']);
+
+        Permission::create(['name' => 'view order']);
+        Permission::create(['name' => 'create order']);
+        Permission::create(['name' => 'update order']);
+        Permission::create(['name' => 'delete order']);
 
 
         // Create Roles
@@ -58,6 +73,10 @@ class UserRolePermissionSeeder extends Seeder
         $adminRole->givePermissionTo(['view role']);
         $adminRole->givePermissionTo(['view permission']);
         $adminRole->givePermissionTo(['create user', 'view user', 'update user']);
+
+        // give permissions to vendor role.
+        $vendorRole->givePermissionTo(['view product']);
+        $vendorRole->givePermissionTo(['view order']);
 
 
         // Create User and assign Role to it.
