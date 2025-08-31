@@ -51,7 +51,7 @@
                     <a href="{{ route('login') }}" class="d-lg-show"><i class="w-icon-account"></i>Sign
                         In</a>
                     <span class="delimiter d-lg-show">/</span>
-                    <a href="{{ route('login') }}" class="ml-0 d-lg-show login">Register</a>
+                    <a href="{{ route('register') }}" class="ml-0 d-lg-show login">Register</a>
                 @endif
             </div>
         </div>

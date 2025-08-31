@@ -1,6 +1,6 @@
 <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
     <div class="app-brand demo">
-        <a href="{{ route('dashboard') }}" class="app-brand-link">
+        <a href="{{ route('home') }}" class="app-brand-link">
             <span class="app-brand-logo">
                 <img width="180px" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{env('APP_NAME')}}">
             </span>
@@ -41,6 +41,22 @@
                 <a href="{{ route('dashboard.orders.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
                     <div>{{__('Orders')}}</div>
+                </a>
+            </li>
+        @endcan
+        @can(['view warehouse'])
+            <li class="menu-item {{ request()->routeIs('dashboard.warehouse.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.warehouse.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
+                    <div>{{__('Warehouse')}}</div>
+                </a>
+            </li>
+        @endcan
+        @can(['view wallet'])
+            <li class="menu-item {{ request()->routeIs('dashboard.wallet.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.wallet.index') }}" class="menu-link">
+                    <i class="menu-icon tf-icons ti ti-wallet"></i>
+                    <div>{{__('Wallet')}}</div>
                 </a>
             </li>
         @endcan

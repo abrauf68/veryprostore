@@ -57,6 +57,16 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update order']);
         Permission::create(['name' => 'delete order']);
 
+        Permission::create(['name' => 'view warehouse']);
+        Permission::create(['name' => 'create warehouse']);
+        Permission::create(['name' => 'update warehouse']);
+        Permission::create(['name' => 'delete warehouse']);
+
+        Permission::create(['name' => 'view wallet']);
+        Permission::create(['name' => 'create wallet']);
+        Permission::create(['name' => 'update wallet']);
+        Permission::create(['name' => 'delete wallet']);
+
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
@@ -77,6 +87,8 @@ class UserRolePermissionSeeder extends Seeder
         // give permissions to vendor role.
         $vendorRole->givePermissionTo(['view product']);
         $vendorRole->givePermissionTo(['view order']);
+        $vendorRole->givePermissionTo(['view warehouse', 'create warehouse', 'update warehouse', 'delete warehouse']);
+        $vendorRole->givePermissionTo(['view wallet', 'create wallet', 'update wallet', 'delete wallet']);
 
 
         // Create User and assign Role to it.

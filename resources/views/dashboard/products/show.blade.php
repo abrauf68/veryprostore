@@ -39,6 +39,9 @@
                     <dt class="col-sm-3">{{ __('Price') }}</dt>
                     <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($product->price) }}</dd>
 
+                    <dt class="col-sm-3">{{ __('Profit') }}</dt>
+                    <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($product->profit) }}</dd>
+
                     <dt class="col-sm-3">{{ __('Stock') }}</dt>
                     <dd class="col-sm-9 text-capitalize">{{ $product->stock ?? 'N/A' }}</dd>
 

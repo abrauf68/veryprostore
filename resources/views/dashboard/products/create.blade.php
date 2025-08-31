@@ -44,7 +44,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="mb-4 col-md-6">
+                        <div class="mb-4 col-md-4">
                             <label for="price" class="form-label">{{ __('Price') }}</label><span
                                 class="text-danger">*</span>
                             <input class="form-control @error('price') is-invalid @enderror" type="number" step="any" id="price"
@@ -55,7 +55,18 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="mb-4 col-md-6">
+                        <div class="mb-4 col-md-4">
+                            <label for="profit" class="form-label">{{ __('Profit') }}</label><span
+                                class="text-danger">*</span>
+                            <input class="form-control @error('profit') is-invalid @enderror" type="number" step="any" id="profit"
+                                name="profit" required placeholder="{{ __('Enter profit') }}" />
+                            @error('profit')
+                                <span class="invalid-feedback" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
+                        <div class="mb-4 col-md-4">
                             <label for="stock" class="form-label">{{ __('Stock') }}</label><span
                                 class="text-danger">*</span>
                             <input class="form-control @error('stock') is-invalid @enderror" type="number" step="any" id="stock"

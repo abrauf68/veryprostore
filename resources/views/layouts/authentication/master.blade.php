@@ -18,7 +18,7 @@
 
     <div class="authentication-wrapper authentication-cover">
         <!-- Logo -->
-        <a href="" class="app-brand auth-cover-brand">
+        <a href="{{ route('home') }}" class="app-brand auth-cover-brand">
             <span class="app-brand-logo">
                 <img width="180px" src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="{{\App\Helpers\Helper::getCompanyName()}}">
             </span>

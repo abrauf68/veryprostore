@@ -23,14 +23,7 @@ class ProductController extends Controller
         $this->authorize('view product');
         try {
             $currentUser = User::findOrFail(auth()->user()->id);
-            if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $products = Product::with('vendor', 'category')
-                    ->where('vendor_id', $currentUser->id)
-                    ->where('is_active', 'active')
-                    ->get();
-            }else{
-                $products = Product::with('vendor', 'category')->get();
-            }
+            $products = Product::with('category')->where('vendor_id', null)->get();
             return view('dashboard.products.index', compact('products'));
         } catch (\Throwable $th) {
             Log::error('Products Index Failed', ['error' => $th->getMessage()]);
@@ -72,6 +65,7 @@ class ProductController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
+            'profit' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:product_categories,id',
             'vendor_id' => 'nullable|exists:users,id',
@@ -100,6 +94,7 @@ class ProductController extends Controller
             $product->short_description = $request->short_description;
             $product->description = $request->description;
             $product->price = $request->price;
+            $product->profit = $request->profit;
             $product->stock = $request->stock;
             $product->category_id = $request->category_id;
             $product->vendor_id = $request->vendor_id;
@@ -194,6 +189,7 @@ class ProductController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
+            'profit' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:product_categories,id',
             'vendor_id' => 'nullable|exists:users,id',
@@ -213,6 +209,7 @@ class ProductController extends Controller
             $product->short_description = $request->short_description;
             $product->description = $request->description;
             $product->price = $request->price;
+            $product->profit = $request->profit;
             $product->stock = $request->stock;
             $product->category_id = $request->category_id;
             $product->vendor_id = $request->vendor_id;

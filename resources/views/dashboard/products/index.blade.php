@@ -15,7 +15,7 @@
         <div class="card">
             <div class="card-header">
                 @canany(['create product'])
-                    <a href="{{route('dashboard.products.create')}}" class="add-new btn btn-primary waves-effect waves-light">
+                    <a href="{{ route('dashboard.products.create') }}" class="add-new btn btn-primary waves-effect waves-light">
                         <i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
                             class="d-none d-sm-inline-block">{{ __('Add New Product') }}</span>
                     </a>
@@ -29,26 +29,29 @@
                             <th>{{ __('Product') }}</th>
                             <th>{{ __('Name') }}</th>
                             <th>{{ __('Category') }}</th>
-                            <th>{{ __('Vendor') }}</th>
+                            {{-- <th>{{ __('Vendor') }}</th> --}}
                             @canany(['update product'])<th>{{ __('Status') }}</th>@endcan
-                            @canany(['delete product', 'update product', 'view product'])<th>{{ __('Action') }}</th>@endcan
+                            @canany(['delete product', 'update product', 'view product', 'create warehouse', 'update
+                            warehouse'])<th>{{ __('Action') }}</th>@endcan
                         </tr>
                     </thead>
                     <tbody>
                         @foreach ($products as $index => $product)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td><img src="{{ asset($product->main_image) }}" alt="{{ $product->name }}" height="35px" width="35px"></td>
+                                <td><img src="{{ asset($product->main_image) }}" alt="{{ $product->name }}" height="35px"
+                                        width="35px"></td>
                                 <td>{{ $product->name }}</td>
                                 <td>{{ $product->category->name }}</td>
-                                <td>{{ $product->vendor ? $product->vendor->name : "N/A" }}</td>
+                                {{-- <td>{{ $product->vendor ? $product->vendor->name : "N/A" }}</td> --}}
                                 @canany(['update product'])
                                     <td>
                                         <span
                                             class="badge me-4 bg-label-{{ $product->is_active == 'active' ? 'success' : 'danger' }}">{{ ucfirst($product->is_active) }}</span>
                                     </td>
                                 @endcan
-                                @canany(['delete product', 'update product', 'view product'])
+                                @canany(['delete product', 'update product', 'view product', 'create warehouse', 'update
+                                    warehouse'])
                                     <td class="d-flex">
                                         @canany(['delete product'])
                                             <form action="{{ route('dashboard.products.destroy', $product->id) }}" method="POST">
@@ -94,6 +97,24 @@
                                                 </a>
                                             </span>
                                         @endcan
+                                        @role('vendor')
+                                            @canany(['create warehouse', 'update warehouse'])
+                                                <span class="text-nowrap">
+                                                    <form action="{{ route('dashboard.warehouse.update', $product->id) }}"
+                                                        method="POST">
+                                                        @csrf
+                                                        @method('PUT')
+                                                        <button type="submit"
+                                                            class="btn btn-icon btn-text-success waves-effect waves-light rounded-pill me-1"
+                                                            data-bs-toggle="tooltip" data-bs-placement="top"
+                                                            title="{{ __('Add Product to Warehouse') }}">
+                                                            <i class="ti ti-circle-plus ti-md"></i>
+                                                        </button>
+                                                    </form>
+                                                </span>
+                                            @endcanany
+                                        @endrole
+
                                     </td>
                                 @endcan
                             </tr>

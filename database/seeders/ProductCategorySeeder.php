@@ -55,7 +55,7 @@ class ProductCategorySeeder extends Seeder
             [
                 'name' => 'Home & Garden',
                 'icon' => 'w-icon-home',
-                'image' => 'images/categories/home_garden.jpg',
+                'image' => 'frontAssets/images/demos/demo1/categories/2-3.jpg',
                 'description' => 'Everything you need for your home and garden.',
                 'is_popular' => '0',
                 'children' => [
@@ -201,15 +201,8 @@ class ProductCategorySeeder extends Seeder
             [
                 'name' => 'Healthy & Beauty',
                 'icon' => 'w-icon-heartbeat',
-                'image' => 'images/categories/healthy_beauty.jpg',
+                'image' => 'frontAssets/images/demos/demo1/categories/2-4.jpg',
                 'description' => 'Products for health and beauty.',
-                'is_popular' => '0',
-            ],
-            [
-                'name' => 'Gift Ideas',
-                'icon' => 'w-icon-gift',
-                'image' => 'images/categories/gift_ideas.jpg',
-                'description' => 'Perfect gifts for any occasion.',
                 'is_popular' => '0',
             ],
             [
@@ -218,6 +211,13 @@ class ProductCategorySeeder extends Seeder
                 'image' => 'frontAssets/images/demos/demo1/categories/2-5.jpg',
                 'description' => 'Fun toys and games for all ages.',
                 'is_popular' => '1',
+            ],
+            [
+                'name' => 'Gift Ideas',
+                'icon' => 'w-icon-gift',
+                'image' => 'frontAssets/images/demos/demo1/categories/2-5.jpg',
+                'description' => 'Perfect gifts for any occasion.',
+                'is_popular' => '0',
             ],
             [
                 'name' => 'Cooking',

@@ -3,7 +3,10 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
+use App\Models\ProductCategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 
 class HomeController extends Controller
@@ -11,7 +14,27 @@ class HomeController extends Controller
     public function home()
     {
         try {
-            return view('frontend.pages.home');
+            $popularProducts = Product::with('productImages')
+                ->leftJoin('order_items', 'products.id', '=', 'order_items.product_id')
+                ->select(
+                    'products.id',
+                    'products.name',
+                    'products.sku',
+                    'products.main_image',
+                    'products.price',
+                    'products.slug',
+                    DB::raw('COALESCE(COUNT(order_items.id), 0) as order_count')
+                )
+                ->groupBy('products.id', 'products.name','products.sku','products.main_image','products.price','products.slug')
+                ->orderByDesc('order_count')
+                ->limit(3)
+                ->get();
+
+            $categories = ProductCategory::where('is_active', 'active')
+                ->where('parent_category_id', null)
+                ->take(6)
+                ->get();
+            return view('frontend.pages.home', compact('popularProducts','categories'));
         } catch (\Throwable $th) {
             Log::error('Home Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");

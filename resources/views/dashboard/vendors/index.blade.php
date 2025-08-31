@@ -174,7 +174,7 @@
                                                     class="btn btn-icon btn-text-info waves-effect waves-light rounded-pill me-1"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                                     title="{{ __('Add Order') }}">
-                                                    <i class="ti ti-plus ti-md"></i>
+                                                    <i class="ti ti-circle-plus ti-md"></i>
                                                 </a>
                                             </span>
                                             <span class="text-nowrap">

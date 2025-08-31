@@ -165,7 +165,7 @@
                                                             class="quantity-minus w-icon-minus"></button>
                                                     </div>
                                                 </div>
-                                                <button type="submit" class="btn btn-primary btn-cart">
+                                                <button type="submit" class="btn btn-primary">
                                                     <i class="w-icon-cart"></i>
                                                     <span>Add to Cart</span>
                                                 </button>

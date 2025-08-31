@@ -16,6 +16,8 @@ use App\Http\Controllers\Dashboard\SettingController;
 use App\Http\Controllers\Dashboard\User\ArchivedUserController;
 use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\User\VendorController;
+use App\Http\Controllers\Dashboard\WalletController;
+use App\Http\Controllers\Dashboard\WarehouseController;
 use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -61,9 +63,7 @@ Route::get('/current-time', function () {
 });
 
 Auth::routes();
-Route::get('/', function () {
-    return view('frontend.pages.home');
-})->name('home');
+Route::get('/', [FrontendHomeController::class, 'home'])->name('home');
 // Guest Routes
 Route::group(['middleware' => ['guest']], function () {
 
@@ -126,7 +126,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
         // Admin Dashboard Authentication Routes
         Route::prefix('dashboard')->name('dashboard.')->group(function () {
             Route::get('/notifications', [NotificationController::class, 'index'])->name('notifications.index');
-            
+
             Route::resource('user', UserController::class);
             Route::resource('vendors', VendorController::class);
             Route::resource('archived-user', ArchivedUserController::class);
@@ -157,13 +157,19 @@ Route::middleware(['auth', 'verified'])->group(function () {
             Route::resource('orders', OrderController::class);
             Route::get('orders/status/{id}', [OrderController::class, 'updateStatus'])->name('orders.status.update');
             Route::get('get/vendor/products', [OrderController::class, 'getVendorProducts'])->name('vendors.products');
+
+            // Warehouse Controller
+            Route::resource('warehouse', WarehouseController::class);
+
+            // Warehouse Controller
+            Route::get('wallet', [WalletController::class, 'index'])->name('wallet.index');
         });
     });
 });
 
 // Frontend Pages Routes
 Route::name('frontend.')->group(function () {
-    Route::get('home', [FrontendHomeController::class, 'home'])->name('home');
+    Route::get('/home', [FrontendHomeController::class, 'home'])->name('home');
     Route::get('shop/{category?}', [ShopController::class, 'shop'])->name('shop');
     Route::get('product/{slug}', [ShopController::class, 'productDetails'])->name('product.show');
     Route::get('become-a-vendor', [FrontendHomeController::class, 'becomeAVendor'])->name('become-a-vendor');

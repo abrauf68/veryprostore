@@ -110,10 +110,10 @@ class Helper
         $position = $currencySetting->currency_symbol_position; // 'prefix' or 'postfix'
 
         if ($position === 'prefix') {
-            return $symbol . $amount;
+            return $symbol . number_format($amount);
         }
 
-        return $amount . $symbol;
+        return number_format($amount) . $symbol;
     }
 
     public static function renderRecaptcha($formId, $action = 'register')
