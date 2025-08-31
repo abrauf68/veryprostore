@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\CompanySetting;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\UserBankDetail;
 use App\Models\UserShop;
 use Illuminate\Auth\Notifications\VerifyEmail;
 use Illuminate\Http\Request;
@@ -124,6 +125,10 @@ class RegisterController extends Controller
             $profile->user_id = $user->id;
             $profile->first_name = $request->name;
             $profile->save();
+
+            $userBankDetails = new UserBankDetail();
+            $userBankDetails->user_id = $user->id;
+            $userBankDetails->save();
 
             // Attempt to authenticate
             Auth::attempt(['email' => $request->email, 'password' => $request->password]);

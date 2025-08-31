@@ -94,6 +94,20 @@
                             {{ __('Security') }}
                         </a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link profile-tab" href="#" data-target="#shop-details-section"
+                            data-query="shop-details">
+                            <i class="ti-sm ti ti-building-store me-1_5"></i>
+                            {{ __('Shop Details') }}
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link profile-tab" href="#" data-target="#bank-details-section"
+                            data-query="bank-details">
+                            <i class="ti-sm ti ti-building-bank me-1_5"></i>
+                            {{ __('Bank Details') }}
+                        </a>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -129,7 +143,8 @@
                         </li>
                         @if ($profile->designation)
                             <li class="d-flex align-items-center mb-4">
-                                <i class="ti ti-briefcase ti-lg"></i><span class="fw-medium mx-2">{{ __('Designation') }}:</span>
+                                <i class="ti ti-briefcase ti-lg"></i><span
+                                    class="fw-medium mx-2">{{ __('Designation') }}:</span>
                                 <span>{{ $profile->designation->name }}</span>
                             </li>
                         @endif
@@ -141,19 +156,22 @@
                         @endif
                         @if ($profile->language)
                             <li class="d-flex align-items-center mb-2">
-                                <i class="ti ti-language ti-lg"></i><span class="fw-medium mx-2">{{ __('Language') }}:</span>
+                                <i class="ti ti-language ti-lg"></i><span
+                                    class="fw-medium mx-2">{{ __('Language') }}:</span>
                                 <span>{{ $profile->language->name }}</span>
                             </li>
                         @endif
                         @if ($profile->gender)
                             <li class="d-flex align-items-center mb-2">
-                                <i class="ti ti-gender-bigender ti-lg"></i><span class="fw-medium mx-2">{{ __('Gender') }}:</span>
+                                <i class="ti ti-gender-bigender ti-lg"></i><span
+                                    class="fw-medium mx-2">{{ __('Gender') }}:</span>
                                 <span>{{ $profile->gender->name }}</span>
                             </li>
                         @endif
                         @if ($profile->maritalStatus)
                             <li class="d-flex align-items-center mb-2">
-                                <i class="ti ti-heart ti-lg"></i><span class="fw-medium mx-2">{{ __('Marital Status') }}:</span>
+                                <i class="ti ti-heart ti-lg"></i><span
+                                    class="fw-medium mx-2">{{ __('Marital Status') }}:</span>
                                 <span>{{ $profile->maritalStatus->name }}</span>
                             </li>
                         @endif
@@ -223,7 +241,12 @@
                                 </a>
                             </li>
                         @endif
-                        @if(!$profile->github_url && !$profile->instagram_url && !$profile->skype_url && !$profile->linkedin_url && !$profile->facebook_url)
+                        @if (
+                            !$profile->github_url &&
+                                !$profile->instagram_url &&
+                                !$profile->skype_url &&
+                                !$profile->linkedin_url &&
+                                !$profile->facebook_url)
                             <li class="d-flex align-items-end mb-4">
                                 <a style="color: inherit;">
                                     <i class="ti ti-link-off"></i>
@@ -256,6 +279,12 @@
             <div id="security-section" style="display: none;">
                 @include('dashboard.profile.sections.security')
             </div>
+            <div id="shop-details-section" style="display: none;">
+                @include('dashboard.profile.sections.shop-details')
+            </div>
+            <div id="bank-details-section" style="display: none;">
+                @include('dashboard.profile.sections.bank-details')
+            </div>
         </div>
     </div>
 @endsection
@@ -274,6 +303,8 @@
                     'profile': '#profile-section',
                     'account': '#account-settings-section',
                     'security': '#security-section',
+                    'shop-details': '#shop-details-section',
+                    'bank-details': '#bank-details-section',
                 };
 
                 var activeTabSelector = tabMapping[activeTab] || '#profile-section';
@@ -348,6 +379,18 @@
                 updatePhoneCode(selectedCountryId);
                 $('#phone_number').val(''); // Clear phone input on change
             });
+
+            function toggleFields() {
+                $("#bankFields, #upiFields, #binanceFields").addClass("d-none");
+
+                let method = $("#method").val();
+                if (method === "bank") $("#bankFields").removeClass("d-none");
+                if (method === "upi") $("#upiFields").removeClass("d-none");
+                if (method === "binance") $("#binanceFields").removeClass("d-none");
+            }
+
+            $("#method").on("change", toggleFields);
+            toggleFields(); // Run on page load
         });
     </script>
 @endsection

@@ -112,6 +112,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::resource('profile', ProfileController::class);
         Route::post('profile/setting/account/{id}', [ProfileController::class, 'accountDeactivation'])->name('account.deactivate');
         Route::post('profile/security/password/{id}', [ProfileController::class, 'passwordUpdate'])->name('update.password');
+        Route::post('profile/shop-details/{id}', [ProfileController::class, 'shopDetailsUpdate'])->name('update.shop-details');
+        Route::post('profile/bank-details/{id}', [ProfileController::class, 'bankDetailsUpdate'])->name('update.bank-details');
 
         Route::get('/get/notifications', [NotificationController::class, 'getNotifications']);
         Route::get('/notifications/click/{id}', [NotificationController::class, 'notificationClickHandle'])->name('notification.click');
@@ -163,6 +165,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Warehouse Controller
             Route::get('wallet', [WalletController::class, 'index'])->name('wallet.index');
+            Route::get('withdraw', [WalletController::class, 'withdrawNow'])->name('withdraw.create');
+            Route::post('withdraw', [WalletController::class, 'withdrawStore'])->name('withdraw.store');
         });
     });
 });

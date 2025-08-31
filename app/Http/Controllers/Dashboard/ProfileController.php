@@ -10,6 +10,8 @@ use App\Models\Language;
 use App\Models\MaritalStatus;
 use App\Models\Profile;
 use App\Models\User;
+use App\Models\UserBankDetail;
+use App\Models\UserShop;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
@@ -28,13 +30,15 @@ class ProfileController extends Controller
     {
         try {
             $user = Auth::user();
-            $profile = Profile::with('user','gender','maritalStatus','language','designation','country')->where('user_id', $user->id)->first();
+            $userBankDetail = UserBankDetail::where('user_id', $user->id)->first();
+            $userShop = UserShop::where('user_id', $user->id)->first();
+            $profile = Profile::with('user', 'gender', 'maritalStatus', 'language', 'designation', 'country')->where('user_id', $user->id)->first();
             $countries = Country::where('is_active', 'active')->get();
             $genders = Gender::where('is_active', 'active')->get();
             $maritalStatuses = MaritalStatus::where('is_active', 'active')->get();
             $languages = Language::where('is_active', 'active')->get();
             $designations = Designation::where('is_active', 'active')->get();
-            return view('dashboard.profile.index',compact('profile','countries','genders','maritalStatuses','languages','designations'));
+            return view('dashboard.profile.index', compact('profile', 'countries', 'genders', 'maritalStatuses', 'languages', 'designations', 'userBankDetail', 'userShop'));
         } catch (\Throwable $th) {
             Log::error('Profile Index Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
@@ -222,6 +226,124 @@ class ProfileController extends Controller
             return redirect()->back()->with('success', 'Password Updated Successfully');
         } catch (\Throwable $th) {
             Log::error('Password Update Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
+
+    public function bankDetailsUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'method' => 'required|in:bank,upi,binance',
+        ]);
+
+        // Additional rules based on selected method
+        if ($request->method === 'bank') {
+            $validator->addRules([
+                'account_name'   => 'required|string|max:255',
+                'account_number' => 'required|string|max:50',
+                'account_type'   => 'required|in:savings,current,salary,fixed_deposit,nri,recurring_deposit,demat,others',
+                'bank_name'      => 'required|string|max:255',
+                'ifsc_code'      => 'required|string|max:20',
+                'branch'         => 'required|string|max:255',
+            ]);
+        }
+
+        if ($request->method === 'upi') {
+            $validator->addRules([
+                'upi_id' => 'required|string|max:100',
+            ]);
+        }
+
+        if ($request->method === 'binance') {
+            $validator->addRules([
+                'binance_id' => 'required|string|max:100',
+            ]);
+        }
+
+        // Handle validation errors
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all())
+                ->with('error', $validator->errors()->first());
+        }
+        try {
+            $currentUser = User::findOrFail(auth()->user()->id);
+            $userBankDetail = UserBankDetail::where('id', $id)->first();
+            if (!$userBankDetail) {
+                $userBankDetail = new UserBankDetail();
+                $userBankDetail->user_id = $currentUser->id;
+            }
+            $userBankDetail->method   = $request->method;
+            $userBankDetail->account_name   = $request->account_name;
+            $userBankDetail->account_number = $request->account_number;
+            $userBankDetail->account_type   = $request->account_type;
+            $userBankDetail->bank_name      = $request->bank_name;
+            $userBankDetail->ifsc_code      = $request->ifsc_code;
+            $userBankDetail->branch         = $request->branch;
+            $userBankDetail->upi_id = $request->upi_id;
+            $userBankDetail->binance_id = $request->binance_id;
+            $userBankDetail->save();
+
+            return redirect()->back()->with('success', 'Bank Details Updated Successfully');
+        } catch (\Throwable $th) {
+            Log::error('Bank Details Update Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
+
+    public function shopDetailsUpdate(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'shop_name' => ['required', 'string', 'max:255'],
+            'certificate_type' => ['required', 'string', 'max:255'],
+            'certificate_front' => 'nullable|image|mimes:jpeg,png,jpg|max_size',
+            'certificate_back' => 'nullable|image|mimes:jpeg,png,jpg|max_size',
+        ]);
+
+        // Handle validation errors
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all())
+                ->with('error', $validator->errors()->first());
+        }
+        try {
+            $currentUser = User::findOrFail(auth()->user()->id);
+            $userShop = UserShop::where('id', $id)->first();
+            if (!$userShop) {
+                $userShop = new UserShop();
+                $userShop->user_id = $currentUser->id;
+            }
+            $userShop->shop_name = $request->shop_name;
+            $userShop->certificate_type = $request->certificate_type;
+            if ($request->hasFile('certificate_front')) {
+                if (isset($userShop->certificate_front) && File::exists(public_path($userShop->certificate_front))) {
+                    File::delete(public_path($userShop->certificate_front));
+                }
+                $certificate_front = $request->file('certificate_front');
+                $certificate_front_ext = $certificate_front->getClientOriginalExtension();
+                $certificate_front_name = time() . '_certificate_front.' . $certificate_front_ext;
+
+                $certificate_front_path = 'uploads/certificates';
+                $certificate_front->move(public_path($certificate_front_path), $certificate_front_name);
+                $userShop->certificate_front = $certificate_front_path . "/" . $certificate_front_name;
+            }
+            if ($request->hasFile('certificate_back')) {
+                if (isset($userShop->certificate_back) && File::exists(public_path($userShop->certificate_back))) {
+                    File::delete(public_path($userShop->certificate_back));
+                }
+                $certificate_back = $request->file('certificate_back');
+                $certificate_back_ext = $certificate_back->getClientOriginalExtension();
+                $certificate_back_name = time() . '_certificate_back.' . $certificate_back_ext;
+
+                $certificate_back_path = 'uploads/certificates';
+                $certificate_back->move(public_path($certificate_back_path), $certificate_back_name);
+                $userShop->certificate_back = $certificate_back_path . "/" . $certificate_back_name;
+            }
+            $userShop->save();
+
+            return redirect()->back()->with('success', 'Bank Details Updated Successfully');
+        } catch (\Throwable $th) {
+            Log::error('Bank Details Update Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }

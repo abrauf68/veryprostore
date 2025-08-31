@@ -17,10 +17,10 @@ return new class extends Migration
             $table->foreignIdFor(User::class)
                 ->constrained()
                 ->cascadeOnDelete();
-            $table->string('shop_name');
-            $table->string('certificate_type');
-            $table->string('certificate_front');
-            $table->string('certificate_back');
+            $table->string('shop_name')->nullable();
+            $table->string('certificate_type')->nullable();
+            $table->string('certificate_front')->nullable();
+            $table->string('certificate_back')->nullable();
             $table->timestamps();
         });
     }

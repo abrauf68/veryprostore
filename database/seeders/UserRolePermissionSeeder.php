@@ -67,6 +67,11 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update wallet']);
         Permission::create(['name' => 'delete wallet']);
 
+        Permission::create(['name' => 'view withdraw']);
+        Permission::create(['name' => 'create withdraw']);
+        Permission::create(['name' => 'update withdraw']);
+        Permission::create(['name' => 'delete withdraw']);
+
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin
@@ -89,6 +94,7 @@ class UserRolePermissionSeeder extends Seeder
         $vendorRole->givePermissionTo(['view order']);
         $vendorRole->givePermissionTo(['view warehouse', 'create warehouse', 'update warehouse', 'delete warehouse']);
         $vendorRole->givePermissionTo(['view wallet', 'create wallet', 'update wallet', 'delete wallet']);
+        $vendorRole->givePermissionTo(['view withdraw', 'create withdraw', 'update withdraw', 'delete withdraw']);
 
 
         // Create User and assign Role to it.
@@ -112,23 +118,16 @@ class UserRolePermissionSeeder extends Seeder
             'first_name' => $superAdminUser->name,
         ]);
 
-        $adminUser = User::firstOrCreate([
-                            'email' => 'admin@gmail.com'
-                        ], [
-                            'name' => 'Admin',
-                            'username' => 'admin',
-                            'email' => 'admin@gmail.com',
-                            'password' => Hash::make ('admin@gmail.com'),
-                            'email_verified_at' => now(),
-                        ]);
-
-        $adminUser->assignRole($adminRole);
-
-        $adminUserProfile = $adminUser->profile()->firstOrCreate([
-            'user_id' => $adminUser->id,
+        $superAdminBankDetails = $superAdminUser->userBankDetail()->firstOrCreate([
+            'user_id' => $superAdminUser->id,
         ], [
-            'user_id' => $adminUser->id,
-            'first_name' => $adminUser->name,
+            'user_id' => $superAdminUser->id,
+        ]);
+
+        $superAdminShopDetails = $superAdminUser->userShop()->firstOrCreate([
+            'user_id' => $superAdminUser->id,
+        ], [
+            'user_id' => $superAdminUser->id,
         ]);
     }
 }
