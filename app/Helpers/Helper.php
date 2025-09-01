@@ -5,10 +5,12 @@ namespace App\Helpers;
 use App\Models\BusinessSetting;
 use App\Models\Cart;
 use App\Models\CompanySetting;
+use App\Models\Order;
 use App\Models\ProductCategory;
 use App\Models\SystemSetting;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use App\Models\WithdrawalRequest;
 use Carbon\Carbon;
 
 class Helper
@@ -177,5 +179,33 @@ class Helper
 
         // Eager load relations after ensuring cart exists
         return $cart->load('items.product');
+    }
+
+    public static function getVendorOrders()
+    {
+        $currentUser = User::findOrFail(auth()->user()->id);
+        if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
+            $ordersCount = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
+                $q->where('vendor_id', $currentUser->id);
+            })->whereIn('status', ['pending', 'shipped'])->count();
+        } else {
+            $ordersCount = Order::whereIn('status', ['pending', 'shipped'])->count();
+        }
+
+        // Eager load relations after ensuring cart exists
+        return $ordersCount;
+    }
+
+    public static function getWithdrawRequests()
+    {
+        $currentUser = User::findOrFail(auth()->user()->id);
+        if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
+            $withdrawalRequests = WithdrawalRequest::with('user')->where('user_id', $currentUser->id)->whereIn('status', ['pending', 'inprogress'])->count();
+        } else {
+            $withdrawalRequests = WithdrawalRequest::with('user')->whereIn('status', ['pending', 'inprogress'])->count();
+        }
+
+        // Eager load relations after ensuring cart exists
+        return $withdrawalRequests;
     }
 }

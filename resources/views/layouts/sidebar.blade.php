@@ -41,6 +41,9 @@
                 <a href="{{ route('dashboard.orders.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
                     <div>{{__('Orders')}}</div>
+                    @if (\App\Helpers\Helper::getVendorOrders() > 0)
+                        <div class="badge text-bg-danger rounded-pill ms-auto">{{ \App\Helpers\Helper::getVendorOrders() }}</div>
+                    @endif
                 </a>
             </li>
         @endcan
@@ -52,11 +55,24 @@
                 </a>
             </li>
         @endcan
-        @can(['view wallet'])
-            <li class="menu-item {{ request()->routeIs('dashboard.wallet.*') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.wallet.index') }}" class="menu-link">
+        @role('vendor')
+            @can(['view wallet'])
+                <li class="menu-item {{ request()->routeIs('dashboard.wallet.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.wallet.index') }}" class="menu-link">
+                        <i class="menu-icon tf-icons ti ti-wallet"></i>
+                        <div>{{__('Wallet')}}</div>
+                    </a>
+                </li>
+            @endcan
+        @endrole
+        @can(['view withdraw request'])
+            <li class="menu-item {{ request()->routeIs('dashboard.withdraw-requests.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.withdraw-requests.index') }}" class="menu-link">
                     <i class="menu-icon tf-icons ti ti-wallet"></i>
-                    <div>{{__('Wallet')}}</div>
+                    <div>{{__('Withdraw Requests')}}</div>
+                    @if (\App\Helpers\Helper::getWithdrawRequests() > 0)
+                        <div class="badge text-bg-danger rounded-pill ms-auto">{{ \App\Helpers\Helper::getWithdrawRequests() }}</div>
+                    @endif
                 </a>
             </li>
         @endcan

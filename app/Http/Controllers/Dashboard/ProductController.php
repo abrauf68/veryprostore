@@ -65,7 +65,7 @@ class ProductController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
-            'profit' => 'required|numeric|min:0',
+            'cost_price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:product_categories,id',
             'vendor_id' => 'nullable|exists:users,id',
@@ -94,7 +94,8 @@ class ProductController extends Controller
             $product->short_description = $request->short_description;
             $product->description = $request->description;
             $product->price = $request->price;
-            $product->profit = $request->profit;
+            $product->cost_price = $request->cost_price;
+            $product->profit = $request->price - $request->cost_price;
             $product->stock = $request->stock;
             $product->category_id = $request->category_id;
             $product->vendor_id = $request->vendor_id;
@@ -189,7 +190,7 @@ class ProductController extends Controller
             'short_description' => 'required',
             'description' => 'required',
             'price' => 'required|numeric|min:0',
-            'profit' => 'required|numeric|min:0',
+            'cost_price' => 'required|numeric|min:0',
             'stock' => 'required|numeric|min:0',
             'category_id' => 'nullable|exists:product_categories,id',
             'vendor_id' => 'nullable|exists:users,id',
@@ -209,7 +210,8 @@ class ProductController extends Controller
             $product->short_description = $request->short_description;
             $product->description = $request->description;
             $product->price = $request->price;
-            $product->profit = $request->profit;
+            $product->cost_price = $request->cost_price;
+            $product->profit = $request->profit - $request->cost_price;
             $product->stock = $request->stock;
             $product->category_id = $request->category_id;
             $product->vendor_id = $request->vendor_id;

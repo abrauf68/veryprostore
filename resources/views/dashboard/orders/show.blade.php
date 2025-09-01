@@ -96,6 +96,7 @@
                                 <thead>
                                     <tr>
                                         <th>Sr.</th>
+                                        <th>Image</th>
                                         <th>Item</th>
                                         <th>Price</th>
                                         <th>Qty</th>
@@ -103,14 +104,24 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @php
+                                        $totalCost = 0;
+                                        $totalProfit = 0;
+                                    @endphp
                                     @foreach ($order->orderItems as $index => $item)
                                         <tr>
                                             <td class="text-nowrap">{{ $index + 1 }}</td>
+                                            <td><img src="{{ asset($item->product->main_image) }}" alt="{{ $item->product->name }}" height="35px"
+                                                width="35px"></td>
                                             <td class="text-nowrap">{{ $item->product->name }}</td>
                                             <td>{{ \App\Helpers\Helper::formatCurrency($item->price) }}</td>
                                             <td>{{ $item->quantity }}</td>
                                             <td>{{ \App\Helpers\Helper::formatCurrency($item->total) }}</td>
                                         </tr>
+                                        @php
+                                            $totalCost += ($item->product->cost_price*$item->quantity);
+                                            $totalProfit += ($item->product->profit*$item->quantity);
+                                        @endphp
                                     @endforeach
                                 </tbody>
                             </table>
@@ -128,12 +139,16 @@
                                         <span>Thanks for your business</span> --}}
                                     </td>
                                     <td class="px-0 py-6 w-px-100">
+                                        <p class="mb-2">Cost Price:</p>
+                                        <p class="mb-2">Profit:</p>
                                         <p class="mb-2">Subtotal:</p>
                                         <p class="mb-2">Discount:</p>
                                         <p class="mb-2 border-bottom pb-2">Tax:</p>
                                         <p class="mb-0">Total:</p>
                                     </td>
                                     <td class="text-end px-0 py-6 w-px-100 fw-medium text-heading">
+                                        <p class="fw-medium mb-2">{{ \App\Helpers\Helper::formatCurrency($totalCost) }}</p>
+                                        <p class="fw-medium mb-2">{{ \App\Helpers\Helper::formatCurrency($totalProfit) }}</p>
                                         <p class="fw-medium mb-2">{{ \App\Helpers\Helper::formatCurrency($order->subtotal) }}</p>
                                         <p class="fw-medium mb-2">{{ \App\Helpers\Helper::formatCurrency(0) }}</p>
                                         <p class="fw-medium mb-2 border-bottom pb-2">0%</p>

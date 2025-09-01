@@ -72,6 +72,11 @@ class UserRolePermissionSeeder extends Seeder
         Permission::create(['name' => 'update withdraw']);
         Permission::create(['name' => 'delete withdraw']);
 
+        Permission::create(['name' => 'view withdraw request']);
+        Permission::create(['name' => 'create withdraw request']);
+        Permission::create(['name' => 'update withdraw request']);
+        Permission::create(['name' => 'delete withdraw request']);
+
 
         // Create Roles
         $superAdminRole = Role::create(['name' => 'super-admin']); //as super-admin

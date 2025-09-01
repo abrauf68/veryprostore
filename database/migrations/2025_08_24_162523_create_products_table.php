@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreignId('category_id')->nullable()
                 ->constrained('product_categories')
                 ->nullOnDelete();
+            $table->string('cost_price')->default('0');
             $table->string('price')->default('0');
             $table->string('profit')->default('0');
             $table->string('discount')->default('0');

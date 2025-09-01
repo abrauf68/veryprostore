@@ -18,6 +18,7 @@ use App\Http\Controllers\Dashboard\User\UserController;
 use App\Http\Controllers\Dashboard\User\VendorController;
 use App\Http\Controllers\Dashboard\WalletController;
 use App\Http\Controllers\Dashboard\WarehouseController;
+use App\Http\Controllers\Dashboard\WithdrawRequestController;
 use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -163,10 +164,13 @@ Route::middleware(['auth', 'verified'])->group(function () {
             // Warehouse Controller
             Route::resource('warehouse', WarehouseController::class);
 
-            // Warehouse Controller
+            // Wallet Controller
             Route::get('wallet', [WalletController::class, 'index'])->name('wallet.index');
             Route::get('withdraw', [WalletController::class, 'withdrawNow'])->name('withdraw.create');
             Route::post('withdraw', [WalletController::class, 'withdrawStore'])->name('withdraw.store');
+
+            // Withdraw Request Controller
+            Route::resource('withdraw-requests', WithdrawRequestController::class);
         });
     });
 });

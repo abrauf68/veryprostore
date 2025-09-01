@@ -23,9 +23,10 @@ class WarehouseController extends Controller
                 $products = Product::with('vendor', 'category')
                     ->where('vendor_id', $currentUser->id)
                     ->where('is_active', 'active')
+                    ->latest()
                     ->get();
             }else{
-                $products = Product::with('vendor', 'category')->where('vendor_id', '!=', null)->get();
+                $products = Product::with('vendor', 'category')->where('vendor_id', '!=', null)->latest()->get();
             }
             return view('dashboard.warehouse.index', compact('products'));
         } catch (\Throwable $th) {

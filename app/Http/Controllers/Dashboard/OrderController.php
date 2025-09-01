@@ -27,9 +27,9 @@ class OrderController extends Controller
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
                 $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
                     $q->where('vendor_id', $currentUser->id);
-                })->with(['orderItems.product', 'paymentMethod', 'billing'])->get();
+                })->with(['orderItems.product', 'paymentMethod', 'billing'])->latest()->get();
             } else {
-                $orders = Order::with('orderItems', 'paymentMethod', 'billing')->get();
+                $orders = Order::with('orderItems', 'paymentMethod', 'billing')->latest()->get();
             }
             return view('dashboard.orders.index', compact('orders'));
         } catch (\Throwable $th) {

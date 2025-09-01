@@ -164,7 +164,7 @@ class VendorController extends Controller
     {
         $this->authorize('view vendor');
         try {
-            $vendor = User::with('userShop', 'products', 'profile')->findOrFail($id);
+            $vendor = User::with('userShop', 'userBankDetail', 'products', 'profile')->findOrFail($id);
             $profile = Profile::with('gender', 'maritalStatus', 'language', 'designation', 'country')->where('user_id', $vendor->id)->first();
             $orders = Order::whereHas('orderItems.product', function($q) use ($vendor) {
                 $q->where('vendor_id', $vendor->id);

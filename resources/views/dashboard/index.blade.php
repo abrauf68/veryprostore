@@ -11,6 +11,21 @@
 
 @section('content')
     <div class="row g-6">
+        @if (\App\Helpers\Helper::getVendorOrders() > 0)
+            <div class="col-lg-12">
+                <div class="alert alert-danger alert-dismissible" role="alert">
+                    <div class="d-flex align-items-baseline">
+                        <span class="alert-icon rounded">
+                            <i class="icon-base ti ti-bell ti-md"></i>
+                        </span>
+                        <span>
+                            You have {{ \App\Helpers\Helper::getVendorOrders() }} new pending orders — proceed them!
+                        </span>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            </div>
+        @endif
         <!-- View sales -->
         <div class="col-xl-5">
             <div class="card">
@@ -72,7 +87,7 @@
                                         <i class="icon-base ti ti-currency-dollar icon-lg"></i>
                                     </div>
                                     <div class="card-info">
-                                        <h5 class="mb-0">{{ \App\Helpers\Helper::formatCurrency($totalRevenue) }}</h5>
+                                        <h5 class="mb-0">{{ \App\Helpers\Helper::formatCurrency($totalProfit) }}</h5>
                                         <small>Total Revenue</small>
                                     </div>
                                 </div>
@@ -91,13 +106,13 @@
                     <div class="card h-100">
                         <div class="card-header pb-0">
                             <h5 class="card-title mb-1">Profit</h5>
-                            <p class="card-subtitle">Last Month</p>
+                            <p class="card-subtitle">{{ $profitRangeLabel }}</p>
                         </div>
                         <div class="card-body">
                             <div id="profitLastMonth"></div>
                             <div class="d-flex justify-content-between align-items-center mt-3 gap-3">
-                                <h4 class="mb-0">624k</h4>
-                                <small class="text-success">+8.24%</small>
+                                <h4 class="mb-0">{{ \App\Helpers\Helper::formatCurrency($totalProfit) }}</h4>
+                                {{-- <small class="text-success">+8.24%</small> --}}
                             </div>
                         </div>
                     </div>
@@ -119,16 +134,20 @@
                                     @foreach ($popularProducts as $popularProduct)
                                         <li class="d-flex mb-6">
                                             <div class="me-4">
-                                                <img src="{{ asset($popularProduct->main_image) }}" alt="User" class="rounded"
-                                                    width="46" />
+                                                <img src="{{ asset($popularProduct->main_image) }}" alt="User"
+                                                    class="rounded" width="46" />
                                             </div>
-                                            <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                                            <div
+                                                class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
                                                 <div class="me-2">
                                                     <h6 class="mb-0">{{ $popularProduct->name }}</h6>
-                                                    <small class="text-body d-block">SKU: #{{ $popularProduct->sku }}</small>
+                                                    <small class="text-body d-block">SKU:
+                                                        #{{ $popularProduct->sku }}</small>
                                                 </div>
                                                 <div class="user-progress d-flex align-items-center gap-1">
-                                                    <p class="mb-0">{{ \App\Helpers\Helper::formatCurrency($popularProduct->price) }}</p>
+                                                    <p class="mb-0">
+                                                        {{ \App\Helpers\Helper::formatCurrency($popularProduct->price) }}
+                                                    </p>
                                                 </div>
                                             </div>
                                         </li>
@@ -187,8 +206,7 @@
                                     @canany(['delete order', 'update order', 'view order'])
                                         <td class="d-flex">
                                             @canany(['delete order'])
-                                                <form action="{{ route('dashboard.orders.destroy', $order->id) }}"
-                                                    method="POST">
+                                                <form action="{{ route('dashboard.orders.destroy', $order->id) }}" method="POST">
                                                     @method('DELETE')
                                                     @csrf
                                                     <a href="#" type="submit"
@@ -236,5 +254,54 @@
 
 @section('script')
     <!-- Page JS -->
-    <script src="{{ asset('assets/js/app-ecommerce-dashboard.js') }}"></script>
+    {{-- <script src="{{ asset('assets/js/app-ecommerce-dashboard.js') }}"></script> --}}
+    <script>
+        // Profit last month Line Chart
+        // --------------------------------------------------------------------
+        const profitLastMonthEl = document.querySelector('#profitLastMonth');
+
+        const profitLastMonthConfig = {
+            chart: {
+                height: 110,
+                type: 'line',
+                parentHeightOffset: 0,
+                toolbar: {
+                    show: false
+                }
+            },
+            colors: [config.colors.info],
+            stroke: {
+                width: 2
+            },
+            series: [{
+                name: "Profit",
+                data: @json($profitData) // ✅ inject PHP data into JS
+            }],
+            tooltip: {
+                enabled: true
+            },
+            xaxis: {
+                categories: [...Array({{ count($profitData) }}).keys()].map(i => i + 1), // days of month
+                labels: {
+                    show: false
+                },
+                axisTicks: {
+                    show: false
+                },
+                axisBorder: {
+                    show: false
+                }
+            },
+            yaxis: {
+                labels: {
+                    show: false
+                }
+            }
+        };
+
+        if (profitLastMonthEl) {
+            const profitLastMonth = new ApexCharts(profitLastMonthEl, profitLastMonthConfig);
+            profitLastMonth.render();
+        }
+    </script>
 @endsection

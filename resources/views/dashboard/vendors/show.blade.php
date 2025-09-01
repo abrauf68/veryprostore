@@ -7,6 +7,20 @@
     <li class="breadcrumb-item active">{{ __('Details') }}</li>
 @endsection
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-account-settings.css') }}" />
+    <style>
+        .edit-loader {
+            width: 100%;
+        }
+
+        .edit-loader .sk-chase {
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
+@endsection
+
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
         {{-- <div class="d-flex justify-content-between align-items-center mb-3">
@@ -61,7 +75,39 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="col-md-6">
+                    </div>
+                    <!-- Navbar pills -->
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="nav-align-top">
+                                <ul class="nav nav-pills flex-column flex-sm-row mb-6 gap-2 gap-lg-0">
+                                    <li class="nav-item">
+                                        <a class="nav-link profile-tab" href="#" data-target="#profile-section" data-query="profile">
+                                            <i class="ti-sm ti ti-user-check me-1_5"></i>
+                                            {{ __('Profile') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link profile-tab" href="#" data-target="#shop-details-section"
+                                            data-query="shop-details">
+                                            <i class="ti-sm ti ti-building-store me-1_5"></i>
+                                            {{ __('Shop Details') }}
+                                        </a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a class="nav-link profile-tab" href="#" data-target="#bank-details-section"
+                                            data-query="bank-details">
+                                            <i class="ti-sm ti ti-building-bank me-1_5"></i>
+                                            {{ __('Bank Details') }}
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <!--/ Navbar pills -->
+                    <div class="row">
+                        <div class="col-md-5">
                             <!-- About User -->
                             <div class="card mb-6">
                                 <div class="card-body">
@@ -211,75 +257,27 @@
                             </div>
                             <!--/ Profile Social -->
                         </div>
-                        <!-- Overall Leads Status -->
-                        <div class="col-md-6 col-xxl-4 mb-6">
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card h-100">
-                                        <div class="card-header d-flex justify-content-between">
-                                            <div class="card-title mb-0">
-                                                <h5 class="mb-1">Overall Orders Status</h5>
-                                                <p class="card-subtitle">Total {{ $totalOrders }} Orders Assigned to
-                                                    {{ $vendor->name }}</p>
-                                            </div>
-                                        </div>
-                                        <div class="card-body">
-                                            <ul class="p-0 m-0">
-                                                <li class="mb-6 d-flex justify-content-between align-items-center">
-                                                    <div class="badge bg-label-warning rounded p-1_5">
-                                                        <i class="ti ti-phone icon-md"></i>
-                                                        <!-- This can be a contact-related icon -->
-                                                    </div>
-                                                    <div class="d-flex justify-content-between w-100 flex-wrap">
-                                                        <h6 class="mb-0 ms-4">Pending</h6>
-                                                        <div class="d-flex">
-                                                            <p class="mb-0">{{ $pendingOrders }}</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="mb-6 d-flex justify-content-between align-items-center">
-                                                    <div class="badge bg-label-info rounded p-1_5">
-                                                        <i class="ti ti-heart icon-md"></i> <!-- Icon for interested -->
-                                                    </div>
-                                                    <div class="d-flex justify-content-between w-100 flex-wrap">
-                                                        <h6 class="mb-0 ms-4">Shipped</h6>
-                                                        <div class="d-flex">
-                                                            <p class="mb-0">{{ $shippedOrders }}</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="mb-6 d-flex justify-content-between align-items-center">
-                                                    <div class="badge bg-label-success rounded p-1_5">
-                                                        <i class="ti ti-check icon-md"></i> <!-- Icon for converted -->
-                                                    </div>
-                                                    <div class="d-flex justify-content-between w-100 flex-wrap">
-                                                        <h6 class="mb-0 ms-4">Completed</h6>
-                                                        <div class="d-flex">
-                                                            <p class="mb-0">{{ $completedOrders }}</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-
-                                                <li class="mb-6 d-flex justify-content-between align-items-center">
-                                                    <div class="badge bg-label-danger rounded p-1_5">
-                                                        <i class="ti ti-ban icon-md"></i> <!-- Icon for not interested -->
-                                                    </div>
-                                                    <div class="d-flex justify-content-between w-100 flex-wrap">
-                                                        <h6 class="mb-0 ms-4">Cancelled</h6>
-                                                        <div class="d-flex">
-                                                            <p class="mb-0">{{ $cancelledOrders }}</p>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </div>
-                                    </div>
+                        <div class="col-xl-7 col-lg-7 col-md-7 vendor-show">
+                            <div class="edit-loader">
+                                <div class="sk-chase sk-primary">
+                                    <div class="sk-chase-dot"></div>
+                                    <div class="sk-chase-dot"></div>
+                                    <div class="sk-chase-dot"></div>
+                                    <div class="sk-chase-dot"></div>
+                                    <div class="sk-chase-dot"></div>
+                                    <div class="sk-chase-dot"></div>
                                 </div>
                             </div>
+                            <div id="profile-section" style="display: none;">
+                                @include('dashboard.vendors.sections.activity')
+                            </div>
+                            <div id="shop-details-section" style="display: none;">
+                                @include('dashboard.vendors.sections.shop-details')
+                            </div>
+                            <div id="bank-details-section" style="display: none;">
+                                @include('dashboard.vendors.sections.bank-details')
+                            </div>
                         </div>
-                        <!--/ Overall Leads Status -->
 
                         <h4>Assigned Products to {{ $vendor->name }}</h4>
                         <div class="col-md-12">
@@ -366,6 +364,70 @@
 @section('script')
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            function activateTabFromURL() {
+                var urlParams = new URLSearchParams(window.location.search);
+                var activeTab = urlParams.get('tab') || 'profile'; // Default to 'company'
+
+                var tabMapping = {
+                    'profile': '#profile-section',
+                    'shop-details': '#shop-details-section',
+                    'bank-details': '#bank-details-section',
+                };
+
+                var activeTabSelector = tabMapping[activeTab] || '#profile-section';
+
+                $('.vendor-show > div').hide(); // Hide all sections initially
+
+                setTimeout(function() {
+                    $('.edit-loader').fadeOut(); // Hide loader
+                    $(activeTabSelector).fadeIn(); // Show the selected section
+                    $('a.profile-tab').removeClass('active');
+                    $('a[data-target="' + activeTabSelector + '"]').addClass('active');
+                }, 100); // 1-second delay to simulate loading effect
+            }
+
+            activateTabFromURL(); // Load the correct tab immediately on page load
+
+            $('a.profile-tab').on('click', function(e) {
+                e.preventDefault();
+
+                $('.edit-loader').fadeIn(); // Show loader on tab switch
+                $('a.profile-tab').removeClass('active');
+                $('.vendor-show > div').hide();
+
+                $(this).addClass('active');
+
+                var target = $(this).data('target');
+                var queryValue = $(this).data('query');
+
+                setTimeout(function() {
+                    $('.edit-loader').fadeOut();
+                    $(target).fadeIn();
+                }, 100); // Shorter delay for smoother experience
+
+                var newURL = window.location.pathname + '?tab=' + queryValue;
+                window.history.pushState({
+                    path: newURL
+                }, '', newURL);
+            });
+
+            window.addEventListener('popstate', activateTabFromURL);
+
+            function toggleFields() {
+                $("#bankFields, #upiFields, #binanceFields").addClass("d-none");
+
+                let method = $("#method").val();
+                if (method === "bank") $("#bankFields").removeClass("d-none");
+                if (method === "upi") $("#upiFields").removeClass("d-none");
+                if (method === "binance") $("#binanceFields").removeClass("d-none");
+            }
+
+            $("#method").on("change", toggleFields);
+            toggleFields(); // Run on page load
+        });
+    </script>
     <script>
         const jsPDF = window.jspdf.jsPDF;
 

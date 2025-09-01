@@ -45,22 +45,22 @@
                             @enderror
                         </div>
                         <div class="mb-4 col-md-4">
-                            <label for="price" class="form-label">{{ __('Price') }}</label><span
+                            <label for="cost_price" class="form-label">{{ __('Cost Price') }}</label><span
                                 class="text-danger">*</span>
-                            <input class="form-control @error('price') is-invalid @enderror" type="number" step="any" id="price"
-                                name="price" required placeholder="{{ __('Enter price') }}" />
-                            @error('price')
+                            <input class="form-control @error('cost_price') is-invalid @enderror" type="number" step="any" id="cost_price"
+                                name="cost_price" required placeholder="{{ __('Enter cost price') }}" />
+                            @error('cost_price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
                         </div>
                         <div class="mb-4 col-md-4">
-                            <label for="profit" class="form-label">{{ __('Profit') }}</label><span
+                            <label for="price" class="form-label">{{ __('Retail Price') }}</label><span
                                 class="text-danger">*</span>
-                            <input class="form-control @error('profit') is-invalid @enderror" type="number" step="any" id="profit"
-                                name="profit" required placeholder="{{ __('Enter profit') }}" />
-                            @error('profit')
+                            <input class="form-control @error('price') is-invalid @enderror" type="number" step="any" id="price"
+                                name="price" required placeholder="{{ __('Enter price') }}" />
+                            @error('price')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

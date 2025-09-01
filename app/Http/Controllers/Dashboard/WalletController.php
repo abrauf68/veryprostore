@@ -24,9 +24,9 @@ class WalletController extends Controller
                     $q->where('vendor_id', $currentUser->id);
                 })->with(['orderItems.product', 'paymentMethod', 'billing'])->get();
 
-                $withdrawalRequests = WithdrawalRequest::where('user_id', $currentUser->id)->get();
+                $withdrawalRequests = WithdrawalRequest::where('user_id', $currentUser->id)->latest()->get();
             } else {
-                $orders = Order::with('orderItems.product', 'paymentMethod', 'billing')->get();
+                $orders = Order::with('orderItems.product', 'paymentMethod', 'billing')->latest()->get();
                 $withdrawalRequests = WithdrawalRequest::all();
             }
 
@@ -132,7 +132,7 @@ class WalletController extends Controller
     public function withdrawStore(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'amount' => 'required|min:0',
+            'amount' => 'required|numeric|min:1',
             'method' => 'required|in:bank,upi,binance',
         ]);
 
