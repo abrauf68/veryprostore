@@ -31,4 +31,9 @@ class ProductCategory extends Model
     {
         return $this->hasMany(ProductCategory::class, 'parent_category_id')->where('is_active', 'active');
     }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
 }

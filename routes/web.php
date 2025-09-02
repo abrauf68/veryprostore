@@ -199,6 +199,9 @@ Route::name('frontend.')->group(function () {
     Route::get('/checkout', [CheckoutController::class, 'index'])->name('checkout');
     Route::post('/checkout/store', [CheckoutController::class, 'store'])->name('checkout.proceed');
     Route::get('/order-confirmation/{order_no}', [CheckoutController::class, 'orderConfirmation'])->name('order.confirm');
+
+    //newsletters store
+    Route::post('/newsletter/store', [FrontendHomeController::class, 'newsletterStore'])->name('newsletter.store');
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware(['check.activation'])->group(function () {
             Route::get('/account', [AccountController::class, 'index'])->name('account');

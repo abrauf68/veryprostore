@@ -7839,7 +7839,7 @@ body .product-popup {
     max-width: 40rem;
     min-height: 40rem;
     padding: 0rem 2rem;
-    background-image: url(../../assets/images/newsletter-2.jpg);
+    background-image: url(../../frontAssets/images/newsletter-2.jpg);
     text-align: center;
     -webkit-box-align: center;
         -ms-flex-align: center;

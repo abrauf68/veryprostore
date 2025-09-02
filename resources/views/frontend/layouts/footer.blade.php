@@ -30,7 +30,7 @@
                      </div>
                  </div>
                  <div class="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
-                     <form action="#" method="get"
+                     <form action="{{ route('frontend.newsletter.store') }}" method="get"
                          class="input-wrapper input-wrapper-inline input-wrapper-rounded">
                          <input type="email" class="form-control mr-2 bg-white" name="email" id="email"
                              placeholder="Your E-mail Address" />
