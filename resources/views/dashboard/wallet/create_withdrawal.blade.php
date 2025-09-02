@@ -189,7 +189,7 @@
                         </div>
 
                         <div class="col-12">
-                            <button type="submit" class="btn btn-primary">{{ __('Save Details') }}</button>
+                            <button type="submit" class="btn btn-primary">{{ __('Withdraw Now') }}</button>
                         </div>
                     </div>
                 </form>

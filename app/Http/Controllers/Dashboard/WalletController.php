@@ -59,7 +59,8 @@ class WalletController extends Controller
                 ->sum('amount');
 
             // remaining balance (earned but not yet withdrawn or pending)
-            $remainingAmount = $totalProfit - ($pendingWithdraw + $totalWithdraw);
+            $totalAmount = $totalProfit + $totalCost;
+            $remainingAmount = $totalAmount - ($pendingWithdraw + $totalWithdraw);
 
             return view('dashboard.wallet.index', compact(
                 'orders',
@@ -70,6 +71,7 @@ class WalletController extends Controller
                 'totalWithdraw',
                 'pendingWithdraw',
                 'remainingAmount',
+                'totalAmount',
             ));
         } catch (\Throwable $th) {
             Log::error('wallet Index Failed', ['error' => $th->getMessage()]);
@@ -108,11 +110,14 @@ class WalletController extends Controller
         }
 
         $totalProfit = 0;
+        $totalCost = 0;
 
         foreach ($orders as $order) {
             foreach ($order->orderItems as $item) {
                 $product = $item->product;
                 if (!$product) continue;
+
+                $totalCost += $product->cost_price * $item->quantity;
 
                 if ($order->status === 'completed') {
                     $totalProfit += $product->profit * $item->quantity;
@@ -125,7 +130,10 @@ class WalletController extends Controller
         $pendingWithdraw = $withdrawalRequests->whereIn('status', ['pending', 'inprogress'])->sum('amount');
 
         // ✅ Remaining = profit - all withdrawals (successful + pending)
-        return $totalProfit - ($totalWithdraw + $pendingWithdraw);
+        $totalAmount = $totalProfit + $totalCost;
+        $remainingAmount = $totalAmount - ($pendingWithdraw + $totalWithdraw);
+        return $remainingAmount;
+        // return $totalProfit - ($totalWithdraw + $pendingWithdraw);
     }
 
 
@@ -168,6 +176,7 @@ class WalletController extends Controller
         try {
             $currentUser = User::findOrFail(auth()->user()->id);
             $remainingAmount = $this->getRemainingAmount($currentUser->id);
+            // dd($remainingAmount);
             if ($remainingAmount < $request->amount) {
                 return redirect()->back()->with('error', "Insufficient Balance");
             }

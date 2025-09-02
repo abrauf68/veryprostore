@@ -34,7 +34,7 @@
         <!-- Dashboards -->
         <li class="menu-item {{ request()->routeIs('dashboard') ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="menu-link">
-                <i class="menu-icon tf-icons ti ti-smart-home"></i>
+                <i class="menu-icon gradient-icon tf-icons ti ti-smart-home gradient-icon"></i>
                 <div>{{__('Dashboard')}}</div>
             </a>
         </li>
@@ -43,18 +43,45 @@
         <li class="menu-header small">
             <span class="menu-header-text">{{__('Apps & Pages')}}</span>
         </li>
-        @can(['view product'])
-            <li class="menu-item {{ request()->routeIs('dashboard.products.*') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.products.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-package"></i>
-                    <div>{{__('Products')}}</div>
-                </a>
-            </li>
-        @endcan
+        @role('vendor')
+            @can(['view product'])
+                <li class="menu-item {{ request()->routeIs('dashboard.products.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.products.index') }}" class="menu-link">
+                        <i class="menu-icon gradient-icon tf-icons ti ti-building-warehouse"></i>
+                        <div>{{__('Warehouse')}}</div>
+                    </a>
+                </li>
+            @endcan
+            @can(['view warehouse'])
+                <li class="menu-item {{ request()->routeIs('dashboard.warehouse.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.warehouse.index') }}" class="menu-link">
+                        <i class="menu-icon gradient-icon tf-icons ti ti-package"></i>
+                        <div>{{__('Products')}}</div>
+                    </a>
+                </li>
+            @endcan
+        @else
+            @can(['view product'])
+                <li class="menu-item {{ request()->routeIs('dashboard.products.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.products.index') }}" class="menu-link">
+                        <i class="menu-icon gradient-icon tf-icons ti ti-package"></i>
+                        <div>{{__('Products')}}</div>
+                    </a>
+                </li>
+            @endcan
+            @can(['view warehouse'])
+                <li class="menu-item {{ request()->routeIs('dashboard.warehouse.*') ? 'active' : '' }}">
+                    <a href="{{ route('dashboard.warehouse.index') }}" class="menu-link">
+                        <i class="menu-icon gradient-icon tf-icons ti ti-building-warehouse"></i>
+                        <div>{{__('Warehouse')}}</div>
+                    </a>
+                </li>
+            @endcan
+        @endrole
         @can(['view order'])
             <li class="menu-item {{ request()->routeIs('dashboard.orders.*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.orders.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-shopping-cart"></i>
+                    <i class="menu-icon gradient-icon tf-icons ti ti-shopping-cart"></i>
                     <div>{{__('Orders')}}</div>
                     @if (\App\Helpers\Helper::getVendorOrders() > 0)
                         <div class="badge text-bg-danger rounded-pill ms-auto">{{ \App\Helpers\Helper::getVendorOrders() }}</div>
@@ -62,19 +89,11 @@
                 </a>
             </li>
         @endcan
-        @can(['view warehouse'])
-            <li class="menu-item {{ request()->routeIs('dashboard.warehouse.*') ? 'active' : '' }}">
-                <a href="{{ route('dashboard.warehouse.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-building-warehouse"></i>
-                    <div>{{__('Warehouse')}}</div>
-                </a>
-            </li>
-        @endcan
         @role('vendor')
             @can(['view wallet'])
                 <li class="menu-item {{ request()->routeIs('dashboard.wallet.*') ? 'active' : '' }}">
                     <a href="{{ route('dashboard.wallet.index') }}" class="menu-link">
-                        <i class="menu-icon tf-icons ti ti-wallet"></i>
+                        <i class="menu-icon gradient-icon tf-icons ti ti-wallet"></i>
                         <div>{{__('Wallet')}}</div>
                     </a>
                 </li>
@@ -83,7 +102,7 @@
         @can(['view withdraw request'])
             <li class="menu-item {{ request()->routeIs('dashboard.withdraw-requests.*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.withdraw-requests.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-wallet"></i>
+                    <i class="menu-icon gradient-icon tf-icons ti ti-wallet"></i>
                     <div>{{__('Withdraw Requests')}}</div>
                     @if (\App\Helpers\Helper::getWithdrawRequests() > 0)
                         <div class="badge text-bg-danger rounded-pill ms-auto">{{ \App\Helpers\Helper::getWithdrawRequests() }}</div>
@@ -94,7 +113,7 @@
         @canany(['view user', 'view archived user', 'vendor'])
             <li class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*')  || request()->routeIs('dashboard.vendors.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    <i class="menu-icon tf-icons ti ti-users"></i>
+                    <i class="menu-icon gradient-icon tf-icons ti ti-users"></i>
                     <div>{{__('Users')}}</div>
                 </a>
                 <ul class="menu-sub">
@@ -125,8 +144,8 @@
         @canany(['view role', 'view permission'])
             <li class="menu-item {{ request()->routeIs('dashboard.roles.*') || request()->routeIs('dashboard.permissions.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">
-                    {{-- <i class="menu-icon tf-icons ti ti-settings"></i> --}}
-                    <i class="menu-icon tf-icons ti ti-shield-lock"></i>
+                    {{-- <i class="menu-icon gradient-icon tf-icons ti ti-settings"></i> --}}
+                    <i class="menu-icon gradient-icon tf-icons ti ti-shield-lock"></i>
                     <div>{{__('Roles & Permissions')}}</div>
                 </a>
                 <ul class="menu-sub">
@@ -150,7 +169,7 @@
         @can(['view setting'])
             <li class="menu-item {{ request()->routeIs('dashboard.setting.*') ? 'active' : '' }}">
                 <a href="{{ route('dashboard.setting.index') }}" class="menu-link">
-                    <i class="menu-icon tf-icons ti ti-settings"></i>
+                    <i class="menu-icon gradient-icon tf-icons ti ti-settings"></i>
                     <div>{{__('Settings')}}</div>
                 </a>
             </li>

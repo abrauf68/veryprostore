@@ -9,6 +9,21 @@
     @include('layouts.meta')
     @include('layouts.css')
     @yield('css')
+    <style>
+        .gradient-icon {
+            background: linear-gradient(135deg, #1da1f2, #8e2de2); /* blue → purple */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-fill-color: transparent;
+        }
+        /* When menu-item is active → force icon white */
+        .menu-item.active .gradient-icon {
+            background: none;
+            -webkit-text-fill-color: #fff;
+            text-fill-color: #fff;
+        }
+    </style>
 </head>
 
 <body>

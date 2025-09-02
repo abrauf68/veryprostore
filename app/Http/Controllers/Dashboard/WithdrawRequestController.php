@@ -22,9 +22,9 @@ class WithdrawRequestController extends Controller
             $currentUser = User::findOrFail(auth()->user()->id);
 
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $withdrawalRequests = WithdrawalRequest::with('user')->where('user_id', $currentUser->id)->get();
+                $withdrawalRequests = WithdrawalRequest::with('user')->where('user_id', $currentUser->id)->latest()->get();
             } else {
-                $withdrawalRequests = WithdrawalRequest::with('user')->get();
+                $withdrawalRequests = WithdrawalRequest::with('user')->latest()->get();
             }
 
             return view('dashboard.withdraw-requests.index', compact(

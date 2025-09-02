@@ -30,8 +30,9 @@
                      </div>
                  </div>
                  <div class="col-xl-7 col-lg-6 col-md-9 mt-4 mt-lg-0 ">
-                     <form action="{{ route('frontend.newsletter.store') }}" method="get"
+                     <form action="{{ route('frontend.newsletter.store') }}" method="POST"
                          class="input-wrapper input-wrapper-inline input-wrapper-rounded">
+                         @csrf
                          <input type="email" class="form-control mr-2 bg-white" name="email" id="email"
                              placeholder="Your E-mail Address" />
                          <button class="btn btn-dark btn-rounded" type="submit">Subscribe<i
