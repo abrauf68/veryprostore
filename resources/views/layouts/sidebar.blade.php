@@ -12,6 +12,21 @@
             <i class="ti ti-x d-block d-xl-none ti-md align-middle"></i>
         </a>
     </div>
+    @role('vendor')
+        <div class="user_info d-flex align-items-center text-start border-bottom px-3 py-2">
+            <div class="avatar avatar-sm me-3">
+                <span class="avatar-initial rounded-circle bg-label-primary fs-3">
+                    <i class="ti ti-user"></i>
+                </span>
+            </div>
+            <div class="overflow-hidden">
+                <h6 class="mb-0 fw-bold">{{ Auth::user()->userShop->shop_name }}</h6>
+                <small class="text-muted d-block text-truncate" style="max-width: 150px;">
+                    {{ Auth::user()->email }}
+                </small>
+            </div>
+        </div>
+    @endrole
 
     <div class="menu-inner-shadow"></div>
 

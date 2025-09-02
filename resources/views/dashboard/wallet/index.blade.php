@@ -14,6 +14,22 @@
         <div class="row g-6">
             <!-- Card Border Shadow -->
             <div class="col-lg-3 col-sm-6">
+                <div class="card card-border-shadow-danger h-100">
+                    <div class="card-body">
+                        <div class="d-flex align-items-center mb-2">
+                            <div class="avatar me-4">
+                                <span class="avatar-initial rounded bg-label-danger">
+                                    <i class="icon-base ti ti-briefcase icon-28px"></i>
+                                </span>
+                            </div>
+                            <h4 class="mb-0">{{ \App\Helpers\Helper::formatCurrency($totalCost) }}</h4>
+                        </div>
+                        <p class="mb-1">Total Investment</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3 col-sm-6">
                 <div class="card card-border-shadow-success h-100">
                     <div class="card-body">
                         <div class="d-flex align-items-center mb-2">
@@ -76,7 +92,8 @@
             <div class="card-header d-flex justify-content-between align-items-center">
                 <h4>Recent Withdraws</h4>
                 @canany(['create withdraw'])
-                    <a href="{{ route('dashboard.withdraw.create') }}" class="add-new btn btn-primary waves-effect waves-light float-end">
+                    <a href="{{ route('dashboard.withdraw.create') }}"
+                        class="add-new btn btn-primary waves-effect waves-light float-end">
                         <i class="ti ti-plus me-0 me-sm-1 ti-xs"></i><span
                             class="d-none d-sm-inline-block">{{ __('Withdraw Now') }}</span>
                     </a>
@@ -112,7 +129,8 @@
                                         ];
                                     @endphp
 
-                                    <span class="badge me-4 bg-label-{{ $statusColors[$withdraw->status] ?? 'secondary' }}">
+                                    <span
+                                        class="badge me-4 bg-label-{{ $statusColors[$withdraw->status] ?? 'secondary' }}">
                                         {{ ucfirst($withdraw->status) }}
                                     </span>
                                 </td>

@@ -41,7 +41,7 @@ class WalletController extends Controller
                     if (!$product) continue;
 
                     // total cost = price * qty
-                    $totalCost += $product->price * $item->quantity;
+                    $totalCost += $product->cost_price * $item->quantity;
 
                     // check order status
                     if ($order->status === 'completed') {
