@@ -48,6 +48,10 @@ class Helper
             return $companyPhone;
         }
     }
+    public static function getCompanyEmail()
+    {
+        return CompanySetting::first()->email ?? 'test@gmail.com';
+    }
     public static function getCompanyCity()
     {
         return CompanySetting::first()->city ?? 'New York';

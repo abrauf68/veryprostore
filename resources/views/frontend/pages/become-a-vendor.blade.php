@@ -31,18 +31,18 @@
                 <div class="row align-items-center">
                     <div class="col-md-6 mb-4 mb-md-0">
                         <figure class="br-sm">
-                            <img src="{{ asset('frontAssets/images/pages/become/1.jpg') }}" alt="Banner" width="610" height="435"
-                                style="background-color: #D9D8DD;" />
+                            <img src="{{ asset('frontAssets/images/pages/become/1.jpg') }}" alt="Banner" width="610"
+                                height="435" style="background-color: #D9D8DD;" />
                         </figure>
                     </div>
                     <div class="col-md-6 order-md-first">
                         <h4 class="text-primary font-weight-bold ls-25">Create a Store</h4>
-                        <h2 class="title text-left">Build your online store on Wolmart</h2>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing sed do eiusmod
-                            tempor incididunt ut labore et dolore magna aliqua. Venenatis tellus in
-                            metus vulputate eu scelerisque felis.
-                        </p>
-                        <a href="#" class="btn btn-dark btn-outline btn-rounded ls-25">Learn More</a>
+                        <h2 class="title text-left">Build your online store on VeryProStore</h2>
+                        <p>Join thousands of entrepreneurs by creating your very own online shop.
+                            Our platform makes it simple to showcase products, reach new customers,
+                            and grow your brand with powerful selling tools designed for all vendors.</p>
+                        <a href="{{ route('frontend.faqs') }}" class="btn btn-dark btn-outline btn-rounded ls-25">Learn
+                            More</a>
                     </div>
                 </div>
                 <!-- End of Row -->
@@ -54,15 +54,16 @@
                     <div class="row align-items-center">
                         <div class="col-lg-6 mb-4 mb-lg-0">
                             <figure class="br-sm">
-                                <img src="{{ asset('frontAssets/images/pages/become/2.jpg') }}" alt="Banner" width="610" height="520"
-                                    style="background-color: #C9C8CD;" />
+                                <img src="{{ asset('frontAssets/images/pages/become/2.jpg') }}" alt="Banner"
+                                    width="610" height="520" style="background-color: #C9C8CD;" />
                             </figure>
                         </div>
                         <div class="col-lg-6 pl-lg-8">
                             <h4 class="text-primary font-weight-bold ls-25">How to Trade</h4>
-                            <h2 class="title text-left">Easy 4 steps to manage your products selling</h2>
-                            <p class="mb-6">Lorem ipsum dolor sit amet, consectetur adipiscing sed do eiusmod metus vul
-                                tempor incididunt ut labore et dolore magna aliqua. Venen ate.</p>
+                            <h2 class="title text-left">Easy 4 steps to start selling online</h2>
+                            <p class="mb-6">Becoming a vendor at VeryProStore is simple and rewarding.
+                                Just follow these steps to list your products, reach new buyers,
+                                and grow your business with ease.</p>
                             <div class="row cols-sm-2 mb-1">
                                 <div class="stage-item mb-6 stage-register d-flex align-items-center">
                                     <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -164,17 +165,16 @@
 
             <div class="container few-fees mt-10 mb-2 mb-lg-10 pt-2 pt-lg-9">
                 <h4 class="text-center text-primary text-capitalize font-weight-bold ls-25">Only Few Fees</h4>
-                <h2 class="title title-center mb-3">All is secured and Transparent</h2>
-                <p class="text-center mb-2 mb-lg-10">Nunc id cursus metus aliquam. Libero id faucibus nisl tincidunt eget.
-                </p>
+                <h2 class="title title-center mb-3">All is Secured and Transparent</h2>
+                <p class="text-center mb-2 mb-lg-10">Our pricing is simple and fair. No hidden charges, only clear fees you
+                    can trust.</p>
                 <div class="row">
                     <div class="col-sm-6 listing-fee">
                         <div class="counter text-center">
                             <span>$</span>
                             <span class="count-to" data-to="0">0</span>
                             <h4>Listing Fee</h4>
-                            <p>Diam maecenas ultricies mi eget mauris
-                                Nibh tellus molestie nunc non</p>
+                            <p>List your products for free anytime with no upfront cost or extra charges.</p>
                         </div>
                     </div>
                     <div class="col-sm-6 final-fee">
@@ -182,12 +182,12 @@
                             <span class="count-to" data-to="5">0</span>
                             <span>%</span>
                             <h4>Final Value Fee</h4>
-                            <p>Diam maecenas ultricies mi eget mauris
-                                Nibh tellus molestie nunc non</p>
+                            <p>Only a small fee is charged when your item sells, keeping it simple and fair.</p>
                         </div>
                     </div>
                 </div>
             </div>
+
             <!-- End of Container -->
 
             <div class="bg-grey pt-2 pt-lg-10 wolmart-sellers pb-10">
@@ -195,34 +195,33 @@
                     <div class="row">
                         <div class="col-lg-4 mb-4 mb-lg-0">
                             <h4 class="text-primary font-weight-bold ls-25">What they say</h4>
-                            <h2 class="title text-left ls-25">Success stories from Wolmart sellers</h2>
-                            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing
-                                hendrerit. Pellentesque aliquet nibh nec urna dolor sit
-                                In nisi dapibus id, mattis</p>
-                            <a href="vendor-dokan-store.html" class="btn btn-dark btn-link btn-underline btn-icon-right">
-                                Visit Vendors<i class="w-icon-long-arrow-right"></i></a>
+                            <h2 class="title text-left ls-25">Success stories from VeryProStore sellers</h2>
+                            <p>Our vendors share their journey of growth and success. From small beginnings
+                                to thriving businesses, discover how selling with us made a real difference.</p>
+                            {{-- <a href="vendor-dokan-store.html" class="btn btn-dark btn-link btn-underline btn-icon-right">
+                                Visit Vendors<i class="w-icon-long-arrow-right"></i></a> --}}
                         </div>
                         <!-- End of Col -->
                         <div class="col-lg-8">
                             <div class="swiper">
                                 <div class="swiper-container swiper-theme"
                                     data-swiper-options="{
-                                        'spaceBetween': 20,
-                                        'slidesPerView': 1,
-                                        'loop': true,
-                                        'breakpoints': {
-                                            '576': {
-                                                'slidesPerView': 2
-                                            }
-                                        }
-                                    }">
+                            'spaceBetween': 20,
+                            'slidesPerView': 1,
+                            'loop': true,
+                            'breakpoints': {
+                                '576': {
+                                    'slidesPerView': 2
+                                }
+                            }
+                        }">
                                     <div class="swiper-wrapper row cols-sm-2">
                                         <div class="swiper-slide testimonial-wrap">
                                             <div class="testimonial testimonial-centered testimonial-boxed bg-white br-sm">
                                                 <div class="testimonial-info">
                                                     <figure class="testimonial-author-thumbnail">
-                                                        <img src="{{ asset('frontAssets/images/agents/1-100x100.png') }}" alt="Testimonial"
-                                                            width="100" height="100" />
+                                                        <img src="{{ asset('frontAssets/images/agents/1-100x100.png') }}"
+                                                            alt="Testimonial" width="100" height="100" />
                                                     </figure>
                                                     <div class="ratings-container">
                                                         <div class="ratings-full">
@@ -231,12 +230,11 @@
                                                     </div>
                                                 </div>
                                                 <blockquote>
-                                                    Lorem ipsum dolor sit amet, consectetuerd
-                                                    do Pellentesque aliquet nib Nullamer
-                                                    mnequtesq nibhue aliquet urnaIn mattis...
+                                                    “Selling here has been a game-changer for my store.
+                                                    The platform is easy to use and my sales grew faster than I expected.”
                                                 </blockquote>
                                                 <cite class="ls-25">
-                                                    Victoria Ventura<span>Investor</span>
+                                                    Victoria Ventura<span>Fashion Retailer</span>
                                                 </cite>
                                             </div>
                                         </div>
@@ -244,8 +242,8 @@
                                             <div class="testimonial testimonial-centered testimonial-boxed bg-white br-sm">
                                                 <div class="testimonial-info">
                                                     <figure class="testimonial-author-thumbnail">
-                                                        <img src="{{ asset('frontAssets/images/agents/2-100x100.png') }}" alt="Testimonial"
-                                                            width="100" height="100" />
+                                                        <img src="{{ asset('frontAssets/images/agents/2-100x100.png') }}"
+                                                            alt="Testimonial" width="100" height="100" />
                                                     </figure>
                                                     <div class="ratings-container">
                                                         <div class="ratings-full">
@@ -254,21 +252,20 @@
                                                     </div>
                                                 </div>
                                                 <blockquote>
-                                                    Lorem ipsum dolor sit amet, consectetuerd
-                                                    do Pellentesque aliquet nib Nullamer
-                                                    mnequtesq nibhue aliquet urnaIn mattis...
+                                                    “I started small, but within months I reached new customers
+                                                    nationwide. The support team is excellent and always ready to help.”
                                                 </blockquote>
                                                 <cite class="ls-25">
-                                                    Henry Harry<span>Investor</span>
+                                                    Henry Harry<span>Electronics Seller</span>
                                                 </cite>
                                             </div>
                                         </div>
                                         <div class="swiper-slide testimonial-wrap">
                                             <div class="testimonial testimonial-centered testimonial-boxed bg-white br-sm">
-                                                <div class=" testimonial-info">
+                                                <div class="testimonial-info">
                                                     <figure class="testimonial-author-thumbnail">
-                                                        <img src="{{ asset('frontAssets/images/agents/3-100x100.png') }}" alt="Testimonial"
-                                                            width="100" height="100" />
+                                                        <img src="{{ asset('frontAssets/images/agents/3-100x100.png') }}"
+                                                            alt="Testimonial" width="100" height="100" />
                                                     </figure>
                                                     <div class="ratings-container">
                                                         <div class="ratings-full">
@@ -277,12 +274,11 @@
                                                     </div>
                                                 </div>
                                                 <blockquote>
-                                                    Lorem ipsum dolor sit amet, consectetuerd
-                                                    do Pellentesque aliquet nib Nullamer
-                                                    mnequtesq nibhue aliquet urnaIn mattis...
+                                                    “VeryProStore gave me the tools to showcase my products
+                                                    professionally. My customer base keeps growing every month.”
                                                 </blockquote>
                                                 <cite class="ls-25">
-                                                    Anna Miranda<span>Investor</span>
+                                                    Anna Miranda<span>Home Decor Seller</span>
                                                 </cite>
                                             </div>
                                         </div>
@@ -296,41 +292,45 @@
                 </div>
                 <!-- End of Container -->
             </div>
+
             <!-- End of Wolamrt Sellers -->
 
             <div class="container questions mt-2 mt-lg-10 mb-5 mb-lg-9">
                 <h4 class="text-center text-primary font-weight-bold text-capitalize ls-25">Frequently Asked Questions</h4>
-                <h2 class="title title-center">Find an answer to your Question</h2>
+                <h2 class="title title-center">Find an Answer to Your Question</h2>
                 <div class="row">
                     <div class="col-md-6">
                         <h4 class="font-weight-bold ls-25">How can I add new products?</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Venenatis tellus in metus vulputate eu
-                            scelerisquefelis. Vel pretium lectus quam id leo in vitae turpis massa. </p>
+                        <p>Adding products is quick and simple. Log into your seller dashboard, click
+                            “Add Product,” upload your images, fill in details like price and description,
+                            and publish your item for customers to see.</p>
+
                         <h4 class="font-weight-bold ls-25">How can I know stock?</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Venenatis tellus.</p>
+                        <p>You can easily check stock levels in your vendor panel. Each product shows
+                            available quantities, and you’ll also receive alerts when inventory is running low.</p>
                     </div>
                     <div class="col-md-6">
                         <h4 class="font-weight-bold ls-25">How do I get paid?</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. Venenatis tellus in metus vulputate eu
-                            scelerisquefelis. </p>
+                        <p>Payments are transferred securely to your bank or preferred method once your
+                            order is delivered. You can track all transactions from your seller account in real time.</p>
+
                         <h4 class="font-weight-bold ls-25">Do I need a credit or debit card to create a shop?</h4>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
-                            incididunt ut labore et dolore magna aliqua. </p>
+                        <p>No, setting up your shop is completely free. You only need a valid email and
+                            basic business details to start listing and selling your products.</p>
                     </div>
                 </div>
             </div>
+
             <!-- End of Container -->
 
             <div class="banner parallax" data-parallax-options="{'speed': 10, 'parallaxHeight': '200%', 'offset': -99}"
-                data-image-src="{{ asset('frontAssets/images/pages/become/3.jpg') }}" style="background-color: #929294;">
+                data-image-src="{{ asset('frontAssets/images/pages/become/3.jpg') }}" style="background: url({{ asset('frontAssets/images/pages/become/3.jpg') }});">
                 <div class="container">
                     <div class="banner-content text-center">
                         <h2 class="title title-center text-white font-weight-bold">Let’s talk about how we can make
                             brands work for you</h2>
-                        <a href="{{ route('login') }}" class="btn btn-white btn-outline btn-rounded ls-25">Register Now</a>
+                        <a href="{{ route('register') }}" class="btn btn-white btn-outline btn-rounded ls-25">Register
+                            Now</a>
                     </div>
                 </div>
             </div>

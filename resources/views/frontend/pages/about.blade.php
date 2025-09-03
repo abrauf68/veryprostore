@@ -32,21 +32,22 @@
             <div class="container">
                 <section class="introduce mb-10 pb-10">
                     <h2 class="title title-center">
-                        We’re Devoted Marketing<br>Consultants Helping Your Business Grow
+                        We’re Dedicated Marketing<br>Partners Helping Your Business Grow
                     </h2>
-                    <p class=" mx-auto text-center">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor
-                        labore et dolore magna aliqua. Venenatis tellu metus</p>
+                    <p class="mx-auto text-center">
+                        Our mission is to empower entrepreneurs with smart tools and guidance
+                        to expand their reach, increase sales, and build long-term customer trust.
+                    </p>
                     <figure class="br-lg">
-                        <img src="{{ asset('frontAssets/images/pages/about_us/1.jpg') }}" alt="Banner" width="1240" height="540"
-                            style="background-color: #D0C1AE;" />
+                        <img src="{{ asset('frontAssets/images/pages/about_us/1.jpg') }}" alt="Banner" width="1240"
+                            height="540" style="background-color: #D0C1AE;" />
                     </figure>
                 </section>
 
                 <section class="customer-service mb-7">
                     <div class="row align-items-center">
                         <div class="col-md-6 pr-lg-8 mb-8">
-                            <h2 class="title text-left">We Provide Continuous &amp; Kind Service for Customers</h2>
+                            <h2 class="title text-left">We Provide Continuous &amp; Reliable Support for Our Customers</h2>
                             <div class="accordion accordion-simple accordion-plus">
                                 <div class="card border-no">
                                     <div class="card-header">
@@ -54,10 +55,9 @@
                                     </div>
                                     <div class="card-body expanded" id="collapse3-1">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit eiusamet, consectetur adipiscing elit,
-                                            sed do eius mod tempor incididunt ut labore
-                                            et dolore magna aliqua. Venenatis tell
-                                            us in metus vulputate eu scelerisque felis. Vel pretium vulp.
+                                            Our team is always available to answer your queries and guide you
+                                            through every step. From product setup to order management, we make
+                                            sure your experience stays smooth and worry-free.
                                         </p>
                                     </div>
                                 </div>
@@ -67,10 +67,9 @@
                                     </div>
                                     <div class="card-body collapsed" id="collapse3-2">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit eiusamet, consectetur adipiscing elit,
-                                            sed do eius mod tempor incididunt ut labore
-                                            et dolore magna aliqua. Venenatis tell
-                                            us in metus vulputate eu scelerisque felis. Vel pretium vulp.
+                                            Need tailored advice? Schedule a one-on-one consultation online
+                                            and get expert recommendations to improve your sales strategy and
+                                            maximize your business growth.
                                         </p>
                                     </div>
                                 </div>
@@ -80,10 +79,9 @@
                                     </div>
                                     <div class="card-body collapsed" id="collapse3-3">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit eiusamet, consectetur adipiscing elit,
-                                            sed do eius mod tempor incididunt ut labore
-                                            et dolore magna aliqua. Venenatis tell
-                                            us in metus vulputate eu scelerisque felis. Vel pretium vulp.
+                                            We provide simplified tools to manage your sales, track orders,
+                                            and analyze performance so you can focus on growing your store
+                                            while we handle the details efficiently.
                                         </p>
                                     </div>
                                 </div>
@@ -91,8 +89,8 @@
                         </div>
                         <div class="col-md-6 mb-8">
                             <figure class="br-lg">
-                                <img src="{{ asset('frontAssets/images/pages/about_us/2.jpg') }}" alt="Banner" width="610" height="500"
-                                    style="background-color: #CECECC;" />
+                                <img src="{{ asset('frontAssets/images/pages/about_us/2.jpg') }}" alt="Banner"
+                                    width="610" height="500" style="background-color: #CECECC;" />
                             </figure>
                         </div>
                     </div>
@@ -117,8 +115,8 @@
                                     <span class="count-to" data-to="15">0</span>
                                     <span>M+</span>
                                     <h4 class="title title-center">Products For Sale</h4>
-                                    <p>Diam maecenas ultricies mi eget mauris<br>
-                                        Nibh tellus molestie nunc non</p>
+                                    <p>Millions of items available across categories,<br>
+                                        making shopping easy and accessible for everyone.</p>
                                 </div>
                             </div>
                             <div class="swiper-slide counter-wrap">
@@ -127,8 +125,8 @@
                                     <span class="count-to" data-to="25">0</span>
                                     <span>B+</span>
                                     <h4 class="title title-center">Community Earnings</h4>
-                                    <p>Diam maecenas ultricies mi eget mauris<br>
-                                        Nibh tellus molestie nunc non</p>
+                                    <p>Our sellers have earned billions collectively,<br>
+                                        growing their businesses with confidence.</p>
                                 </div>
                             </div>
                             <div class="swiper-slide counter-wrap">
@@ -136,8 +134,8 @@
                                     <span class="count-to" data-to="100">0</span>
                                     <span>M+</span>
                                     <h4 class="title title-center">Growing Buyers</h4>
-                                    <p>Diam maecenas ultricies mi eget mauris<br>
-                                        Nibh tellus molestie nunc non</p>
+                                    <p>A rapidly expanding community of buyers<br>
+                                        who trust us for quality and reliability.</p>
                                 </div>
                             </div>
                         </div>
@@ -146,13 +144,14 @@
                 </section>
             </div>
 
+
             <section class="boost-section pt-10 pb-10">
                 <div class="container mt-10 mb-9">
                     <div class="row align-items-center mb-10">
                         <div class="col-md-6 mb-8">
                             <figure class="br-lg">
-                                <img src="{{ asset('frontAssets/images/pages/about_us/3.jpg') }}" alt="Banner" width="610" height="450"
-                                    style="background-color: #9E9DA2;" />
+                                <img src="{{ asset('frontAssets/images/pages/about_us/3.jpg') }}" alt="Banner"
+                                    width="610" height="450" style="background-color: #9E9DA2;" />
                             </figure>
                         </div>
                         <div class="col-md-6 pl-lg-8 mb-8">
@@ -162,77 +161,13 @@
                                 incididunt ut labore et dolore magna aliqua. Venenatis tellus in.
                                 metus vulputate eu scelerisque felis. Vel pretium lectus qua .
                                 Arpis massa. Nunc id cursus metus ididunt ut labore metus vulputate episcing.</p>
-                            <a href="#" class="btn btn-dark btn-rounded">Visit Our Store</a>
-                        </div>
-                    </div>
-
-                    <div class="awards-wrapper">
-                        <h4 class="title title-center font-weight-bold mb-10 pb-1 ls-25">Awards</h4>
-                        <div class="swiper-container swiper-theme"
-                            data-swiper-options="{
-                                'spaceBetween': 20,
-                                'slidesPerView': 1,
-                                'breakpoints': {
-                                    '768': {
-                                        'slidesPerView': 2
-                                    },
-                                    '992': {
-                                        'slidesPerView': 3
-                                    },
-                                    '1200': {
-                                        'slidesPerView': 4
-                                    }
-                                }
-                            }">
-                            <div class="swiper-wrapper row cols-xl-4 cols-lg-3 cols-md-2 cols-1">
-                                <div class="swiper-slide image-box-wrapper">
-                                    <div class="image-box text-center">
-                                        <figure>
-                                            <img src="{{ asset('frontAssets/images/pages/about_us/1.png') }}" alt="Award Image" width="109"
-                                                height="105" />
-                                        </figure>
-                                        <p>Winner Seo Master MAGT<br>
-                                            Smart Start Award 2018</p>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide image-box-wrapper">
-                                    <div class="image-box text-center">
-                                        <figure>
-                                            <img src="{{ asset('frontAssets/images/pages/about_us/2.png') }}" alt="Award Image"
-                                                width="109" height="105" />
-                                        </figure>
-                                        <p>Top Social Media Agencies<br>
-                                            Next Partner 2019</p>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide image-box-wrapper mt-3">
-                                    <div class="image-box text-center">
-                                        <figure>
-                                            <img src="{{ asset('frontAssets/images/pages/about_us/3.png') }}" alt="Award Image"
-                                                width="109" height="105" />
-                                        </figure>
-                                        <p>5 Fastest Growing Abstract<br>
-                                            Solution Providers 2020</p>
-                                    </div>
-                                </div>
-                                <div class="swiper-slide image-box-wrapper">
-                                    <div class="image-box text-center">
-                                        <figure>
-                                            <img src="{{ asset('frontAssets/images/pages/about_us/4.png') }}" alt="Award Image"
-                                                width="109" height="105" />
-                                        </figure>
-                                        <p>National Excellence Agencie<br>
-                                            Award Winner 2021</p>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="swiper-pagination"></div>
+                            <a href="{{ route('frontend.shop') }}" class="btn btn-dark btn-rounded">Visit Our Store</a>
                         </div>
                     </div>
                 </div>
             </section>
 
-            <section class="member-section mt-10 pt-9 mb-10 pb-4">
+            {{-- <section class="member-section mt-10 pt-9 mb-10 pb-4">
                 <div class="container">
                     <h4 class="title title-center mb-3">Meet Our Leaders</h4>
                     <p class="text-center mb-8">Nunc id cursus metus aliquam. Libero id faucibus nisl tincidunt eget.
@@ -327,7 +262,7 @@
                         <div class="swiper-pagination"></div>
                     </div>
                 </div>
-            </section>
+            </section> --}}
         </div>
     </main>
     <!-- End of Main -->

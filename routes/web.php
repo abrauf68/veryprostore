@@ -19,6 +19,7 @@ use App\Http\Controllers\Dashboard\User\VendorController;
 use App\Http\Controllers\Dashboard\WalletController;
 use App\Http\Controllers\Dashboard\WarehouseController;
 use App\Http\Controllers\Dashboard\WithdrawRequestController;
+use App\Http\Controllers\Dashboard\ContactController;
 use App\Http\Controllers\Frontend\AccountController;
 use App\Http\Controllers\Frontend\CartController;
 use App\Http\Controllers\Frontend\CheckoutController;
@@ -171,6 +172,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Withdraw Request Controller
             Route::resource('withdraw-requests', WithdrawRequestController::class);
+
+            // Contact Controller
+            Route::resource('contacts', ContactController::class);
         });
     });
 });
@@ -202,6 +206,9 @@ Route::name('frontend.')->group(function () {
 
     //newsletters store
     Route::post('/newsletter/store', [FrontendHomeController::class, 'newsletterStore'])->name('newsletter.store');
+
+    //contact store
+    Route::post('/contact/store', [FrontendHomeController::class, 'contactStore'])->name('contact.store');
     Route::middleware(['auth', 'verified'])->group(function () {
         Route::middleware(['check.activation'])->group(function () {
             Route::get('/account', [AccountController::class, 'index'])->name('account');

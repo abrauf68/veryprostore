@@ -110,6 +110,14 @@
                 </a>
             </li>
         @endcan
+        @can(['view contact'])
+            <li class="menu-item {{ request()->routeIs('dashboard.contacts.*') ? 'active' : '' }}">
+                <a href="{{ route('dashboard.contacts.index') }}" class="menu-link">
+                    <i class="menu-icon gradient-icon tf-icons ti ti-phone"></i>
+                    <div>{{__('Contacts')}}</div>
+                </a>
+            </li>
+        @endcan
         @canany(['view user', 'view archived user', 'vendor'])
             <li class="menu-item {{ request()->routeIs('dashboard.user.*') || request()->routeIs('dashboard.archived-user.*')  || request()->routeIs('dashboard.vendors.*') ? 'open' : '' }}">
                 <a href="javascript:void(0);" class="menu-link menu-toggle">

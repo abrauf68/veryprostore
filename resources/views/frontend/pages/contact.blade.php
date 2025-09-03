@@ -31,13 +31,12 @@
         <div class="page-content contact-us">
             <div class="container">
                 <section class="content-title-section mb-10">
-                    <h3 class="title title-center mb-3">Contact
-                        Information
-                    </h3>
-                    <p class="text-center">Lorem ipsum dolor sit amet,
-                        consectetur
-                        adipiscing elit, sed do eiusmod tempor incididunt ut</p>
+                    <h3 class="title title-center mb-3">Contact Information</h3>
+                    <p class="text-center">
+                        Have questions or need support? Our team is ready to assist you with orders, products, and services.
+                    </p>
                 </section>
+
                 <!-- End of Contact Title Section -->
 
                 <section class="contact-information-section mb-10">
@@ -64,8 +63,9 @@
                                 </span>
                                 <div class="icon-box-content">
                                     <h4 class="icon-box-title">E-mail Address</h4>
-                                    <p><a href="/cdn-cgi/l/email-protection" class="__cf_email__"
-                                            data-cfemail="ee838f8782ae8b968f839e828bc08d8183">[email&#160;protected]</a></p>
+                                    <p><a
+                                            href="mailto:{{ \App\Helpers\Helper::getCompanyEmail() }}">{{ \App\Helpers\Helper::getCompanyEmail() }}</a>
+                                    </p>
                                 </div>
                             </div>
                             <div class="swiper-slide icon-box text-center icon-box-primary">
@@ -74,7 +74,7 @@
                                 </span>
                                 <div class="icon-box-content">
                                     <h4 class="icon-box-title">Phone Number</h4>
-                                    <p>(123) 456-7890 / (123) 456-9870</p>
+                                    <p>+66 9 5491 0493</p>
                                 </div>
                             </div>
                             <div class="swiper-slide icon-box text-center icon-box-primary">
@@ -83,7 +83,9 @@
                                 </span>
                                 <div class="icon-box-content">
                                     <h4 class="icon-box-title">Address</h4>
-                                    <p>Lawrence, NY 11345, USA</p>
+                                    <p>{{ \App\Helpers\Helper::getCompanyCity() }},
+                                        {{ \App\Helpers\Helper::getCompanyZip() }},
+                                        {{ \App\Helpers\Helper::getCompanyCountry() }}</p>
                                 </div>
                             </div>
                             <div class="swiper-slide icon-box text-center icon-box-primary">
@@ -92,7 +94,7 @@
                                 </span>
                                 <div class="icon-box-content">
                                     <h4 class="icon-box-title">Fax</h4>
-                                    <p>1-800-570-7777</p>
+                                    <p>+66 9 5491 0493</p>
                                 </div>
                             </div>
                         </div>
@@ -107,17 +109,15 @@
                         <div class="col-lg-6 mb-8">
                             <h4 class="title mb-3">People usually ask these</h4>
                             <div class="accordion accordion-bg accordion-gutter-md accordion-border">
+
                                 <div class="card">
                                     <div class="card-header">
                                         <a href="#collapse1" class="collapse">How can I cancel my order?</a>
                                     </div>
                                     <div id="collapse1" class="card-body expanded">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
-                                            orincid
-                                            idunt ut labore et dolore magna aliqua. Venenatis tellus in metus vulp utate eu
-                                            sceler
-                                            isque felis. Vel pretium.
+                                            Orders can be canceled within 24 hours of purchase. After that, please contact
+                                            our support team for assistance.
                                         </p>
                                     </div>
                                 </div>
@@ -128,11 +128,8 @@
                                     </div>
                                     <div id="collapse2" class="card-body collapsed">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
-                                            orincid
-                                            idunt ut labore et dolore magna aliqua. Venenatis tellus in metus vulp utate eu
-                                            sceler
-                                            isque felis. Vel pretium.
+                                            Registration may take extra time if verification is required. You’ll receive an
+                                            email once your account is approved.
                                         </p>
                                     </div>
                                 </div>
@@ -143,11 +140,8 @@
                                     </div>
                                     <div id="collapse3" class="card-body collapsed">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
-                                            orincid
-                                            idunt ut labore et dolore magna aliqua. Venenatis tellus in metus vulp utate eu
-                                            sceler
-                                            isque felis. Vel pretium.
+                                            All you need is a free account with us. Simply sign in, add items to your cart,
+                                            and complete checkout securely.
                                         </p>
                                     </div>
                                 </div>
@@ -158,11 +152,8 @@
                                     </div>
                                     <div id="collapse4" class="card-body collapsed">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod temp
-                                            orincid
-                                            idunt ut labore et dolore magna aliqua. Venenatis tellus in metus vulp utate eu
-                                            sceler
-                                            isque felis. Vel pretium.
+                                            Once your order ships, you’ll get a tracking number by email. You can also track
+                                            it directly in your account dashboard.
                                         </p>
                                     </div>
                                 </div>
@@ -173,28 +164,49 @@
                                     </div>
                                     <div id="collapse5" class="card-body collapsed">
                                         <p class="mb-0">
-                                            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                                            temp orincid idunt ut labore et dolore magna aliqua. Venenatis tellus in
-                                            metus vulp utate eu sceler isque felis. Vel pretium.
+                                            If you are not satisfied, request a return within 7 days. Refunds are processed
+                                            once items are received in original condition.
                                         </p>
                                     </div>
                                 </div>
+
                             </div>
                         </div>
+
                         <div class="col-lg-6 mb-8">
                             <h4 class="title mb-3">Send Us a Message</h4>
-                            <form class="form contact-us-form" action="#" method="post">
+                            <form class="form contact-us-form" action="{{ route('frontend.contact.store') }}"
+                                method="post">
+                                @csrf
                                 <div class="form-group">
-                                    <label for="username">Your Name</label>
-                                    <input type="text" id="username" name="username" class="form-control">
+                                    <label for="name">Your Name</label>
+                                    <input type="text" id="name" name="name" required
+                                        class="form-control @error('name') is-invalid @enderror">
+                                    @error('name')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
-                                    <label for="email_1">Your Email</label>
-                                    <input type="email" id="email_1" name="email_1" class="form-control">
+                                    <label for="email">Your Email</label>
+                                    <input type="email" id="email" name="email" required
+                                        class="form-control @error('email') is-invalid @enderror">
+                                    @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <div class="form-group">
                                     <label for="message">Your Message</label>
-                                    <textarea id="message" name="message" cols="30" rows="5" class="form-control"></textarea>
+                                    <textarea id="message" name="message" required cols="30" rows="5"
+                                        class="form-control @error('message') is-invalid @enderror"></textarea>
+                                    @error('message')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                    @enderror
                                 </div>
                                 <button type="submit" class="btn btn-dark btn-rounded">Send Now</button>
                             </form>
@@ -205,7 +217,7 @@
             </div>
 
             <!-- Google Maps - Go to the bottom of the page to change settings and map location. -->
-            <div class="google-map contact-google-map" id="googlemaps"></div>
+            {{-- <div class="google-map contact-google-map" id="googlemaps"></div> --}}
             <!-- End Map Section -->
         </div>
         <!-- End of PageContent -->

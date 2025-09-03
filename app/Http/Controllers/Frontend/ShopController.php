@@ -18,7 +18,7 @@ class ShopController extends Controller
                 $category = ProductCategory::where('slug', $categorySlug)->first()->id;
                 $products = $products->where('category_id', $category);
             }
-            $categories = ProductCategory::where('is_active', 'active')->where('is_popular', '1')->get();
+            $categories = ProductCategory::where('is_active', 'active')->where('parent_category_id', null)->take(8)->get();
             return view('frontend.pages.shop.index', compact('products', 'categories'));
         } catch (\Throwable $th) {
             Log::error('Shop index Failed', ['error' => $th->getMessage()]);

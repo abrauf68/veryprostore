@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Contact;
 use App\Models\Newsletter;
 use App\Models\Product;
 use App\Models\ProductCategory;
@@ -127,6 +128,34 @@ class HomeController extends Controller
             return redirect()->back()->with('success', 'You have successfully subscribed to our newsletter.');
         } catch (\Throwable $th) {
             Log::error('newsletterStore Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
+            throw $th;
+        }
+    }
+
+    public function contactStore(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|max:255',
+            'email' => 'required|email',
+            'message' => 'required',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all())
+                ->with('error', $validator->errors()->first());
+        }
+        try {
+            $sessionId = session('cart_session_id');
+            $contact = new Contact();
+            $contact->session_id = $sessionId;
+            $contact->name = $request->name;
+            $contact->email = $request->email;
+            $contact->message = $request->message;
+            $contact->save();
+
+            return redirect()->back()->with('success', 'Your message send successfully.');
+        } catch (\Throwable $th) {
+            Log::error('contactStore Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
         }
