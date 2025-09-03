@@ -35,7 +35,7 @@
                 <span class="divider d-lg-show"></span>
                 <a href="#" class="d-lg-show">Blog</a>
                 <a href="{{ route('frontend.contact') }}" class="d-lg-show">Contact Us</a>
-                @if (Auth::check())
+                {{-- @if (Auth::check())
                     <a href="{{ route('dashboard') }}" class="d-lg-show">My Account</a>
                     <span class="delimiter d-lg-show">/</span>
                     <a href="javascript:void(0)"
@@ -52,13 +52,32 @@
                         In</a>
                     <span class="delimiter d-lg-show">/</span>
                     <a href="{{ route('register') }}" class="ml-0 d-lg-show login">Register</a>
+                @endif --}}
+                @if (Auth::check())
+                    <a href="{{ route('dashboard') }}" class="account-btn"><i class="fa fa-user"></i> My Account</a>
+                    <a href="javascript:void(0)"
+                        onclick="event.preventDefault(); document.getElementById('logout-form-header').submit();"
+                        class="logout-btn">
+                        <i class="fa fa-sign-out-alt"></i> Logout
+                    </a>
+                    <form id="logout-form-header" action="{{ route('logout') }}" method="POST" class="d-none">
+                        @csrf
+                    </form>
+                @else
+                    <a href="{{ route('login') }}" class="signin-btn">
+                        <i class="w-icon-account"></i> Sign In
+                    </a>
+                    <a href="{{ route('register') }}" class="register-btn">
+                        <i class="fa fa-user-plus"></i> Register
+                    </a>
                 @endif
+
             </div>
         </div>
     </div>
     <!-- End of Header Top -->
 
-    <div class="header-middle">
+    <div class="header-middle bg-primary text-white">
         <div class="container">
             <div class="header-left mr-md-4">
                 <a href="#" class="mobile-menu-toggle w-icon-hamburger" aria-label="menu-toggle">
@@ -68,8 +87,8 @@
                         height="45" />
                 </a>
                 <form method="get" action="{{ route('frontend.shop') }}"
-                    class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper">
-                    <div class="select-box">
+                    class="header-search hs-expanded hs-round d-none d-md-flex input-wrapper border-white">
+                    <div class="select-box bg-white" style="border-color: #fff;">
                         <select id="category" name="category">
                             <option value="all">All Categories</option>
                             @foreach (\App\Helpers\Helper::getCategories() as $category)
@@ -77,21 +96,23 @@
                             @endforeach
                         </select>
                     </div>
-                    <input type="text" class="form-control" name="search" id="search" placeholder="Search in..."
-                        required />
-                    <button class="btn btn-search" type="submit"><i class="w-icon-search"></i>
+                    <input type="text" class="form-control text-white" style="border-color: #fff;" name="search"
+                        id="search" placeholder="Search in..." required />
+                    <button class="btn btn-search" style="border-color: #fff;" type="submit"><i
+                            class="w-icon-search"></i>
                     </button>
                 </form>
             </div>
             <div class="header-right ml-4">
                 <div class="header-call d-xs-show d-lg-flex align-items-center">
-                    <a href="tel:#" class="w-icon-call"></a>
+                    <a href="https://t.me/BossWolter" class="w-icon-call"></a>
                     <div class="call-info d-lg-show">
                         <h4 class="chat font-weight-normal font-size-md text-normal ls-normal text-light mb-0">
-                            <a href="#" class="text-capitalize">Live Chat</a> or
+                            <a href="https://t.me/BossWolter" class="text-capitalize text-white">Live Chat</a> or
                             :
                         </h4>
-                        <a href="tel:#" class="phone-number font-weight-bolder ls-50">0(800)123-456</a>
+                        <a href="https://t.me/BossWolter" target="_blank"
+                            class="phone-number font-weight-bolder ls-50">+66 9 5491 0493</a>
                     </div>
                 </div>
                 <a class="wishlist label-down link d-xs-show" href="wishlist.html">
@@ -174,7 +195,7 @@
                 </div> --}}
                 <div class="dropdown cart-dropdown cart-offcanvas mr-0 mr-lg-2">
                     <div class="cart-overlay"></div>
-                    <a href="#" class="cart-toggle label-down link">
+                    <a href="#" class="cart-toggle label-down link text-white">
                         <i class="w-icon-cart">
                             <span class="cart-count">{{ \App\Helpers\Helper::getCart()->items->count() }}</span>
                         </i>
@@ -233,12 +254,12 @@
                                     class="btn btn-primary btn-rounded">Checkout</a>
                             </div>
                         @else
-                                <p>No Items in Cart</p>
-                                <div class="cart-action">
-                                    <a href="{{ route('frontend.shop') }}"
-                                        class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto"><i
-                                            class="w-icon-long-arrow-left"></i>Shop Now</a>
-                                </div>
+                            <p>No Items in Cart</p>
+                            <div class="cart-action">
+                                <a href="{{ route('frontend.shop') }}"
+                                    class="btn btn-dark btn-rounded btn-icon-left btn-shopping mr-auto"><i
+                                        class="w-icon-long-arrow-left"></i>Shop Now</a>
+                            </div>
                         @endif
                     </div>
                     <!-- End of Dropdown Box -->

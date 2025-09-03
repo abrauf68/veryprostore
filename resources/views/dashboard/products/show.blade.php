@@ -36,11 +36,18 @@
                     <dt class="col-sm-3">{{ __('SKU') }}</dt>
                     <dd class="col-sm-9">{{ $product->sku ?? 'N/A' }}</dd>
 
-                    <dt class="col-sm-3">{{ __('Price') }}</dt>
+                    <dt class="col-sm-3">{{ __('Cost Price') }}</dt>
+                    <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($product->cost_price) }}</dd>
+
+                    <dt class="col-sm-3">{{ __('Retail Price') }}</dt>
                     <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($product->price) }}</dd>
 
+                    @php
+                        $profit = $product->price - $product->cost_price;
+                    @endphp
+                    
                     <dt class="col-sm-3">{{ __('Profit') }}</dt>
-                    <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($product->profit) }}</dd>
+                    <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($profit) }}</dd>
 
                     <dt class="col-sm-3">{{ __('Stock') }}</dt>
                     <dd class="col-sm-9 text-capitalize">{{ $product->stock ?? 'N/A' }}</dd>

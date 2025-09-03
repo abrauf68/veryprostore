@@ -9,6 +9,7 @@ use App\Models\ProductCategory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Validator;
 
 class HomeController extends Controller
 {
@@ -106,12 +107,19 @@ class HomeController extends Controller
 
     public function newsletterStore(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'email' => 'required|email',
+        ]);
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator)->withInput($request->all())
+                ->with('error', $validator->errors()->first());
+        }
         try {
-            $request->validate([
-                'email' => 'required|email|unique:newsletters,email',
-            ]);
             $sessionId = session('cart_session_id');
-            $newsletter = new Newsletter();
+            $newsletter = Newsletter::where('email', $request->email)->first();
+            if (!$newsletter) {
+                $newsletter = new Newsletter();
+            }
             $newsletter->session_id = $sessionId;
             $newsletter->email = $request->email;
             $newsletter->save();

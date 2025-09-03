@@ -10,6 +10,62 @@
         .invalid-feedback {
             color: red;
         }
+
+        .header a:not(.btn):hover {
+            color: inherit;
+        }
+
+        /* Common style for all small buttons */
+.account-btn, .logout-btn, .signin-btn, .register-btn {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 600;
+    border-radius: 6px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    margin-right: 6px;
+    text-align: center;
+}
+
+/* Individual button colors */
+.account-btn {
+    background: #F77C29;
+    color: #fff !important;
+}
+.account-btn:hover {
+    background: #c24e02;
+    color: #fff;
+}
+
+.logout-btn {
+    border: 1px solid #fd011a;
+    color: #fd011a;
+    background: transparent;
+}
+.logout-btn:hover {
+    background: #fd011a;
+    color: #fff !important;
+}
+
+.signin-btn {
+    border: 1px solid #F77C29;
+    color: #F77C29;
+    background: transparent;
+}
+.signin-btn:hover {
+    background: #F77C29;
+    color: #fff !important;
+}
+
+.register-btn {
+    background: #F77C29;
+    color: #fff !important;
+}
+.register-btn:hover {
+    background: #c24e02;
+}
+
     </style>
 </head>
 
@@ -36,7 +92,7 @@
     <!-- End of Scroll Top -->
 
     @if (request()->routeIs('home'))
-        @if(!$hideNewsletter)
+        @if (!$hideNewsletter)
             <!-- Start of Newsletter popup -->
             <div class="newsletter-popup mfp-hide">
                 <div class="newsletter-content">
@@ -47,7 +103,8 @@
                     <p class="text-light ls-10">
                         Subscribe to the Wolmart market newsletter to receive updates on special offers.
                     </p>
-                    <form action="{{ route('frontend.newsletter.store') }}" method="POST" class="input-wrapper input-wrapper-inline input-wrapper-round">
+                    <form action="{{ route('frontend.newsletter.store') }}" method="POST"
+                        class="input-wrapper input-wrapper-inline input-wrapper-round">
                         @csrf
                         <input type="email" class="form-control email font-size-md" name="email" id="email2"
                             placeholder="Your email address" required>
@@ -65,20 +122,22 @@
             <!-- End of Newsletter popup -->
         @else
             <style>
-                html{
+                html {
                     overflow: auto !important;
                 }
-                .mfp-newsletter{
+
+                .mfp-newsletter {
                     display: none;
                 }
             </style>
         @endif
     @else
         <style>
-            html{
+            html {
                 overflow: auto !important;
             }
-            .mfp-newsletter{
+
+            .mfp-newsletter {
                 display: none;
             }
         </style>
