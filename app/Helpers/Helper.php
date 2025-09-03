@@ -27,7 +27,7 @@ class Helper
     }
     public static function getLogoDark()
     {
-        return CompanySetting::first()->dark_logo ?? asset('frontAssets/images/veryprostore.png');
+        return CompanySetting::first()->dark_logo ?? asset('frontAssets/images/veryprostore_dark.png');
     }
     public static function getFavicon()
     {

@@ -48,7 +48,7 @@
                  <div class="col-lg-4 col-sm-6">
                      <div class="widget widget-about">
                          <a href="demo1.html" class="logo-footer">
-                             <img src="{{ asset(\App\Helpers\Helper::getLogoDark()) }}" alt="logo-footer"
+                             <img src="{{ asset(\App\Helpers\Helper::getLogoLight()) }}" alt="logo-footer"
                                  width="144" height="45" />
                          </a>
                          <div class="widget-body">
