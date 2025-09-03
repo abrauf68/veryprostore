@@ -82,10 +82,10 @@
                                         <button class="swiper-button-prev"></button>
                                         <a href="#" class="product-gallery-btn product-image-full"><i
                                                 class="w-icon-zoom"></i></a>
-                                        <div class="product-label-group">
+                                        {{-- <div class="product-label-group">
                                             <label class="product-label label-hot">Hot</label>
                                             <label class="product-label label-discount">50% Off</label>
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <div class="product-thumbs-wrap swiper-container"
                                         data-swiper-options="{
