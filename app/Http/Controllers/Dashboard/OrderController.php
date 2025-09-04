@@ -9,6 +9,7 @@ use App\Models\Order;
 use App\Models\OrderItem;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\UserProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -25,9 +26,10 @@ class OrderController extends Controller
         try {
             $currentUser = User::findOrFail(auth()->user()->id);
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
-                    $q->where('vendor_id', $currentUser->id);
-                })->with(['orderItems.product', 'paymentMethod', 'billing'])->latest()->get();
+                // $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
+                //     $q->where('vendor_id', $currentUser->id);
+                // })->with(['orderItems.product', 'paymentMethod', 'billing'])->latest()->get();
+                $orders = Order::where('vendor_id', $currentUser->id)->with(['orderItems.product', 'paymentMethod', 'billing'])->latest()->get();
             } else {
                 $orders = Order::with('orderItems', 'paymentMethod', 'billing')->latest()->get();
             }
@@ -66,6 +68,7 @@ class OrderController extends Controller
         $validator = Validator::make($request->all(), [
             'first_name' => 'required|string|max:255',
             'last_name' => 'required|string|max:255',
+            'vendor_id' => 'required|exists:users,id',
             'company_name' => 'required|string|max:255',
             'country' => 'required|string|max:255',
             'address_line1' => 'required|string|max:1000',
@@ -90,6 +93,7 @@ class OrderController extends Controller
         try {
             DB::beginTransaction();
             $order = new Order();
+            $order->vendor_id = $request->vendor_id;
             $order->subtotal = $request->subtotal;
             $order->total = $request->subtotal;
             $order->notes = $request->notes;
@@ -151,17 +155,15 @@ class OrderController extends Controller
             }
 
             // 🔥 Notify Vendors (only those whose products were ordered)
-            if (!empty($vendorIds)) {
-                $vendors = User::whereIn('id', array_unique($vendorIds))->get();
+            if (!empty($request->vendor_id)) {
+                $vendor = User::findOrFail($request->vendor_id);
 
-                foreach ($vendors as $vendor) {
-                    app('notificationService')->notifyUsers(
-                        collect([$vendor]),
-                        'You have received a new Order #' . $order->order_no . '. Click to check details.',
-                        'orders',
-                        $order->id
-                    );
-                }
+                app('notificationService')->notifyUsers(
+                    collect([$vendor]),
+                    'You have received a new Order #' . $order->order_no . '. Click to check details.',
+                    'orders',
+                    $order->id
+                );
             }
 
             DB::commit();
@@ -249,7 +251,13 @@ class OrderController extends Controller
 
     public function getVendorProducts(Request $request)
     {
-        $products = Product::where('vendor_id', $request->vendor_id)->get(['id', 'name', 'price']);
+        // Get product_ids linked to this vendor from user_products
+        $userProducts = UserProduct::with('product:id,name,price')
+            ->where('user_id', $request->vendor_id)
+            ->get();
+
+        // Extract only product info (skip userProduct wrapper)
+        $products = $userProducts->pluck('product');
         return response()->json($products);
     }
 }

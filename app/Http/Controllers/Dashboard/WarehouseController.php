@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Models\User;
+use App\Models\UserProduct;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
@@ -20,15 +21,18 @@ class WarehouseController extends Controller
         try {
             $currentUser = User::findOrFail(auth()->user()->id);
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $products = Product::with('vendor', 'category')
-                    ->where('vendor_id', $currentUser->id)
-                    ->where('is_active', 'active')
-                    ->latest()
-                    ->get();
-            }else{
-                $products = Product::with('vendor', 'category')->where('vendor_id', '!=', null)->latest()->get();
+                // $products = Product::with('vendor', 'category')
+                //     ->where('vendor_id', $currentUser->id)
+                //     ->where('is_active', 'active')
+                //     ->latest()
+                //     ->get();
+
+                $userProducts = UserProduct::with('product')->where('user_id', $currentUser->id)->get();
+            } else {
+                $userProducts = UserProduct::with('product', 'user')->get();
+                // $products = Product::with('vendor', 'category')->where('vendor_id', '!=', null)->latest()->get();
             }
-            return view('dashboard.warehouse.index', compact('products'));
+            return view('dashboard.warehouse.index', compact('userProducts'));
         } catch (\Throwable $th) {
             Log::error('Warehouse Index Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
@@ -78,11 +82,17 @@ class WarehouseController extends Controller
         try {
             DB::beginTransaction();
             $currentUser = User::findOrFail(auth()->user()->id);
-            $product = Product::findOrFail($id);
+            $userProduct = UserProduct::where('product_id', $id)->where('user_id', $currentUser->id)->first();
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $product->vendor_id = $currentUser->id;
+                if ($userProduct) {
+                    return redirect()->back()->with('message', 'Product already exists inside your warehouse.');
+                } else {
+                    $userProduct = new UserProduct();
+                    $userProduct->user_id = $currentUser->id;
+                    $userProduct->product_id = $id;
+                    $userProduct->save();
+                }
             }
-            $product->save();
             DB::commit();
             return redirect()->route('dashboard.warehouse.index')->with('success', 'Product Added to Warehouse Successfully');
         } catch (\Throwable $th) {
@@ -99,15 +109,48 @@ class WarehouseController extends Controller
     {
         $this->authorize('delete warehouse');
         try {
-            $product = Product::findOrFail($id);
-            $product->vendor_id = null;
-            $product->save();
-
+            $userProduct = UserProduct::findOrFail($id);
+            $userProduct->delete();
             return redirect()->back()->with('success', 'Product removed from warehouse successfully!');
         } catch (\Throwable $th) {
             Log::error('Warehouse Delete Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");
             throw $th;
+        }
+    }
+
+    public function bulkAddToWarehouse(Request $request)
+    {
+        $this->authorize('update warehouse');
+
+        try {
+            DB::beginTransaction();
+
+            $currentUser = User::findOrFail(auth()->user()->id);
+            $productIds = explode(',', $request->product_ids);
+            foreach ($productIds as $productId) {
+                $productId = (int) $productId;
+                $exists = UserProduct::where('product_id', $productId)
+                    ->where('user_id', $currentUser->id)
+                    ->exists();
+                if ($exists) {
+                    continue;
+                }
+                if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
+                    $userProduct = new UserProduct();
+                    $userProduct->user_id = $currentUser->id;
+                    $userProduct->product_id = $productId;
+                    $userProduct->save();
+                }
+            }
+
+            DB::commit();
+            return redirect()->route('dashboard.warehouse.index')
+                ->with('success', 'Selected products added to warehouse successfully.');
+        } catch (\Throwable $th) {
+            DB::rollBack();
+            Log::error('Warehouse Bulk Add Failed', ['error' => $th->getMessage()]);
+            return redirect()->back()->with('error', "Something went wrong! Please try again later");
         }
     }
 }

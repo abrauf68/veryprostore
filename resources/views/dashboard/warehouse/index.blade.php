@@ -1,17 +1,25 @@
 @extends('layouts.master')
 
-@section('title', __('Warehouse'))
+@role('vendor')
+    @section('title', __('Products'))
+@else
+    @section('title', __('Warehouse'))
+@endrole
 
 @section('css')
 @endsection
 
 
 @section('breadcrumb-items')
+@role('vendor')
+    <li class="breadcrumb-item active">{{ __('Products') }}</li>
+@else
     <li class="breadcrumb-item active">{{ __('Warehouse') }}</li>
+@endrole
 @endsection
 @section('content')
     <div class="container-xxl flex-grow-1 container-p-y">
-        <!-- Warehouse List Table -->
+        <!-- Products List Table -->
         <div class="card">
             {{-- <div class="card-header">
                 @canany(['create product'])
@@ -28,24 +36,22 @@
                             <th>{{ __('Sr.') }}</th>
                             <th>{{ __('Image') }}</th>
                             <th>{{ __('Name') }}</th>
-                            <th>{{ __('Category') }}</th>
                             <th>{{ __('Vendor') }}</th>
                             @canany(['delete warehouse', 'update warehouse', 'view warehouse'])<th>{{ __('Action') }}</th>@endcan
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($products as $index => $product)
+                        @foreach ($userProducts as $index => $userProduct)
                             <tr>
                                 <td>{{ $index + 1 }}</td>
-                                <td><img src="{{ asset($product->main_image) }}" alt="{{ $product->name }}" height="35px" width="35px"></td>
-                                <td>{{ $product->name }}</td>
-                                <td>{{ $product->category->name }}</td>
-                                <td>{{ $product->vendor ? $product->vendor->name : "N/A" }}</td>
+                                <td><img src="{{ asset($userProduct->product->main_image) }}" alt="{{ $userProduct->product->name }}" height="35px" width="35px"></td>
+                                <td>{{ $userProduct->product->name }}</td>
+                                <td>{{ $userProduct->user ? $userProduct->user->name : "N/A" }}</td>
                                 @canany(['delete warehouse', 'update warehouse', 'view warehouse'])
                                     <td class="d-flex">
                                         @canany(['view product'])
                                             <span class="text-nowrap">
-                                                <a href="{{ route('dashboard.products.show', $product->id) }}"
+                                                <a href="{{ route('dashboard.products.show', $userProduct->product_id) }}"
                                                     class="btn btn-icon btn-text-warning waves-effect waves-light rounded-pill me-1"
                                                     data-bs-toggle="tooltip" data-bs-placement="top"
                                                     title="{{ __('View Product Details') }}">
@@ -54,7 +60,7 @@
                                             </span>
                                         @endcan
                                         @canany(['delete warehouse'])
-                                            <form action="{{ route('dashboard.warehouse.destroy', $product->id) }}" method="POST">
+                                            <form action="{{ route('dashboard.warehouse.destroy', $userProduct->id) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
                                                 <a href="#" type="submit"

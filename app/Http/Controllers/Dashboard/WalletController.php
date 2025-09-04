@@ -20,9 +20,10 @@ class WalletController extends Controller
             $currentUser = User::findOrFail(auth()->user()->id);
 
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
-                    $q->where('vendor_id', $currentUser->id);
-                })->with(['orderItems.product', 'paymentMethod', 'billing'])->get();
+                // $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
+                //     $q->where('vendor_id', $currentUser->id);
+                // })->with(['orderItems.product', 'paymentMethod', 'billing'])->get();
+                $orders = Order::where('vendor_id', $currentUser->id)->with(['orderItems.product', 'paymentMethod', 'billing'])->get();
 
                 $withdrawalRequests = WithdrawalRequest::where('user_id', $currentUser->id)->latest()->get();
             } else {
@@ -40,11 +41,11 @@ class WalletController extends Controller
                     $product = $item->product;
                     if (!$product) continue;
 
-                    // total cost = price * qty
-                    $totalCost += $product->cost_price * $item->quantity;
-
                     // check order status
                     if ($order->status === 'completed') {
+                        // total cost = price * qty
+                        $totalCost += $product->cost_price * $item->quantity;
+
                         $totalProfit += $product->profit * $item->quantity;
                     } elseif (!in_array($order->status, ['cancelled'])) {
                         $pendingAmount += $product->profit * $item->quantity;
@@ -99,9 +100,10 @@ class WalletController extends Controller
         $user = User::findOrFail($userId);
 
         if (!($user->hasRole('admin') || $user->hasRole('super-admin'))) {
-            $orders = Order::whereHas('orderItems.product', function ($q) use ($user) {
-                $q->where('vendor_id', $user->id);
-            })->with(['orderItems.product'])->get();
+            // $orders = Order::whereHas('orderItems.product', function ($q) use ($user) {
+            //     $q->where('vendor_id', $user->id);
+            // })->with(['orderItems.product'])->get();
+            $orders = Order::where('vendor_id', $user->id)->with(['orderItems.product'])->get();
 
             $withdrawalRequests = WithdrawalRequest::where('user_id', $user->id)->get();
         } else {
@@ -117,9 +119,8 @@ class WalletController extends Controller
                 $product = $item->product;
                 if (!$product) continue;
 
-                $totalCost += $product->cost_price * $item->quantity;
-
                 if ($order->status === 'completed') {
+                    $totalCost += $product->cost_price * $item->quantity;
                     $totalProfit += $product->profit * $item->quantity;
                 }
             }

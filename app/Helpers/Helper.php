@@ -189,9 +189,10 @@ class Helper
     {
         $currentUser = User::findOrFail(auth()->user()->id);
         if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-            $ordersCount = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
-                $q->where('vendor_id', $currentUser->id);
-            })->whereIn('status', ['pending', 'shipped'])->count();
+            // $ordersCount = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
+            //     $q->where('vendor_id', $currentUser->id);
+            // })->whereIn('status', ['pending', 'shipped'])->count();
+            $ordersCount = Order::where('vendor_id', $currentUser->id)->whereIn('status', ['pending', 'shipped'])->count();
         } else {
             $ordersCount = Order::whereIn('status', ['pending', 'shipped'])->count();
         }

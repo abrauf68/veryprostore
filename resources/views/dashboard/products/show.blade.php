@@ -45,7 +45,7 @@
                     @php
                         $profit = $product->price - $product->cost_price;
                     @endphp
-                    
+
                     <dt class="col-sm-3">{{ __('Profit') }}</dt>
                     <dd class="col-sm-9">{{ \App\Helpers\Helper::formatCurrency($profit) }}</dd>
 
@@ -84,7 +84,7 @@
                 @endif
 
                 {{-- Assignees Details --}}
-                @if (isset($product->vendor_id))
+                {{-- @if (isset($product->vendor_id))
                     <h6 class="text-uppercase text-muted fw-bold border-bottom pb-1 mt-4 mb-3">{{ __('Vendor') }}</h6>
                     <dl class="row">
                         <dt class="col-sm-6">{{ $product->vendor->name }}</dt>
@@ -92,7 +92,7 @@
                             <dt class="col-sm-6">{{ $product->vendor->userShop->shop_name }}</dt>
                         @endif
                     </dl>
-                @endif
+                @endif --}}
             </div>
         </div>
     </div>

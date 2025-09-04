@@ -1,4 +1,4 @@
-@extends('frontend.layouts.master')
+@extends('layouts.master')
 
 @section('title', 'Account Under Review!')
 
@@ -6,47 +6,31 @@
 @endsection
 
 @section('breadcrumb-items')
+    {{-- <li class="breadcrumb-item active">{{ __('Dashboard') }}</li> --}}
 @endsection
 
 @section('content')
-    <!-- Start of Main -->
-    <main class="main">
-        <!-- Start of Breadcrumb -->
-        <nav class="breadcrumb-nav">
-            <div class="container">
-                <ul class="breadcrumb bb-no">
-                    <li><a href="{{ route('home') }}">Home</a></li>
-                    <li>Account Under Review</li>
-                </ul>
+    <div class="row g-6">
+        <div class="misc-wrapper text-center">
+            <h1 class="mb-2 mx-2 text-danger" style="line-height: 6rem; font-size: 6rem">🚫</h1>
+            <h4 class="mb-2 mx-2">{{ __('Your account is pending for admin approval') }}</h4>
+            <p class="mb-6 mx-2">
+                {{ __('Please wait a while, you will be notified once your account is approved.') }}
+            </p>
+            <div class="d-flex justify-content-center">
+                <a href="#" onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                    class="btn btn-danger mb-10 mx-4">{{ __('Logout') }}</a>
+                <a href="#" class="btn btn-primary mb-10">{{ __('Contact Support') }}</a>
             </div>
-        </nav>
-        <!-- End of Breadcrumb -->
-
-        <!-- Start of Page Content -->
-        <div class="page-content error-404">
-    <div class="container text-center">
-        <div class="banner">
-            <img src="{{ asset('frontAssets/images/under-review.png') }}"
-                 alt="Account Under Review"
-                 width="300"
-                 height="460"
-                 class="mx-auto d-block" />
-            <div class="banner-content text-center">
-                <h2 class="banner-title">
-                    Your account is pending for admin approval
-                </h2>
-                <p class="text-light">Please wait a while, you will be notified once your account is approved.</p>
-                <a href="{{ route('frontend.home') }}" class="btn btn-dark btn-rounded btn-icon-right">
-                    Go Back Home <i class="w-icon-long-arrow-right"></i>
-                </a>
+            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                @csrf
+            </form>
+            <div class="mt-4">
+                <img src="{{ asset('assets/img/illustrations/page-misc-error.png') }}" alt="Account Deactivated"
+                    width="225" class="img-fluid" />
             </div>
         </div>
     </div>
-</div>
-
-        <!-- End of Page Content -->
-    </main>
-    <!-- End of Main -->
 @endsection
 
 @section('script')

@@ -164,6 +164,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
             // Warehouse Controller
             Route::resource('warehouse', WarehouseController::class);
+            Route::post('bulk-add/warehouse', [WarehouseController::class, 'bulkAddToWarehouse'])->name('warehouse.bulkAdd');
 
             // Wallet Controller
             Route::get('wallet', [WalletController::class, 'index'])->name('wallet.index');

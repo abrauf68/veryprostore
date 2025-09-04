@@ -114,7 +114,7 @@
                                 </span>
                             @enderror
                         </div>
-                        <div class="mb-4 col-md-4">
+                        {{-- <div class="mb-4 col-md-4">
                             <label class="form-label" for="vendor_id">{{ __('Vendor') }}</label>
                             <select id="vendor_id" name="vendor_id" class="select2 form-select @error('vendor_id') is-invalid @enderror">
                                 <option value="" selected disabled>{{ __('Select Vendor') }}</option>
@@ -131,7 +131,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-                        </div>
+                        </div> --}}
                         <div class="col-md-4 mb-4">
                             <label for="is_popular" class="form-label">{{ __('Popular') }}</label>
                             <select class="form-select select2 @error('is_popular') is-invalid @enderror"

@@ -7,6 +7,7 @@
 
 
 @section('breadcrumb-items')
+    <li class="breadcrumb-item"><a href="{{ route('dashboard.wallet.index') }}">{{ __('Wallet') }}</a></li>
     <li class="breadcrumb-item active">{{ __('Withdraw') }}</li>
 @endsection
 @section('content')

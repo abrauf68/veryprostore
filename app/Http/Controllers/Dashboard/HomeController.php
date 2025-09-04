@@ -22,9 +22,10 @@ class HomeController extends Controller
         try {
             $currentUser = User::findOrFail(auth()->user()->id);
             if (!($currentUser->hasRole('admin') || $currentUser->hasRole('super-admin'))) {
-                $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
-                    $q->where('vendor_id', $currentUser->id);
-                })->with(['orderItems.product', 'billing'])->get();
+                // $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
+                //     $q->where('vendor_id', $currentUser->id);
+                // })->with(['orderItems.product', 'billing'])->get();
+                $orders = Order::where('vendor_id', $currentUser->id)->with(['orderItems.product', 'billing'])->get();
 
                 $products = Product::with('vendor', 'category')
                     ->where('vendor_id', $currentUser->id)

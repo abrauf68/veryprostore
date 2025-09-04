@@ -298,9 +298,9 @@
             });
 
             // Auto-trigger if value exists (from query string or old value)
-    if ($('#vendor_id').val()) {
-        $('#vendor_id').trigger('change');
-    }
+            if ($('#vendor_id').val()) {
+                $('#vendor_id').trigger('change');
+            }
 
             $('#addMore').click(function() {
                 if (!productOptions) {
