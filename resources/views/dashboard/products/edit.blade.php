@@ -138,7 +138,7 @@
                                 id="is_popular" name="is_popular">
                                 <option value="1" {{ old('is_popular', $product->is_popular) == '1' ? 'selected' : '' }}>Popular
                                 </option>
-                                <option value="0" selected {{ old('is_popular', $product->is_popular) == '0' ? 'selected' : '' }}>UnPopular
+                                <option value="0" {{ old('is_popular', $product->is_popular) == '0' ? 'selected' : '' }}>UnPopular
                                 </option>
                             </select>
                             @error('is_popular')
