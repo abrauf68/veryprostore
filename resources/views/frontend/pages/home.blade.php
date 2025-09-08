@@ -700,7 +700,7 @@
                                         class="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
                                         <a href="{{ route('frontend.shop', $category->slug) }}" class="category-media">
                                             <img src="{{ $category->image ? asset($category->image) : 'frontAssets/images/demos/demo1/categories/2-5.jpg' }}"
-                                                alt="{{ $category->name }}" class="img-fluid" style="height: 200px; width: 200px; object-fit:contain; border-radius:8px;">
+                                                alt="{{ $category->name }}" class="img-fluid" style="width:130px; height:130px; object-fit:cover; border-radius:8px;">
                                         </a>
                                         <div class="category-content">
                                             <h4 class="category-name">{{ $category->name }}</h4>
@@ -789,7 +789,7 @@
                                             <figure class="product-media">
                                                 <a href="{{ route('frontend.product.show', $product->slug) }}">
                                                     <img src="{{ asset($product->main_image) }}"
-                                                        alt="{{ $product->name }}" width="300" height="338" />
+                                                        alt="{{ $product->name }}" class="img-fluid" style="height: 200px; width: 200px; object-fit:contain; border-radius:8px;" />
                                                 </a>
                                                 <div class="product-action-vertical">
                                                     <a href="#" class="btn-product-icon btn-cart w-icon-cart"
