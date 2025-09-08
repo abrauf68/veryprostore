@@ -38,16 +38,21 @@ class HomeController extends Controller
                 ->take(6)
                 ->get();
 
-            $topCategories = ProductCategory::with(['products' => function ($q) {
-                $q->where('is_active', 'active')
-                ->limit(10); // ✅ only take 10 products per category
-            }])
-            ->withCount(['products' => function ($q) {
+            $topCategories = ProductCategory::withCount(['products' => function ($q) {
                 $q->where('is_active', 'active');
             }])
-            ->orderByDesc('products_count') // ✅ most products first
-            ->take(4) // ✅ top 4 categories
-            ->get();
+            ->orderByDesc('products_count') // top categories
+            ->take(4)
+            ->get()
+            ->map(function ($category) {
+                $category->setRelation('products',
+                    $category->products()
+                        ->where('is_active', 'active')
+                        ->take(20) // ✅ 20 products for this category only
+                        ->get()
+                );
+                return $category;
+            });
 
             $sessionId = session('cart_session_id');
 
