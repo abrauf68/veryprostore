@@ -297,7 +297,7 @@
                                 data-swiper-options="{
                                     'spaceBetween': 20,
                                     'slidesPerView': 1
-                                }">
+                                }" style="height: 400px;">
                                 <div class="swiper-wrapper row cols-1 gutter-no">
                                     @if (isset($popularProducts) && count($popularProducts) > 0)
                                         @foreach ($popularProducts as $popularProduct)
@@ -310,22 +310,24 @@
                                                                 class="swiper-container product-single-swiper swiper-theme nav-inner">
                                                                 <div class="swiper-wrapper row cols-1 gutter-no">
                                                                     <div class="swiper-slide">
-                                                                        <figure class="product-image">
-                                                                            <img src="{{ asset($popularProduct->main_image) }}"
-                                                                                data-zoom-image="{{ asset($popularProduct->main_image) }}"
-                                                                                alt="Product Image" width="800"
-                                                                                height="900">
-                                                                        </figure>
+                                                                        <figure class="product-image d-flex align-items-center justify-content-center bg-light">
+    <img src="{{ asset($popularProduct->main_image) }}"
+         data-zoom-image="{{ asset($popularProduct->main_image) }}"
+         alt="Product Image"
+         class="img-fluid"
+         style="width:400px; height:400px; object-fit:contain;">
+</figure>
                                                                     </div>
                                                                     @if (isset($popularProduct->productImages) && count($popularProduct->productImages) > 0)
                                                                         @foreach ($popularProduct->productImages as $image)
                                                                             <div class="swiper-slide">
-                                                                                <figure class="product-image">
-                                                                                    <img src="{{ asset($image->image) }}"
-                                                                                        data-zoom-image="{{ asset($image->image) }}"
-                                                                                        alt="Product Image" width="800"
-                                                                                        height="900">
-                                                                                </figure>
+                                                                                <figure class="product-image d-flex align-items-center justify-content-center bg-light">
+            <img src="{{ asset($image->image) }}"
+                 data-zoom-image="{{ asset($image->image) }}"
+                 alt="Product Image"
+                 class="img-fluid"
+                 style="width:400px; height:400px; object-fit:contain;">
+        </figure>
                                                                             </div>
                                                                         @endforeach
                                                                     @endif
@@ -700,7 +702,7 @@
                                         class="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
                                         <a href="{{ route('frontend.shop', $category->slug) }}" class="category-media">
                                             <img src="{{ $category->image ? asset($category->image) : 'frontAssets/images/demos/demo1/categories/2-5.jpg' }}"
-                                                alt="{{ $category->name }}" width="130" height="130">
+                                                alt="{{ $category->name }}" class="img-fluid" style="width:130px; height:130px; object-fit:cover; border-radius:8px;">
                                         </a>
                                         <div class="category-content">
                                             <h4 class="category-name">{{ $category->name }}</h4>
