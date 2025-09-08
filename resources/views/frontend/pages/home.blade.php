@@ -33,7 +33,7 @@
                                             alt="Banner" data-bottom-top="transform: translateY(10vh);"
                                             data-top-bottom="transform: translateY(-10vh);" style="width:400px; height: 400px; object-fit:contain;">
                                     </figure>
-                                    <div class="banner-content y-50 text-right">
+                                    <div class="banner-content y-50 text-right d-flex flex-column align-items-end justify-content-end" style="gap: 10px;">
                                         <h5 class="banner-subtitle font-weight-normal text-default ls-50 lh-1 mb-2 slide-animate"
                                             data-animation-options="{
                                         'name': 'fadeInRightShorter',
@@ -47,7 +47,7 @@
                                         'name': 'fadeInRightShorter',
                                         'duration': '1s',
                                         'delay': '.4s'
-                                    }">
+                                    }" style="width: 400px; font-size: 20px;">
                                             {{ $sliderProduct->name }}
                                         </h3>
 

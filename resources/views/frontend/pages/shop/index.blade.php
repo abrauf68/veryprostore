@@ -222,7 +222,7 @@
                                         <figure class="product-media">
                                             <a href="{{ route('frontend.product.show', $product->slug) }}">
                                                 <img src="{{ asset($product->main_image) }}" alt="Product"
-                                                    width="300" height="338" />
+                                                    style="height: 200px; width: 200px; object-fit:contain; border-radius:8px;" />
                                             </a>
                                             <div class="product-action-horizontal">
                                                 <a href="#"
