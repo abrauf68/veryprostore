@@ -31,6 +31,7 @@ return new class extends Migration
             $table->string('discount')->default('0');
             $table->string('stock')->default('0');
             $table->enum('is_active', ['active', 'inactive'])->default('active');
+            $table->enum('is_slider', ['0', '1'])->default('1');
             $table->enum('is_popular', ['0', '1'])->default('1');
             $table->timestamps();
         });

@@ -58,8 +58,13 @@ class HomeController extends Controller
 
             $hideNewsletter = Newsletter::where('session_id', $sessionId)->exists();
 
+            $sliderProducts = Product::with('category')->where('is_active', 'active')
+                ->where('is_slider', '1')
+                ->take(3)
+                ->get();
+
             // dd($topCategories);
-            return view('frontend.pages.home', compact('popularProducts','categories','topCategories','hideNewsletter'));
+            return view('frontend.pages.home', compact('popularProducts','categories','topCategories','hideNewsletter','sliderProducts'));
         } catch (\Throwable $th) {
             Log::error('Home Failed', ['error' => $th->getMessage()]);
             return redirect()->back()->with('error', "Something went wrong! Please try again later");

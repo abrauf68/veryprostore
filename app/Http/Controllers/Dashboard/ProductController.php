@@ -70,6 +70,7 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:product_categories,id',
             'vendor_id' => 'nullable|exists:users,id',
             'is_popular' => 'required|in:0,1',
+            'is_slider' => 'required|in:0,1',
             'main_image' => 'required|image|mimes:jpeg,png,jpg|max_size',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max_size',
@@ -100,6 +101,7 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->vendor_id = $request->vendor_id;
             $product->is_popular = $request->is_popular;
+            $product->is_slider = $request->is_slider;
             $product->discount = 0;
             if ($request->hasFile('main_image')) {
                 $Image = $request->file('main_image');
@@ -195,6 +197,7 @@ class ProductController extends Controller
             'category_id' => 'nullable|exists:product_categories,id',
             'vendor_id' => 'nullable|exists:users,id',
             'is_popular' => 'required|in:0,1',
+            'is_slider' => 'required|in:0,1',
             'main_image' => 'nullable|image|mimes:jpeg,png,jpg|max_size',
             'images' => 'nullable|array',
             'images.*' => 'image|mimes:jpeg,png,jpg|max_size',
@@ -216,6 +219,7 @@ class ProductController extends Controller
             $product->category_id = $request->category_id;
             $product->vendor_id = $request->vendor_id;
             $product->is_popular = $request->is_popular;
+            $product->is_slider = $request->is_slider;
             $product->discount = 0;
             if ($request->hasFile('main_image')) {
                 if (isset($product->main_image) && File::exists(public_path($product->main_image))) {

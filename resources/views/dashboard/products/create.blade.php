@@ -146,6 +146,19 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                             @enderror
                         </div>
+                        <div class="col-md-4 mb-4">
+                            <label for="is_slider" class="form-label">{{ __('Slider') }}</label>
+                            <select class="form-select select2 @error('is_slider') is-invalid @enderror"
+                                id="is_slider" name="is_slider">
+                                <option value="0" {{ old('is_slider') == '0' ? 'selected' : '' }} selected>Normal
+                                </option>
+                                <option value="1" {{ old('is_slider') == '1' ? 'selected' : '' }}>Slider
+                                </option>
+                            </select>
+                            @error('is_slider')
+                                <div class="invalid-feedback">{{ $message }}</div>
+                            @enderror
+                        </div>
                         <div class="mb-4 col-md-12">
                             <label for="main_image" class="form-label">{{ __('Main Image') }}</label><span
                                 class="text-danger">*</span>

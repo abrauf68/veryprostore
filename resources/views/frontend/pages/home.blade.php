@@ -22,162 +22,209 @@
                     }
                 }">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
-                        style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-1.jpg') }}); background-color: #ebeef2;">
-                        <div class="container">
-                            <figure class="slide-image skrollable slide-animate">
-                                <img src="{{ asset('frontAssets/images/demos/demo1/sliders/shoes.png') }}" alt="Banner"
-                                    data-bottom-top="transform: translateY(10vh);"
-                                    data-top-bottom="transform: translateY(-10vh);" width="474" height="397">
-                            </figure>
-                            <div class="banner-content y-50 text-right">
-                                <h5 class="banner-subtitle font-weight-normal text-default ls-50 lh-1 mb-2 slide-animate"
-                                    data-animation-options="{
-                                    'name': 'fadeInRightShorter',
-                                    'duration': '1s',
-                                    'delay': '.2s'
-                                }">
-                                    Custom <span class="p-relative d-inline-block">Men’s</span>
-                                </h5>
-                                <h3 class="banner-title font-weight-bolder ls-25 lh-1 slide-animate"
-                                    data-animation-options="{
-                                    'name': 'fadeInRightShorter',
-                                    'duration': '1s',
-                                    'delay': '.4s'
-                                }">
-                                    RUNNING SHOES
-                                </h3>
-                                <p class="font-weight-normal text-default slide-animate"
-                                    data-animation-options="{
-                                    'name': 'fadeInRightShorter',
-                                    'duration': '1s',
-                                    'delay': '.6s'
-                                }">
-                                    Sale up to <span class="font-weight-bolder text-secondary">30% OFF</span>
-                                </p>
 
-                                <a href="{{ route('frontend.shop') }}"
-                                    class="btn btn-dark btn-outline btn-rounded btn-icon-right slide-animate"
-                                    data-animation-options="{
-                                    'name': 'fadeInRightShorter',
-                                    'duration': '1s',
-                                    'delay': '.8s'
-                                }">SHOP
-                                    NOW<i class="w-icon-long-arrow-right"></i></a>
-
-                            </div>
-                            <!-- End of .banner-content -->
-                        </div>
-                        <!-- End of .container -->
-                    </div>
-                    <!-- End of .intro-slide1 -->
-
-                    <div class="swiper-slide banner banner-fixed intro-slide intro-slide2"
-                        style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-2.jpg') }}); background-color: #ebeef2;">
-                        <div class="container">
-                            <figure class="slide-image skrollable slide-animate"
-                                data-animation-options="{
-                                    'name': 'fadeInUpShorter',
-                                    'duration': '1s'
-                                }">
-                                <img src="{{ asset('frontAssets/images/demos/demo1/sliders/men.png') }}" alt="Banner"
-                                    data-bottom-top="transform: translateX(10vh);"
-                                    data-top-bottom="transform: translateX(-10vh);" width="480" height="633">
-                            </figure>
-                            <div class="banner-content d-inline-block y-50">
-                                <h5 class="banner-subtitle font-weight-normal text-default ls-50 slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInUpShorter',
+                    @if (isset($sliderProducts) && count($sliderProducts) > 0)
+                        @foreach ($sliderProducts as $sliderProduct)
+                            <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
+                                style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-1.jpg') }}); background-color: #ebeef2;">
+                                <div class="container">
+                                    <figure style="padding-top: 0" class="slide-image skrollable slide-animate">
+                                        <img src="{{ asset($sliderProduct->main_image) }}"
+                                            alt="Banner" data-bottom-top="transform: translateY(10vh);"
+                                            data-top-bottom="transform: translateY(-10vh);" style="width:400px; height: 400px; object-fit:contain;">
+                                    </figure>
+                                    <div class="banner-content y-50 text-right">
+                                        <h5 class="banner-subtitle font-weight-normal text-default ls-50 lh-1 mb-2 slide-animate"
+                                            data-animation-options="{
+                                        'name': 'fadeInRightShorter',
                                         'duration': '1s',
                                         'delay': '.2s'
                                     }">
-                                    Mountain-<span class="text-secondary">Climbing</span>
-                                </h5>
-                                <h3 class="banner-title font-weight-bolder text-dark mb-0 ls-25 slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInUpShorter',
+                                            <span class="p-relative d-inline-block">{{ $sliderProduct->category->name }}</span>
+                                        </h5>
+                                        <h3 class="banner-title font-weight-bolder ls-25 lh-1 slide-animate"
+                                            data-animation-options="{
+                                        'name': 'fadeInRightShorter',
                                         'duration': '1s',
                                         'delay': '.4s'
                                     }">
-                                    Hot & Packback
-                                </h3>
-                                <p class="font-weight-normal text-default slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInUpShorter',
+                                            {{ $sliderProduct->name }}
+                                        </h3>
+
+                                        <a href="{{ route('frontend.product.show', $sliderProduct->slug) }}"
+                                            class="btn btn-dark btn-outline btn-rounded btn-icon-right slide-animate"
+                                            data-animation-options="{
+                                        'name': 'fadeInRightShorter',
                                         'duration': '1s',
                                         'delay': '.8s'
-                                    }">
-                                    Only until the end of this week.
-                                </p>
-                                <a href="{{ route('frontend.shop') }}"
-                                    class="btn btn-dark btn-outline btn-rounded btn-icon-right slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInUpShorter',
-                                        'duration': '1s',
-                                        'delay': '1s'
-                                    }">
-                                    SHOP NOW<i class="w-icon-long-arrow-right"></i>
-                                </a>
-                            </div>
-                            <!-- End of .banner-content -->
-                        </div>
-                        <!-- End of .container -->
-                    </div>
-                    <!-- End of .intro-slide2 -->
+                                    }">SHOP
+                                            NOW<i class="w-icon-long-arrow-right"></i></a>
 
-                    <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
-                        style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-3.jpg') }}); background-color: #f0f1f2;">
-                        <div class="container">
-                            <figure class="slide-image skrollable slide-animate"
-                                data-animation-options="{
-                                    'name': 'fadeInDownShorter',
-                                    'duration': '1s'
-                                }">
-                                <img src="{{ asset('frontAssets/images/demos/demo1/sliders/skate.png') }}" alt="Banner"
-                                    data-bottom-top="transform: translateY(10vh);"
-                                    data-top-bottom="transform: translateY(-10vh);" width="310" height="444">
-                            </figure>
-                            <div class="banner-content text-right y-50">
-                                <p class="font-weight-normal text-default text-uppercase mb-0 slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInLeftShorter',
+                                    </div>
+                                    <!-- End of .banner-content -->
+                                </div>
+                                <!-- End of .container -->
+                            </div>
+                            <!-- End of .intro-slide1 -->
+                        @endforeach
+                    @else
+                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide1"
+                            style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-1.jpg') }}); background-color: #ebeef2;">
+                            <div class="container">
+                                <figure class="slide-image skrollable slide-animate">
+                                    <img src="{{ asset('frontAssets/images/demos/demo1/sliders/shoes.png') }}"
+                                        alt="Banner" data-bottom-top="transform: translateY(10vh);"
+                                        data-top-bottom="transform: translateY(-10vh);" width="474" height="397">
+                                </figure>
+                                <div class="banner-content y-50 text-right">
+                                    <h5 class="banner-subtitle font-weight-normal text-default ls-50 lh-1 mb-2 slide-animate"
+                                        data-animation-options="{
+                                        'name': 'fadeInRightShorter',
+                                        'duration': '1s',
+                                        'delay': '.2s'
+                                    }">
+                                        Custom <span class="p-relative d-inline-block">Men’s</span>
+                                    </h5>
+                                    <h3 class="banner-title font-weight-bolder ls-25 lh-1 slide-animate"
+                                        data-animation-options="{
+                                        'name': 'fadeInRightShorter',
+                                        'duration': '1s',
+                                        'delay': '.4s'
+                                    }">
+                                        RUNNING SHOES
+                                    </h3>
+                                    <p class="font-weight-normal text-default slide-animate"
+                                        data-animation-options="{
+                                        'name': 'fadeInRightShorter',
                                         'duration': '1s',
                                         'delay': '.6s'
                                     }">
-                                    Top weekly Seller
-                                </p>
-                                <h5 class="banner-subtitle font-weight-normal text-default ls-25 slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInLeftShorter',
-                                        'duration': '1s',
-                                        'delay': '.4s'
-                                    }">
-                                    Trending Collection
-                                </h5>
-                                <h3 class="banner-title p-relative font-weight-bolder ls-50 slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInLeftShorter',
-                                        'duration': '1s',
-                                        'delay': '.2s'
-                                    }">
-                                    <span class="text-white mr-4">Roller</span>-skate
-                                </h3>
-                                <div class="btn-group slide-animate"
-                                    data-animation-options="{
-                                        'name': 'fadeInLeftShorter',
+                                        Sale up to <span class="font-weight-bolder text-secondary">30% OFF</span>
+                                    </p>
+
+                                    <a href="{{ route('frontend.shop') }}"
+                                        class="btn btn-dark btn-outline btn-rounded btn-icon-right slide-animate"
+                                        data-animation-options="{
+                                        'name': 'fadeInRightShorter',
                                         'duration': '1s',
                                         'delay': '.8s'
-                                    }">
-                                    <a href="{{ route('frontend.shop') }}"
-                                        class="btn btn-dark btn-outline btn-rounded btn-icon-right">SHOP
+                                    }">SHOP
                                         NOW<i class="w-icon-long-arrow-right"></i></a>
+
                                 </div>
                                 <!-- End of .banner-content -->
                             </div>
                             <!-- End of .container -->
                         </div>
-                    </div>
-                    <!-- End of .intro-slide3 -->
+                        <!-- End of .intro-slide1 -->
+
+                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide2"
+                            style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-2.jpg') }}); background-color: #ebeef2;">
+                            <div class="container">
+                                <figure class="slide-image skrollable slide-animate"
+                                    data-animation-options="{
+                                        'name': 'fadeInUpShorter',
+                                        'duration': '1s'
+                                    }">
+                                    <img src="{{ asset('frontAssets/images/demos/demo1/sliders/men.png') }}" alt="Banner"
+                                        data-bottom-top="transform: translateX(10vh);"
+                                        data-top-bottom="transform: translateX(-10vh);" width="480" height="633">
+                                </figure>
+                                <div class="banner-content d-inline-block y-50">
+                                    <h5 class="banner-subtitle font-weight-normal text-default ls-50 slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInUpShorter',
+                                            'duration': '1s',
+                                            'delay': '.2s'
+                                        }">
+                                        Mountain-<span class="text-secondary">Climbing</span>
+                                    </h5>
+                                    <h3 class="banner-title font-weight-bolder text-dark mb-0 ls-25 slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInUpShorter',
+                                            'duration': '1s',
+                                            'delay': '.4s'
+                                        }">
+                                        Hot & Packback
+                                    </h3>
+                                    <p class="font-weight-normal text-default slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInUpShorter',
+                                            'duration': '1s',
+                                            'delay': '.8s'
+                                        }">
+                                        Only until the end of this week.
+                                    </p>
+                                    <a href="{{ route('frontend.shop') }}"
+                                        class="btn btn-dark btn-outline btn-rounded btn-icon-right slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInUpShorter',
+                                            'duration': '1s',
+                                            'delay': '1s'
+                                        }">
+                                        SHOP NOW<i class="w-icon-long-arrow-right"></i>
+                                    </a>
+                                </div>
+                                <!-- End of .banner-content -->
+                            </div>
+                            <!-- End of .container -->
+                        </div>
+                        <!-- End of .intro-slide2 -->
+
+                        <div class="swiper-slide banner banner-fixed intro-slide intro-slide3"
+                            style="background-image: url({{ asset('frontAssets/images/demos/demo1/sliders/slide-3.jpg') }}); background-color: #f0f1f2;">
+                            <div class="container">
+                                <figure class="slide-image skrollable slide-animate"
+                                    data-animation-options="{
+                                        'name': 'fadeInDownShorter',
+                                        'duration': '1s'
+                                    }">
+                                    <img src="{{ asset('frontAssets/images/demos/demo1/sliders/skate.png') }}"
+                                        alt="Banner" data-bottom-top="transform: translateY(10vh);"
+                                        data-top-bottom="transform: translateY(-10vh);" width="310" height="444">
+                                </figure>
+                                <div class="banner-content text-right y-50">
+                                    <p class="font-weight-normal text-default text-uppercase mb-0 slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInLeftShorter',
+                                            'duration': '1s',
+                                            'delay': '.6s'
+                                        }">
+                                        Top weekly Seller
+                                    </p>
+                                    <h5 class="banner-subtitle font-weight-normal text-default ls-25 slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInLeftShorter',
+                                            'duration': '1s',
+                                            'delay': '.4s'
+                                        }">
+                                        Trending Collection
+                                    </h5>
+                                    <h3 class="banner-title p-relative font-weight-bolder ls-50 slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInLeftShorter',
+                                            'duration': '1s',
+                                            'delay': '.2s'
+                                        }">
+                                        <span class="text-white mr-4">Roller</span>-skate
+                                    </h3>
+                                    <div class="btn-group slide-animate"
+                                        data-animation-options="{
+                                            'name': 'fadeInLeftShorter',
+                                            'duration': '1s',
+                                            'delay': '.8s'
+                                        }">
+                                        <a href="{{ route('frontend.shop') }}"
+                                            class="btn btn-dark btn-outline btn-rounded btn-icon-right">SHOP
+                                            NOW<i class="w-icon-long-arrow-right"></i></a>
+                                    </div>
+                                    <!-- End of .banner-content -->
+                                </div>
+                                <!-- End of .container -->
+                            </div>
+                        </div>
+                        <!-- End of .intro-slide3 -->
+                    @endif
                 </div>
                 <div class="swiper-pagination"></div>
                 <button class="swiper-button-next"></button>
@@ -297,7 +344,8 @@
                                 data-swiper-options="{
                                     'spaceBetween': 20,
                                     'slidesPerView': 1
-                                }" style="height: 400px;">
+                                }"
+                                style="height: 400px;">
                                 <div class="swiper-wrapper row cols-1 gutter-no">
                                     @if (isset($popularProducts) && count($popularProducts) > 0)
                                         @foreach ($popularProducts as $popularProduct)
@@ -310,24 +358,25 @@
                                                                 class="swiper-container product-single-swiper swiper-theme nav-inner">
                                                                 <div class="swiper-wrapper row cols-1 gutter-no">
                                                                     <div class="swiper-slide">
-                                                                        <figure class="product-image d-flex align-items-center justify-content-center bg-light">
-    <img src="{{ asset($popularProduct->main_image) }}"
-         data-zoom-image="{{ asset($popularProduct->main_image) }}"
-         alt="Product Image"
-         class="img-fluid"
-         style="width:400px; height:400px; object-fit:contain;">
-</figure>
+                                                                        <figure
+                                                                            class="product-image d-flex align-items-center justify-content-center bg-light">
+                                                                            <img src="{{ asset($popularProduct->main_image) }}"
+                                                                                data-zoom-image="{{ asset($popularProduct->main_image) }}"
+                                                                                alt="Product Image" class="img-fluid"
+                                                                                style="width:400px; height:400px; object-fit:contain;">
+                                                                        </figure>
                                                                     </div>
                                                                     @if (isset($popularProduct->productImages) && count($popularProduct->productImages) > 0)
                                                                         @foreach ($popularProduct->productImages as $image)
                                                                             <div class="swiper-slide">
-                                                                                <figure class="product-image d-flex align-items-center justify-content-center bg-light">
-            <img src="{{ asset($image->image) }}"
-                 data-zoom-image="{{ asset($image->image) }}"
-                 alt="Product Image"
-                 class="img-fluid"
-                 style="width:400px; height:400px; object-fit:contain;">
-        </figure>
+                                                                                <figure
+                                                                                    class="product-image d-flex align-items-center justify-content-center bg-light">
+                                                                                    <img src="{{ asset($image->image) }}"
+                                                                                        data-zoom-image="{{ asset($image->image) }}"
+                                                                                        alt="Product Image"
+                                                                                        class="img-fluid"
+                                                                                        style="width:400px; height:400px; object-fit:contain;">
+                                                                                </figure>
                                                                             </div>
                                                                         @endforeach
                                                                     @endif
@@ -357,13 +406,15 @@
                                                                     class="product-thumbs swiper-wrapper row cols-lg-1 cols-4 gutter-sm">
                                                                     <div class="product-thumb swiper-slide">
                                                                         <img src="{{ asset($popularProduct->main_image) }}"
-                                                                            alt="Product thumb" class="img-fluid" style="height: 40px; width: 40px; object-fit: cover;"/>
+                                                                            alt="Product thumb" class="img-fluid"
+                                                                            style="height: 40px; width: 40px; object-fit: cover;" />
                                                                     </div>
                                                                     @if (isset($popularProduct->productImages) && count($popularProduct->productImages) > 0)
                                                                         @foreach ($popularProduct->productImages as $image)
                                                                             <div class="product-thumb swiper-slide">
                                                                                 <img src="{{ asset($image->image) }}"
-                                                                                    alt="Product thumb" class="img-fluid" style="height: 40px; width: 40px; object-fit: cover;"/>
+                                                                                    alt="Product thumb" class="img-fluid"
+                                                                                    style="height: 40px; width: 40px; object-fit: cover;" />
                                                                             </div>
                                                                         @endforeach
                                                                     @endif
@@ -700,7 +751,8 @@
                                         class="swiper-slide category category-classic category-absolute overlay-zoom br-xs">
                                         <a href="{{ route('frontend.shop', $category->slug) }}" class="category-media">
                                             <img src="{{ $category->image ? asset($category->image) : 'frontAssets/images/demos/demo1/categories/2-5.jpg' }}"
-                                                alt="{{ $category->name }}" class="img-fluid" style="width:130px; height:130px; object-fit:cover; border-radius:8px;">
+                                                alt="{{ $category->name }}" class="img-fluid"
+                                                style="width:130px; height:130px; object-fit:cover; border-radius:8px;">
                                         </a>
                                         <div class="category-content">
                                             <h4 class="category-name">{{ $category->name }}</h4>
@@ -789,7 +841,8 @@
                                             <figure class="product-media">
                                                 <a href="{{ route('frontend.product.show', $product->slug) }}">
                                                     <img src="{{ asset($product->main_image) }}"
-                                                        alt="{{ $product->name }}" class="img-fluid" style="height: 200px; width: 200px; object-fit:contain; border-radius:8px;" />
+                                                        alt="{{ $product->name }}" class="img-fluid"
+                                                        style="height: 200px; width: 200px; object-fit:contain; border-radius:8px;" />
                                                 </a>
                                                 <div class="product-action-vertical">
                                                     <a href="#" class="btn-product-icon btn-cart w-icon-cart"
