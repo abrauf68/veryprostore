@@ -35,7 +35,7 @@
                             <tr>
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $withdraw->withdrawal_id }}</td>
-                                <td>{{ $withdraw->user->name }}</td>
+                                <td>{{ $withdraw->user ? $withdraw->user->name : 'N/A' }}</td>
                                 <td>{{ ucfirst($withdraw->method) }}</td>
                                 <td>{{ \App\Helpers\Helper::formatCurrency($withdraw->amount) }}</td>
                                 <td>
