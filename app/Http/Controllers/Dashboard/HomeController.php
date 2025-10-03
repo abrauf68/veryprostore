@@ -77,12 +77,13 @@ class HomeController extends Controller
             $shippedOrders = $orders->where('status', 'shipped')->count();
             $completedOrders = $orders->where('status', 'completed')->count();
             $cancelledOrders = $orders->where('status', 'cancelled')->count();
-            $totalRevenue = $orders->sum('total');
+            // $totalRevenue = $orders->sum('total');
             $totalProducts = $products->count();
 
             // initialize
             $totalCost = 0;
             $totalProfit = 0;
+            $totalSubAmount = 0;
             $pendingAmount = 0;
 
             foreach ($orders as $order) {
@@ -91,7 +92,8 @@ class HomeController extends Controller
                     if (!$product) continue;
 
                     // total cost = price * qty
-                    $totalCost += $product->price * $item->quantity;
+                    $totalCost += $product->cost_price * $item->quantity;
+                    $totalSubAmount += $product->price * $item->quantity;
 
                     // check order status
                     if ($order->status === 'completed') {
@@ -109,7 +111,8 @@ class HomeController extends Controller
                 ->sum('amount');
 
             // remaining balance (earned but not yet withdrawn or pending)
-            $remainingAmount = $totalProfit - ($pendingWithdraw + $totalWithdraw);
+            $totalRevenue = $totalSubAmount;
+            $remainingAmount = $totalSubAmount - ($pendingWithdraw + $totalWithdraw);
             // dd($popularProducts);
             // ✅ Profit last month (group by day)
             $endDate = Carbon::now()->endOfDay();

@@ -74,6 +74,9 @@
                     </div>
                 </div>
             </div>
+            @php
+                $totalRemainingAmount = $totalAmount - $totalWithdraw;
+            @endphp
             <div class="col-lg-3 col-sm-6">
                 <div class="card card-border-shadow-warning h-100">
                     <div class="card-body">
@@ -96,7 +99,7 @@
                                 <span class="avatar-initial rounded bg-label-primary"><i
                                         class="icon-base ti ti-cash icon-28px"></i></span>
                             </div>
-                            <h4 class="mb-0">{{ \App\Helpers\Helper::formatCurrency($remainingAmount) }}</h4>
+                            <h4 class="mb-0">{{ \App\Helpers\Helper::formatCurrency($totalRemainingAmount) }}</h4>
                         </div>
                         <p class="mb-1">Remaining Amount</p>
                     </div>

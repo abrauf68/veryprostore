@@ -279,7 +279,7 @@
                             </div>
                         </div>
 
-                        <h4>Assigned Products to {{ $vendor->name }}</h4>
+                        <h4>Total {{ count($vendor->userProducts) }}Products Assigned to {{ $vendor->name }}</h4>
                         <div class="col-md-12">
                             <div class="card">
                                 <div class="card-datatable table-responsive">
@@ -293,13 +293,13 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @if (isset($vendor->products) && count($vendor->products) > 0)
-                                                @foreach ($vendor->products as $index => $product)
+                                            @if (isset($vendor->userProducts) && count($vendor->userProducts) > 0)
+                                                @foreach ($vendor->userProducts as $index => $userProduct)
                                                     <tr>
                                                         <td>{{ $index + 1 }}</td>
-                                                        <td><img src="{{ asset($product->main_image) }}" alt="{{ $product->name }}" height="35px" width="35px"></td>
-                                                        <td>{{ $product->name }}</td>
-                                                        <td>{{ $product->sku }}</td>
+                                                        <td><img src="{{ asset($userProduct->product->main_image) }}" alt="{{ $userProduct->product->name }}" height="35px" width="35px"></td>
+                                                        <td>{{ $userProduct->product->name }}</td>
+                                                        <td>{{ $userProduct->product->sku }}</td>
                                                     </tr>
                                                 @endforeach
                                             @endif

@@ -29,9 +29,9 @@ class OrderController extends Controller
                 // $orders = Order::whereHas('orderItems.product', function ($q) use ($currentUser) {
                 //     $q->where('vendor_id', $currentUser->id);
                 // })->with(['orderItems.product', 'paymentMethod', 'billing'])->latest()->get();
-                $orders = Order::where('vendor_id', $currentUser->id)->with(['orderItems.product', 'paymentMethod', 'billing'])->latest()->get();
+                $orders = Order::where('vendor_id', $currentUser->id)->with(['orderItems.product', 'paymentMethod', 'billing', 'vendor'])->latest()->get();
             } else {
-                $orders = Order::with('orderItems', 'paymentMethod', 'billing')->latest()->get();
+                $orders = Order::with('orderItems', 'paymentMethod', 'billing', 'vendor')->latest()->get();
             }
             return view('dashboard.orders.index', compact('orders'));
         } catch (\Throwable $th) {

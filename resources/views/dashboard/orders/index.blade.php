@@ -28,6 +28,7 @@
                             <th>{{ __('Sr.') }}</th>
                             <th>{{ __('Order No') }}</th>
                             <th>{{ __('Order By') }}</th>
+                            <th>{{ __('Vendor') }}</th>
                             <th>{{ __('Total') }}</th>
                             <th>{{ __('Status') }}</th>
                             @canany(['delete order', 'update order', 'view order'])<th>{{ __('Action') }}</th>@endcan
@@ -39,6 +40,7 @@
                                 <td>{{ $index + 1 }}</td>
                                 <td>{{ $order->order_no }}</td>
                                 <td>{{ $order->billing->first_name . ' ' . $order->billing->last_name }}</td>
+                                <td><a href="{{ route('dashboard.vendors.show', $order->vendor_id) }}">{{ $order->vendor ? $order->vendor->name : 'N/A' }}</a></td>
                                 <td>{{ \App\Helpers\Helper::formatCurrency($order->total) }}</td>
                                 <td>
                                     @php

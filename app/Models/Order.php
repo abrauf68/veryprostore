@@ -23,4 +23,9 @@ class Order extends Model
     {
         return $this->hasOne(Billing::class, 'order_id');
     }
+
+    public function vendor()
+    {
+        return $this->belongsTo(User::class, 'vendor_id');
+    }
 }
